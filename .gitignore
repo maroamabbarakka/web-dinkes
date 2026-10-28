@@ -1,0 +1,23 @@
+# Dependency & Cache
+node_modules/
+.npm-cache/
+__pycache__/
+*.pyc
+
+# Firebase cache
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Arsip mentah backup lokal (opsional di git karena ukuran >400MB)
+01_ARTIKEL_BERITA/
+02_HALAMAN/
+03_FOTO/
+*.zip
+public/uploads

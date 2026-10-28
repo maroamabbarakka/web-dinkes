@@ -1,0 +1,37 @@
+[
+  {
+    "slug": "visi-misi",
+    "title": "Visi dan Misi",
+    "kicker": "PROFIL PEMERINTAH KABUPATEN PINRANG",
+    "summary": "Arah kebijakan dan komitmen pembangunan kesehatan di Kabupaten Pinrang.",
+    "content": "\n            <h2>Visi</h2>\n            <blockquote class=\"lead-quote\">“Terwujudnya Masyarakat Pinrang Yang Mandiri Untuk Hidup Sehat”</blockquote>\n            \n            <h2>Misi</h2>\n            <ol class=\"styled-list\">\n                <li><strong>Memberikan Pelayanan Kesehatan Terjangkau, Berkualitas dan Berkeadilan</strong> kepada seluruh lapisan masyarakat di Kabupaten Pinrang tanpa diskriminasi.</li>\n                <li><strong>Meningkatkan Peran Serta Masyarakat, Kemitraan Swasta dan Lintas Sektor</strong> dalam mewujudkan Gerakan Masyarakat Hidup Sehat (GERMAS).</li>\n                <li><strong>Meningkatkan Kualitas Sumber Daya Kesehatan</strong> secara merata baik dari segi kompetensi, kuantitas tenaga medis, serta kelengkapan sarana prasarana faskes.</li>\n            </ol>\n            "
+  },
+  {
+    "slug": "profil-dinas",
+    "title": "Profil Dinas Kesehatan",
+    "kicker": "TENTANG KAMI",
+    "summary": "Peran strategis Dinas Kesehatan Kabupaten Pinrang dalam memimpin pembangunan sektor kesehatan.",
+    "content": "\n            <p>Dinas Kesehatan Kabupaten Pinrang adalah unsur pelaksana urusan pemerintahan bidang kesehatan yang menjadi kewenangan daerah. Dipimpin oleh <strong>dr. H. Ramli Yunus, M.Kes.</strong> selaku Kepala Dinas Kesehatan, dinas berkomitmen mengawal transformasi kesehatan primer, penguatan rujukan, dan pencegahan penyakit menular maupun tidak menular di seluruh wilayah Kabupaten Pinrang.</p>\n            <p>Dengan membawahi 19 UPTD Puskesmas, laboratorium kesehatan, serta jajaran Posyandu dan Posbindu di 12 kecamatan, kami berfokus pada pendekatan promotif dan preventif demi tercapainya keluarga Pinrang yang sehat, mandiri, dan tangguh.</p>\n            "
+  },
+  {
+    "slug": "struktur-organisasi",
+    "title": "Struktur Organisasi",
+    "kicker": "TATA KELOLA INSTANSI",
+    "summary": "Susunan hierarki kelembagaan dan pembagian tugas pelayanan kesehatan.",
+    "content": "\n            <p>Struktur kelembagaan Dinas Kesehatan Kabupaten Pinrang mengacu pada Peraturan Daerah dan Peraturan Bupati tentang Kedudukan, Susunan Organisasi, Tugas dan Fungsi, serta Tata Kerja Dinas Kesehatan.</p>\n            <ul>\n                <li><strong>Kepala Dinas:</strong> dr. H. Ramli Yunus, M.Kes</li>\n                <li><strong>Sekretariat:</strong> Mengkoordinasikan perencanaan, keuangan, kepegawaian, dan umum.</li>\n                <li><strong>Bidang Kesehatan Masyarakat (Kesmas):</strong> Membawahi Tim Kerja Promosi Kesehatan, Gizi, Kesehatan Ibu & Anak.</li>\n                <li><strong>Bidang Pencegahan dan Pengendalian Penyakit (P2P):</strong> Surveilans, imunisasi, PTM, dan penanggulangan wabah.</li>\n                <li><strong>Bidang Pelayanan Kesehatan (Yankes):</strong> Pembinaan Puskesmas, akreditasi fasilitas kesehatan, dan rujukan.</li>\n                <li><strong>Bidang Sumber Daya Kesehatan (SDK):</strong> Farmasi, alat kesehatan, dan peningkatan mutu SDM kesehatan.</li>\n                <li><strong>19 UPTD Puskesmas</strong> di 12 Kecamatan sebagai ujung tombak pelayanan kesehatan primer.</li>\n            </ul>\n            "
+  },
+  {
+    "slug": "standar-pelayanan",
+    "title": "Standar Pelayanan Publik",
+    "kicker": "MAKLUMAT PELAYANAN",
+    "summary": "Komitmen transparansi pelayanan, SOP, dan jangka waktu penyelesaian izin maupun rujukan.",
+    "content": "\n            <p>Dinas Kesehatan Kabupaten Pinrang berkomitmen memberikan pelayanan prima yang transparan, akuntabel, dan bebas pungutan liar. Berbagai layanan publik yang diselenggarakan antara lain:</p>\n            <ol>\n                <li>Penerbitan Rekomendasi Surat Izin Praktik Tenaga Kesehatan (SIP/SIK).</li>\n                <li>Penyuluhan dan Pendampingan Sertifikat Pemenuhan Komitmen Produksi Pangan Industri Rumah Tangga (SPP-IRT).</li>\n                <li>Rekomendasi Izin Operasional Klinik, Apotek, dan Toko Obat.</li>\n                <li>Pelayanan Rujukan Pasien dan Pengaduan Kesehatan Masyarakat.</li>\n                <li>Pelayanan Cek Kesehatan Gratis (CKG) melalui UPTD Puskesmas.</li>\n            </ol>\n            "
+  },
+  {
+    "slug": "kontak-pengaduan",
+    "title": "Kontak dan Pengaduan",
+    "kicker": "LAYANAN ASPIRASI WARGA",
+    "summary": "Alamat kantor, nomor WhatsApp aduan, dan integrasi kanal resmi pemerintah.",
+    "content": "\n            <p>Kami siap mendengar dan menindaklanjuti keluhan, saran, serta pertanyaan masyarakat seputar pelayanan kesehatan di Kabupaten Pinrang:</p>\n            <ul>\n                <li><strong>Alamat Kantor:</strong> Jl. Jenderal Sukawati, Kabupaten Pinrang, Sulawesi Selatan 91212</li>\n                <li><strong>WhatsApp Resmi:</strong> +62 853-4217-2724</li>\n                <li><strong>Sistem Pengaduan Nasional:</strong> <a href=\"https://www.lapor.go.id\" target=\"_blank\">SP4N-LAPOR!</a></li>\n                <li><strong>Layanan Informasi Kesehatan:</strong> SIKDA Kabupaten Pinrang</li>\n                <li><strong>Media Sosial:</strong> Facebook Dinas Kesehatan Kabupaten Pinrang</li>\n            </ul>\n            "
+  }
+]

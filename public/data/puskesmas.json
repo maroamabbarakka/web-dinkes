@@ -1,0 +1,611 @@
+[
+  {
+    "id": "pkm-01",
+    "no": 1,
+    "name": "Puskesmas Suppa",
+    "slug": "puskesmas-suppa",
+    "kecamatan": "Suppa",
+    "address": "Jl. A. Monjong, Wanuae. Kel. Wt. Suppa  Kec.Suppa Kab.Pinrang, Kode Pos 91272",
+    "head": "dr. MUHAMMAD LUTFY",
+    "innovations": [
+      "1. Gemas ( Gerakan  Masyarakat Sehat",
+      "2. Suka kesorga ( Suppa Kecamatan"
+    ],
+    "awards": [
+      "1. Sanitarian/petugas",
+      "Kesling Puskesmas",
+      "Terbaik kab. ODF 100%",
+      "Tahun 2019",
+      "2. Penghargaan",
+      "pengimputan e-ppgbm",
+      "tahun 2019"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-02",
+    "no": 2,
+    "name": "Puskesmas Mattiro Deceng",
+    "slug": "puskesmas-mattiro-deceng",
+    "kecamatan": "Tiroang",
+    "address": "Jln.poros pinrang – Sidrap KM 7  Kec. Tiroang Kab.Pinrang",
+    "head": "MAIPA DARMA TANDIASSANG, S.ST",
+    "innovations": [
+      "1. Tinta Kesorga (Tiroang Tanggap Kesehatan Olah Raga).",
+      "2. Mama Penting (Masyarakat Marawi Peduli Stunting)",
+      "3. Macenning (Mattiro Deceng Peduli Stunting)"
+    ],
+    "awards": [
+      "Juara 1 Puskesmas Berprestasi Tingkat Provinsi Sulawesi Selatan TH.2014"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-03",
+    "no": 3,
+    "name": "Puskesmas Lanrisang",
+    "slug": "puskesmas-lanrisang",
+    "kecamatan": "Lanrisang",
+    "address": "Jln. Poros jampue pinrang",
+    "head": "drg. BERTHA YESTIANI, M.Kes",
+    "innovations": [
+      "1.SAMAWA (Sehatkan dan latih sampai Mandiri Orang dengan Gangguan Jiwa)",
+      "2.pandemik covid (pemberdayaan masyarakat pedesaan prasejahtera menopang ekonomi keluarga dan cegah corona virus disease)",
+      "3.lanrisang cekal stunting (lanrisang cegah dan tangkal stunting)."
+    ],
+    "awards": [],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-04",
+    "no": 4,
+    "name": "Puskesmas Mattiro Bulu",
+    "slug": "puskesmas-mattiro-bulu",
+    "kecamatan": "Mattiro Bulu",
+    "address": "Jln. Poros Pinrang-pare",
+    "head": "drg. TULADA, M.Kes",
+    "innovations": [
+      "1.gema takbir(gerakan masy tak biasa merokok)",
+      "2.gema tanggap covid 19(gerakan masyarakat tanggap covis 19)"
+    ],
+    "awards": [
+      "1. Terbaik I CPP thn 2015",
+      "2. Juara III CPP thn 2012",
+      "3. Terbaik I CPP thn 2014",
+      "4. Riset ketenagaan di bidang kes thn 2017 dr Kemenkes",
+      "5. Penghargaan dr Emas ats pncapaian kualitas lay klinis & rujukan prima ibu bersalin dn bayi br lahir thn 2015",
+      "6. ISO thn 2012",
+      "7. ISO thn 2008"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-05",
+    "no": 5,
+    "name": "Puskesmas Teppo",
+    "slug": "puskesmas-teppo",
+    "kecamatan": "Patampanua",
+    "address": "Jln.Lasinrang No. 3 Teppo, Kec. Patampanua Kab.Pinrang",
+    "head": "drg. JACUB TAMA, SKG",
+    "innovations": [
+      "1. PENA MAS (Pemanfaatan Lahan Puskesmas )",
+      "1. GEMA BERTAS’B (Gerakan Bersama Berantas TB)",
+      "2. OTT PANCA SIAGA",
+      "3. PADI KESORGA ( Patampanua Peduli Kesehatan Olahraga)"
+    ],
+    "awards": [
+      "1. Juara 3 Puskesmas Berprestasi tingkat Provinsi tahun 2018",
+      "2. Juara 1 Lomba TOGA tingkat kabupaten tahun 2019",
+      "3. Juara 2 Puskesmas peduli Saka Bakti Husada tahun 2019"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-06",
+    "no": 6,
+    "name": "Puskesmas Batulappa",
+    "slug": "puskesmas-batulappa",
+    "kecamatan": "Batulappa",
+    "address": "Jl. Firman Toro poros bilajeng batulappa",
+    "head": "AMRULLAH, SKM",
+    "innovations": [
+      "1.Gerbang Kesorga,",
+      "2.Si BANG TOYIB,",
+      "3.Si BANG JALI,",
+      "4.Aplikasi KLIK AKUN BUMIL"
+    ],
+    "awards": [
+      "1.Penghargaan Cakupan imunisasi MR dari Kemenkes thn 2018",
+      "2.Puskesmas berprestasi dari bpk Gubernur thn 2019",
+      "3.Penghargaan tentang layanan full time selama liburan dari bpk bupati Pinrang",
+      "4.Citra pelayanan publik thn 2019",
+      "5.Citra pelayanan publik thn 2020"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-07",
+    "no": 7,
+    "name": "Puskesmas Cempa",
+    "slug": "puskesmas-cempa",
+    "kecamatan": "Cempa",
+    "address": "jln poros cempa pinrang,kelurahan cempa,kec cempa kab pinrang, Kode Pos 91262",
+    "head": "dr. ABD AZIS",
+    "innovations": [
+      "Sehatlah Petani ( Penggunaan APD pada petani )",
+      "Geser Bu ( Gerakan serentak pendampingan ibu menyusui )"
+    ],
+    "awards": [
+      "1.Juara 1 posyandu tingkat prov tahun 1997",
+      "2.Puskesmas berprestasi pringkat ke 2 tingkat prov tahun 1998",
+      "3.lomba balita juara 1 tingkat nasional tahun 1998",
+      "4.Puskesmas terbersih tingkat kabupaten tahun 1992",
+      "5.pengimputan data e-ppgbm peringkat 1 se kab pinrang"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-08",
+    "no": 8,
+    "name": "Puskesmas Sulili",
+    "slug": "puskesmas-sulili",
+    "kecamatan": "Paleteang",
+    "address": "Jln. Poros Sulili Pinrang Malimpung",
+    "head": "dr. HABIL",
+    "innovations": [
+      "1. 2014 Forum FPKIA (Forum Peduli Kesehatan Ibu dan Anak )                       2. 2014 DENSUS 33 ( nsiden Khusus dengan 3 Orang dan 3 Program  untuk mencegah DBD )",
+      "3. 2015 TANDU KESORGA ( Kecamatan Peduli Kesehatan Olahraga)",
+      "4. 2016 GERAKAN SEKUNTUM MELATI (Serentak Untuk Menyelamatkan",
+      "Ibu dan Bayi Baru Melahirkan)",
+      "5. 2017 GEMAS SENYUMKU (Gerakan Masyarakat untuk Sikat Gigi 2 kali No Makan Manis dan Lengket, Makan Sayur Buah Tetap Terjaga",
+      "6. 2017 GERAKAN SAYANG JK (Gerakan Serentak Jamban Keluarga)",
+      "7. 2019 OTT KB (Operasi Tangkap Tangan Untuk Sasaran KB)",
+      "8. 2019 KESAN CERDIK PTM (Kelompok Arisan dengan Cerdik untuk",
+      "mengatasi PTM)",
+      "9. 2019 POJOK DAHAK PDKT (Pengambilan Dahak Berkualitas dan Tepat",
+      "10. 2019 MELATI JIWA (Melayani Sepenuh Hati Pasien Dengan Gangguan Jiwa)",
+      "11. 2019 CATATAN PENTING (Cegah Atasi Tanggulangi Peduli Stunting)",
+      "12. 2019 KANTOR SEGAR (Kawasan Tanpa Asap Rokok agar Sehat dan Bugar)"
+    ],
+    "awards": [
+      "Puskesmas Peduli",
+      "Kesehatan Olahraga",
+      "terbaik III tingkat Prov.",
+      "Sul-Sel tahun 2015",
+      "2. Puskesmas Peduli",
+      "Kesehatan Olahraga",
+      "terbaik I tingkat Prov. Sul-",
+      "Sel tahun 2016",
+      "3. Kecamatan Peduli",
+      "Kesehatan Olahraga",
+      "terbaik I tingkat Prov. Sul-",
+      "Sel tahun 2016",
+      "4. Penilaian Pelayanan",
+      "Publik dengan mendapat",
+      "Nilai 88.6 (A) “Sangat",
+      "Baik” oleh",
+      "Kepemimpinan_RB tahun",
+      "2016",
+      "5. Puskesmas Terbaik",
+      "Kategori Pedesaan",
+      "Tingkat Prov. Sul-Sel",
+      "6. Puskesmas Peduli",
+      "Kesehatan Olahraga",
+      "terbaik I tingkat Prov. Sul-",
+      "Sel thn 2017",
+      "7. Puskesmas Terbaik Cita",
+      "Pelayanan Publik (CPP)",
+      "Tingkat Kabupaten Pinrang",
+      "8. Bidan Teladan Tingkat",
+      "Prov. Sul-Sel tahun 2017",
+      "dengan Inovasi Gerakan",
+      "9. Mendapatkan Predikat",
+      "Akreditasi Paripurna pada",
+      "Penilaian Akreditasi",
+      "Puskesmas tahun 2019"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-09",
+    "no": 9,
+    "name": "Puskesmas Salo",
+    "slug": "puskesmas-salo",
+    "kecamatan": "Watang Sawitto",
+    "address": "Jln. Salo, Kel. Salo, kec. Watang Sawitto  Kab.Pinrang, Kode pos 91212, ☎️0811-4002 – 101",
+    "head": "dr. LENNY WIRAWAN",
+    "innovations": [
+      "1. BUDE HERAKU ( Bugar dengan Herbal dan Akupresur)",
+      "2. SIVA CANTIK ( Pemeriksaan Iva Cegah Kanker Serviks dengan Tindakan krioteraphy)",
+      "3. JARI SAYA (Jejaring puskesmas Salo dengan mesjid raya)",
+      "4. ORANG TUA SURGAKU ( Kelompok orang Tua Lanjut usia Sehat, Umur panjang, Mandiri, Kreatif, Sejahtera di Usia Tua)"
+    ],
+    "awards": [
+      "Juara Harapan II Puskesmas Peduli Kesehatan Olah raga tingkat provinsi thn 2018",
+      "– Juara III Devile dalam rangka HKN ke 54 thn 2018",
+      "– Peringkat II Puskesmas Peduli Kesehatan Olah Raga Tingkat Provinsi thn 2018",
+      "– Citra pelayanan Prima  thn 2019",
+      "– Juara 1 Lomba Mars Puskesmas dalam rangka HKN 55 Tingkat kabupaten thn 2019",
+      "– Peringkat I Puskesmas Berprestasi Kategori Puskesmas Perkotaan thn 2019",
+      "– Juara II Dalam Pemberian Informasi dana Edukasi Masyarakat ttg Protokol   gawang yg dijalankan Guna mencegah penyebaran covid-19 thn 2020"
+    ],
+    "website": "http://puskesmassalo.blogspot.com/",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-10",
+    "no": 10,
+    "name": "Puskesmas Mattombong",
+    "slug": "puskesmas-mattombong",
+    "kecamatan": "Mattiro Sompe",
+    "address": "JALAN POROS PINRANG LANGNGA.PATOBONG",
+    "head": "dr. Hj. ENNY SULASTRI",
+    "innovations": [
+      "1. GENTING (Gerakan Peduli Stanting)"
+    ],
+    "awards": [
+      "Penghargaan Akreditasi Madya Tahun 2017",
+      "– penghargaan sebagai  puskesmas  yg membantu riset ketenagaan di bidang kesehatan thn 2017"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-11",
+    "no": 11,
+    "name": "Puskesmas Bungi",
+    "slug": "puskesmas-bungi",
+    "kecamatan": "Duampanua",
+    "address": "JALAN POROS PINRANG-POLMAN",
+    "head": "dr. NI NYOMAN SIDIATI, M.Kes",
+    "innovations": [
+      "1.2017 MAPALA (Mari sehatkan Para lansia )",
+      "2.2018 LIMA PANDAWA (Layanan Informasi dan Aduan Pasien dengan gangguan Jiwa)",
+      "3.2019 PERAS MADU DISEKOLAH ( Program skriing mata terpadu di sekolah )",
+      "4.2019 LARI DITAMAN SEHAT (Pelacakan, pemeriksaan, penyemprotan, dan pemantauan Kesehatan perantau)"
+    ],
+    "awards": [
+      "1.Juara terbaik Taman obat kelaurga (Toga)  HKN Tahun 2016",
+      "2.Juara 1 Taman Obat Keluarga (Toga) HKN Tahun2017",
+      "3.juara 3 Senam Poco-poco HKN Tahun 2017",
+      "4.juara 2 Taman Obat Keluarga HKN Tahun 2018",
+      "5.Juara 2 posyandu usila Terbaik tingkat Profensi Tahun 2019"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-12",
+    "no": 12,
+    "name": "Puskesmas Lampa",
+    "slug": "puskesmas-lampa",
+    "kecamatan": "Duampanua",
+    "address": "JALAN POROS PINRANG-POLMAN",
+    "head": "dr. ANDI SILVIANI",
+    "innovations": [
+      "1. Gemetar (Gerakan Masyarakat Enyahkan/Anti Asap Rokok)",
+      "2. Rasa Bajaka (Gerakan Masyarakat Bangun Jamban Keluarga)",
+      "3. Yuk Gema Asiek (Ajakan Gerakan Memberikan Asi Eksklusif)",
+      "4. Bebas Asih (Gerakan Kolaborasi Sarana Air Bersih)"
+    ],
+    "awards": [
+      "Penghargaan Akreditasi Paripurna Tahun 2018",
+      "– Penghargaan  CPP (Citra Pelayanan Publik) terbaik pertama Tahun 2018"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-13",
+    "no": 13,
+    "name": "Puskesmas Tadang Palie",
+    "slug": "puskesmas-tadang-palie",
+    "kecamatan": "Cempa",
+    "address": "Jln. Poros Salipolo – Botae, Kec. Cempa, Kab. Pinrang",
+    "head": "dr. INA WULANDARI",
+    "innovations": [
+      "1.atasi kurangnya energi kronik dan anemia pada ibu hamil serta asi eksklusif untuk cegah stunting"
+    ],
+    "awards": [
+      "1. penginputan ePPGbm 2019",
+      "2.  STBM Awards 2019",
+      "3. Cakupan imunisasi MR dari kemenkes tgn 2018",
+      "4. Piagam Rifaskes 2019",
+      "5. Penghargaan riset ketenagakerjaan di bidang kesehatan 2017"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-14",
+    "no": 14,
+    "name": "Puskesmas Ujung Lero",
+    "slug": "puskesmas-ujung-lero",
+    "kecamatan": "Suppa",
+    "address": "Jln.penghibur no.1 Desa Ujung lero Kec.Suppa Kab.Pinrang",
+    "head": "MUHAMMAD DARWIS, A.Md.Kep",
+    "innovations": [
+      "1. GerCep Mas Pekerti (Gerakan Cek Kesehatan pada Masyarakat Pekerja Bakti",
+      "2. PesTa Sehat Dermaga (Pemeriksaan dan Pemantauan Kesehatan pada Para Nelayan yang Tiba di Dermaga) Ujung Labuang dan Ujung Lero",
+      "3. Sidak Lorongku untuk Melawan Virus Corona dengan 4s (1.Stop berkumpul, 2. Selalu cuci tangan pakai sabun, 3. Selalu pakai masker, 4. Sabar dan Semangat)"
+    ],
+    "awards": [
+      "Juara Harapan III Puskesmas dengan Inovasi Germas tingkat Kabupaten"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-15",
+    "no": 15,
+    "name": "Puskesmas Tuppu",
+    "slug": "puskesmas-tuppu",
+    "kecamatan": "Kabupaten Pinrang",
+    "address": "Jl. Poros Pinrang – Polman km 38 Tuppu Kec. Lembang Kab. Pinrang",
+    "head": "dr. SYAMSUL HANAR, M.Tr.Adm.Kes",
+    "innovations": [
+      "1. KADARSI (Keluarga Sadar Gizi)",
+      "2. LUPAGAJI (Gangguan Jiwa Bebas Pasung)",
+      "3. TANDU KESORGA (Kec. Lembang Sayang Kesehatan Olahraga)",
+      "4. LOCKDOWN ( Lacak, Laporkan, Observasi, Cek,  Edukasi Mobile Cegah Wabah Corona)"
+    ],
+    "awards": [
+      "1. Juara 2 The Ville Tahun 2018",
+      "2. Juara 1 Dokter Tauladan Tahun 2018",
+      "3. Juara 1 Posyandu Tingkat Provinsi Tahun 2011",
+      "4. Juara Senam",
+      "5. Paduan Suara Juara 2",
+      "6. Nyanyi Solo Juara 2",
+      "7. Juara Usila"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-16",
+    "no": 16,
+    "name": "Puskesmas Salimbongan",
+    "slug": "puskesmas-salimbongan",
+    "kecamatan": "Lembang",
+    "address": "Jalan Poros PLTA bakaru Desa ulusaddang Kecamatan Lembang Kabupaten pinrang",
+    "head": "H. MUHAMMAD SYUKUR, S.St, M. kes",
+    "innovations": [
+      "1. Ruang gerak kaum millineal",
+      "2. meningkatkan kesadaran dan pola hidup sehat mencegah penyakit penular pada remaja",
+      "3.REBENA ( Remaja bebas Narkoba) membebaskan anak-anak dari jerat narkoba",
+      "4. meningkatkan jati diri remaja, untuk tidak melakukan seks bebas, minum minuman keras"
+    ],
+    "awards": [
+      "STBM Awards 2019",
+      "– piagan rifaskes 2019"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-17",
+    "no": 17,
+    "name": "Puskesmas Leppangang",
+    "slug": "puskesmas-leppangang",
+    "kecamatan": "Kabupaten Pinrang",
+    "address": "JALAN POROS PINRANG-POLMAN KM.07 DESA MATTIRO ADE",
+    "head": "JAMALUDDIN, SKM",
+    "innovations": [
+      "GEREBEK PASAR (GERAKAN CEK KESEHATAN SECARA BERKALA PADA PENGUNJUNG PASAR )",
+      "di Pasar Leppangang"
+    ],
+    "awards": [
+      "Juara Terbaik II PUSKESMAS peduli kesehatan olahraga tingkat provinsi",
+      "– Juara Harapan I Inovasi Germas tingkat Kabupaten"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-18",
+    "no": 18,
+    "name": "Puskesmas Sali-Sali",
+    "slug": "puskesmas-sali-sali",
+    "kecamatan": "Lembang",
+    "address": "Jalan Poros Pinrang -Supirang, Desa Karomba",
+    "head": "dr. NURUL FITRIANTI",
+    "innovations": [],
+    "awards": [
+      "Pencapaian secagai Puskesmas Partisipatif Terpencil Terbaik dalam rangka Hari Kesehatan Nasional ke 58 tahun 2022"
+    ],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  },
+  {
+    "id": "pkm-19",
+    "no": 19,
+    "name": "Puskesmas Malimpung",
+    "slug": "puskesmas-malimpung",
+    "kecamatan": "Patampanua",
+    "address": "Jl.Poros Benteng Malimpung, Kec.Patampamua, Kab.Pinrang",
+    "head": "drg. IFAH NILAWATY RASYID, M.Kes",
+    "innovations": [],
+    "awards": [],
+    "website": "",
+    "phone": "(0421) 921xxx",
+    "services": [
+      "Poli Umum & Lansia",
+      "Poli Gigi & Mulut",
+      "Kesehatan Ibu dan Anak (KIA)",
+      "Pelayanan KB & Imunisasi",
+      "Pemeriksaan Laboratorium",
+      "Instalasi Gawat Darurat (IGD) 24 Jam",
+      "Konsultasi Gizi & Sanitasi"
+    ]
+  }
+]

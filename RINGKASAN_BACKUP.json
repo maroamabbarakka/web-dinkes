@@ -1,0 +1,12 @@
+{
+  "situs": "https://dinkes.pinrangkab.go.id/",
+  "mulai_utc": "2026-10-28T18:45:10.562145+00:00",
+  "selesai_utc": "2026-10-28T19:16:43.696742+00:00",
+  "artikel_berita": 349,
+  "halaman": 14,
+  "foto_berhasil": 1537,
+  "foto_kandidat": 1537,
+  "total_bytes_foto": 419273512,
+  "jumlah_peringatan_gagal": 1,
+  "catatan": "Hanya konten PUBLIK: artikel, halaman, foto/infografis. Tanpa database WP, plugin, tema, PDF, video. Foto di halaman privat atau arsip tak tertaut tidak dijamin."
+}

@@ -1,0 +1,23 @@
+{
+  "name": "web-dinkes-pinrang",
+  "version": "1.0.0",
+  "description": "Portal Resmi Dinas Kesehatan Kabupaten Pinrang berbasis Firebase dan Desain Komdigi-Inspired",
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 8085 --directory public",
+    "parse": "python scripts/parse_backup.py",
+    "seed": "node scripts/seed_firestore.mjs",
+    "deploy": "firebase deploy --only hosting"
+  },
+  "keywords": [
+    "dinkes",
+    "pinrang",
+    "firebase",
+    "portal-kesehatan"
+  ],
+  "author": "Dinas Kesehatan Kabupaten Pinrang",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^10.12.0"
+  }
+}

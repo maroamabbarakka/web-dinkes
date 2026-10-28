@@ -1,0 +1,39 @@
+{
+  "total_puskesmas": 19,
+  "total_kecamatan": 12,
+  "total_posyandu": 342,
+  "program_unggulan": "Cek Kesehatan Gratis (CKG) & GERMAS Terpadu",
+  "tahun_data": "2026",
+  "indikator_kinerja": [
+    {
+      "nama": "Cakupan Imunisasi Dasar Lengkap",
+      "target": "95%",
+      "capaian": "96.4%",
+      "status": "Tercapai"
+    },
+    {
+      "nama": "Persentase Persalinan di Faskes",
+      "target": "98%",
+      "capaian": "99.1%",
+      "status": "Tercapai"
+    },
+    {
+      "nama": "Penurunan Prevalensi Stunting",
+      "target": "14%",
+      "capaian": "12.8%",
+      "status": "Sangat Baik"
+    },
+    {
+      "nama": "Desa/Kelurahan ODF (Stop BABS)",
+      "target": "100%",
+      "capaian": "100%",
+      "status": "Tercapai"
+    },
+    {
+      "nama": "Indeks Kepuasan Masyarakat (IKM)",
+      "target": "85.0",
+      "capaian": "88.75",
+      "status": "Sangat Puas"
+    }
+  ]
+}
