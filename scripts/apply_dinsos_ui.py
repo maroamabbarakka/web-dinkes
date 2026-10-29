@@ -689,3 +689,4 @@ print("Berhasil memperbarui public/assets/app.v4.js!")
 with open('public/assets/app.js', 'w', encoding='utf-8') as f:
     f.write(code)
 print("Berhasil menyinkronkan ke public/assets/app.js!")
+

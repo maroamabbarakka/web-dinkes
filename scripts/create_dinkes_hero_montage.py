@@ -109,3 +109,4 @@ def create_hero_montage():
     print(f"Berhasil membuat {out_path} ({os.path.getsize(out_path)} bytes)")
 
 create_hero_montage()
+

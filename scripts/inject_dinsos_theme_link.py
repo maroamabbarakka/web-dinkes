@@ -32,3 +32,4 @@ for f in files:
     print(f"Updated {f}")
 
 print("Selesai memperbarui 28 file HTML dengan tautan dinsos_theme.css.")
+

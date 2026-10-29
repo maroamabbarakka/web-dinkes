@@ -397,3 +397,4 @@ with open('public/assets/dinsos_theme.css', 'w', encoding='utf-8') as f:
     f.write(new_css + '\n\n' + dinkes_overrides)
 
 print("Berhasil menghasilkan public/assets/dinsos_theme.css!")
+

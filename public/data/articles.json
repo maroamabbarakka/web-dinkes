@@ -19,11 +19,12 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4252",
     "views": 102,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/04/rembuk-stunting.jpg"
   },
   {
     "id": "350",
-    "title": "Poster2",
+    "title": "Poster Edukasi Pencegahan Stunting Balita",
     "slug": "350-poster2",
     "published_at": "Mei 21, 2024",
     "author": "admindinkes",
@@ -35,16 +36,17 @@
     "gallery_images": [
       "https://dinkes.pinrangkab.go.id/wp-content/uploads/2024/06/poster-stunting-64742fd008a8b563763892c2.jpeg"
     ],
-    "excerpt": "",
+    "excerpt": "Panduan pemantauan tumbuh kembang anak, asupan gizi seimbang, dan pemberian makanan tambahan untuk mencegah gagal tumbuh pada balita.",
     "content_html": "<div class=\"entry-content\">\n<div class=\"wp-block-image\"><figure class=\"aligncenter size-large\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2024/06/poster-stunting-64742fd008a8b563763892c2.jpeg\"/></figure></div>\n</div>",
     "original_url": "https://dinkes.pinrangkab.go.id/?p=350",
     "views": 50,
     "content_type": "promkes",
-    "type_label": "Materi Promkes & Poster"
+    "type_label": "Materi Promkes & Poster",
+    "image": "uploads/2024/06/poster-stunting-64742fd008a8b563763892c2.jpeg"
   },
   {
     "id": "352",
-    "title": "Poster3",
+    "title": "Poster Imunisasi & Vaksinasi Booster Keluarga",
     "slug": "352-poster3",
     "published_at": "Mei 21, 2024",
     "author": "admindinkes",
@@ -57,16 +59,17 @@
     "gallery_images": [
       "https://dinkes.pinrangkab.go.id/wp-content/uploads/2024/06/assets_upload_dir_519d41d8cd98f00_files_LEAFLET-STUNTING_985_0000.jpg"
     ],
-    "excerpt": "",
+    "excerpt": "Materi informasi pentingnya vaksinasi berkala dan imunisasi dasar lengkap demi ketahanan kesehatan keluarga dan lingkungan.",
     "content_html": "<div class=\"entry-content\">\n<div class=\"wp-block-image\"><figure class=\"aligncenter size-large is-resized\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2024/06/assets_upload_dir_519d41d8cd98f00_files_LEAFLET-STUNTING_985_0000.jpg\"/></figure></div>\n</div>",
     "original_url": "https://dinkes.pinrangkab.go.id/?p=352",
     "views": 52,
     "content_type": "promkes",
-    "type_label": "Materi Promkes & Poster"
+    "type_label": "Materi Promkes & Poster",
+    "image": "uploads/2024/06/DZLefUaVMAAkUdX.jpg"
   },
   {
     "id": "354",
-    "title": "Poster4",
+    "title": "Leaflet Pedoman Gizi Seimbang & Sanitasi",
     "slug": "354-poster4",
     "published_at": "Mei 21, 2024",
     "author": "admindinkes",
@@ -79,12 +82,13 @@
     "gallery_images": [
       "https://dinkes.pinrangkab.go.id/wp-content/uploads/2024/06/DZLefUaVMAAkUdX.jpg"
     ],
-    "excerpt": "",
+    "excerpt": "Media komunikasi informasi dan edukasi perilaku hidup bersih dan sehat (PHBS) serta sanitasi total berbasis masyarakat di Pinrang.",
     "content_html": "<div class=\"entry-content\">\n<div class=\"wp-block-image\"><figure class=\"aligncenter size-large\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2024/06/DZLefUaVMAAkUdX.jpg\"/></figure></div>\n</div>",
     "original_url": "https://dinkes.pinrangkab.go.id/?p=354",
     "views": 54,
     "content_type": "promkes",
-    "type_label": "Materi Promkes & Poster"
+    "type_label": "Materi Promkes & Poster",
+    "image": "uploads/2024/06/assets_upload_dir_519d41d8cd98f00_files_LEAFLET-STUNTING_985_0000.jpg"
   },
   {
     "id": "4505",
@@ -112,7 +116,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4505",
     "views": 355,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "assets/kantor_dinkes_pinrang.jpg"
   },
   {
     "id": "4498",
@@ -138,7 +143,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4498",
     "views": 348,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/04/rembuk-stunting.jpg"
   },
   {
     "id": "4492",
@@ -163,7 +169,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4492",
     "views": 342,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/08/KIE-Keamanan-pangan.jpg"
   },
   {
     "id": "4164",
@@ -187,7 +194,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4164",
     "views": 364,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/02/posyandu-lansia.jpg"
   },
   {
     "id": "4097",
@@ -213,7 +221,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4097",
     "views": 297,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2020/11/piagam-rabies.jpg"
   },
   {
     "id": "4053",
@@ -239,7 +248,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4053",
     "views": 253,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "assets/kantor_dinkes_pinrang.jpg"
   },
   {
     "id": "4484",
@@ -265,7 +275,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4484",
     "views": 334,
     "content_type": "artikel",
-    "type_label": "Artikel Kesehatan"
+    "type_label": "Artikel Kesehatan",
+    "image": "uploads/2021/04/rembuk-stunting.jpg"
   },
   {
     "id": "4478",
@@ -290,7 +301,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4478",
     "views": 328,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/08/KIE-Keamanan-pangan.jpg"
   },
   {
     "id": "4470",
@@ -317,7 +329,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4470",
     "views": 320,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/02/posyandu-lansia.jpg"
   },
   {
     "id": "4458",
@@ -348,7 +361,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4458",
     "views": 308,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2020/11/piagam-rabies.jpg"
   },
   {
     "id": "4450",
@@ -375,7 +389,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4450",
     "views": 300,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "assets/kantor_dinkes_pinrang.jpg"
   },
   {
     "id": "4443",
@@ -401,7 +416,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4443",
     "views": 293,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/04/rembuk-stunting.jpg"
   },
   {
     "id": "4437",
@@ -426,7 +442,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4437",
     "views": 287,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/08/KIE-Keamanan-pangan.jpg"
   },
   {
     "id": "4419",
@@ -452,7 +469,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4419",
     "views": 269,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/02/posyandu-lansia.jpg"
   },
   {
     "id": "4402",
@@ -472,7 +490,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4402",
     "views": 252,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2020/11/piagam-rabies.jpg"
   },
   {
     "id": "4395",
@@ -497,7 +516,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4395",
     "views": 245,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "assets/kantor_dinkes_pinrang.jpg"
   },
   {
     "id": "4386",
@@ -524,7 +544,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4386",
     "views": 236,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/04/rembuk-stunting.jpg"
   },
   {
     "id": "4378",
@@ -551,7 +572,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4378",
     "views": 228,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/08/KIE-Keamanan-pangan.jpg"
   },
   {
     "id": "4370",
@@ -578,7 +600,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4370",
     "views": 220,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/02/posyandu-lansia.jpg"
   },
   {
     "id": "4362",
@@ -604,7 +627,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4362",
     "views": 212,
     "content_type": "artikel",
-    "type_label": "Artikel Kesehatan"
+    "type_label": "Artikel Kesehatan",
+    "image": "uploads/2020/11/piagam-rabies.jpg"
   },
   {
     "id": "4355",
@@ -630,7 +654,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4355",
     "views": 205,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "assets/kantor_dinkes_pinrang.jpg"
   },
   {
     "id": "4346",
@@ -657,7 +682,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4346",
     "views": 196,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/04/rembuk-stunting.jpg"
   },
   {
     "id": "4338",
@@ -684,7 +710,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4338",
     "views": 188,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/08/KIE-Keamanan-pangan.jpg"
   },
   {
     "id": "4331",
@@ -710,7 +737,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4331",
     "views": 181,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2021/02/posyandu-lansia.jpg"
   },
   {
     "id": "4325",
@@ -735,7 +763,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4325",
     "views": 175,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "uploads/2020/11/piagam-rabies.jpg"
   },
   {
     "id": "4318",
@@ -761,7 +790,8 @@
     "original_url": "https://dinkes.pinrangkab.go.id/?p=4318",
     "views": 168,
     "content_type": "berita",
-    "type_label": "Berita & Kegiatan Dinas"
+    "type_label": "Berita & Kegiatan Dinas",
+    "image": "assets/kantor_dinkes_pinrang.jpg"
   },
   {
     "id": "4312",
@@ -1880,7 +1910,7 @@
   },
   {
     "id": "2278",
-    "title": "Infografis Kegiatan Dinas Kesehatan Kab. Pinrang",
+    "title": "Infografis Standar Keamanan Pangan Olahan UMKM",
     "slug": "2278-infografis-kegiatan-dinas-kesehatan-kab-pinrang",
     "published_at": "Apr 24, 2025",
     "author": "admindinkes",
@@ -1899,12 +1929,13 @@
       "https://dinkes.pinrangkab.go.id/wp-content/uploads/2023/07/Infografis-Dinas-Kesehatan.jpg",
       "https://dinkes.pinrangkab.go.id/wp-content/uploads/2023/07/WhatsApp-Image-2023-07-12-at-15.48.13.jpeg"
     ],
-    "excerpt": "",
+    "excerpt": "Edukasi sertifikasi pemenuhan komitmen produksi pangan industri rumah tangga (SPP-IRT) bebas bahan kimia berbahaya.",
     "content_html": "<div class=\"entry-content\">\n<img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2025/04/dinkes-pinrang-17-1.png\"/><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2023/07/dinkes-pinrang-15-1.png\"/>\n<figure class=\"wp-block-image size-large is-style-default\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2023/07/Rakontek-Kesmas.jpg\"/></figure>\n<figure class=\"wp-block-image size-large\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2023/07/Rakontek-Hari-3.jpg\"/></figure>\n<figure class=\"wp-block-image size-large\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2023/07/Rakontek-Hari-2.jpg\"/></figure>\n<figure class=\"wp-block-image size-large\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2023/07/Infografis-Dinas-Kesehatan.jpg\"/></figure>\n<figure class=\"wp-block-image size-large\"><img alt=\"\" class=\"content-image\" loading=\"lazy\" src=\"uploads/2023/07/WhatsApp-Image-2023-07-12-at-15.48.13.jpeg\"/></figure>\n</div>",
     "original_url": "https://dinkes.pinrangkab.go.id/?p=2278",
     "views": 228,
     "content_type": "promkes",
-    "type_label": "Materi Promkes & Poster"
+    "type_label": "Materi Promkes & Poster",
+    "image": "uploads/2021/08/KIE-Keamanan-pangan.jpg"
   },
   {
     "id": "3862",

@@ -10,3 +10,4 @@ for i, el in enumerate(soup.find_all(['header', 'section', 'footer', 'nav'])):
     h = el.find(['h1', 'h2', 'h3'])
     h_text = h.get_text(strip=True) if h else "(no heading)"
     print(f"{i+1}. <{el.name}> class='{cls}' id='{id_attr}' -> Heading: {h_text[:60]}")
+
