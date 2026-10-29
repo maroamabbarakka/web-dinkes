@@ -26,3 +26,4 @@ export const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export { collection, getDocs, getDoc, doc, query, orderBy, limit, where };
+

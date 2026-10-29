@@ -19,3 +19,4 @@ for f in files:
         dst.write(text)
 
 print(f'Berhasil menyalin {len(files)} berkas HTML ke public/!')
+

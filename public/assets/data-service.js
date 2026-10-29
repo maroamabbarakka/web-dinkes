@@ -6,15 +6,29 @@ let cachedPuskesmas = null;
 let cachedPages = null;
 let cachedStats = null;
 
-// Fungsi helper untuk memperbaiki URL foto dari WordPress lama ke aset lokal
+// Fungsi helper untuk memperbaiki URL foto dari WordPress lama
 export function resolveImageUrl(url) {
   if (!url) return 'assets/puskesmas.png';
   let cleanUrl = url;
-  if (cleanUrl.includes('dinkes.pinrangkab.go.id/wp-content/uploads/')) {
-    cleanUrl = cleanUrl.replace('https://dinkes.pinrangkab.go.id/wp-content/uploads/', 'uploads/');
-  }
-  // Normalisasi dimensi thumbnail WordPress (-1024x768 dsb) ke berkas master asli
+  
+  // Normalisasi suffix dimensi WordPress (-1024x768 dsb) ke master asli
   cleanUrl = cleanUrl.replace(/-\d+x\d+(\.[a-zA-Z0-9]+)$/i, '$1');
+
+  // Deteksi lingkungan: localhost vs domain produksi
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  
+  if (isLocalhost) {
+    if (cleanUrl.includes('dinkes.pinrangkab.go.id/wp-content/uploads/')) {
+      return cleanUrl.replace('https://dinkes.pinrangkab.go.id/wp-content/uploads/', 'uploads/');
+    }
+    return cleanUrl;
+  }
+
+  // Pada production Firebase Hosting, gunakan URL resmi dinkes.pinrangkab.go.id yang aktif
+  if (cleanUrl.startsWith('uploads/')) {
+    return cleanUrl.replace(/^uploads\//, 'https://dinkes.pinrangkab.go.id/wp-content/uploads/');
+  }
+  
   return cleanUrl;
 }
 

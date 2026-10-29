@@ -85,3 +85,4 @@ firebase deploy --only hosting
 - **Instansi:** Dinas Kesehatan Pemerintah Kabupaten Pinrang
 - **Alamat:** Jl. Jenderal Sukawati, Pinrang, Sulawesi Selatan 91212
 - **Kontak Aduan:** SP4N-LAPOR! & WhatsApp Official (+62 853-4217-2724)
+

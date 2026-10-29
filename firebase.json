@@ -4,7 +4,8 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "uploads/**"
     ],
     "cleanUrls": true,
     "trailingSlash": false,
@@ -30,3 +31,4 @@
     ]
   }
 }
+
