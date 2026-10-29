@@ -11,3 +11,4 @@ for f in html_files:
         data_page = body.get('data-page') if body else 'NO BODY'
         title = soup.find('title').get_text(strip=True) if soup.find('title') else 'NO TITLE'
         print(f'{os.path.basename(f):25} -> data-page="{data_page}" | {title}')
+

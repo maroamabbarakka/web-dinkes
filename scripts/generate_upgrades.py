@@ -239,3 +239,4 @@ print("Modul siap diaplikasikan!")
 ''')
 
 print("Generator modul siap dieksekusi.")
+

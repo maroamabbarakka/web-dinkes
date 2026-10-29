@@ -59,3 +59,4 @@ print("Part 1 & Home ready")
 ''')
 
 print("Generator assemblying app.js...")
+

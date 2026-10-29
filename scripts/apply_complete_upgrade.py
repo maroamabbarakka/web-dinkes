@@ -18,3 +18,4 @@ articles_preview = articles_data[:60]
 articles_preview_str = json.dumps(articles_preview, ensure_ascii=False)
 
 print("Menyusun kode upgrade...")
+

@@ -17,3 +17,4 @@ routes = re.findall(r'["\']([a-z0-9\-_]+)["\']:\s*([a-zA-Z0-9_]+Page)', txt)
 print('Routes yang terdaftar:', len(routes))
 for r, fn in routes:
     print(f'   /{r} -> {fn}')
+

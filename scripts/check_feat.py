@@ -9,3 +9,4 @@ print(f'Artikel yang punya featured_image: {len(has_feat)}')
 
 for a in has_feat[:10]:
     print(f"ID {a['id']}: {a['title'][:50]} | Feat: {a['featured_image']}")
+

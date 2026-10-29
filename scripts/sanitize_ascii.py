@@ -34,3 +34,4 @@ def sanitize_file(path):
 sanitize_file('scripts/build_pages_part1.py')
 sanitize_file('scripts/build_pages_part2.py')
 print("Sanitasi ASCII selesai!")
+

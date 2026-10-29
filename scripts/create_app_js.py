@@ -39,3 +39,4 @@ print("Menulis public/assets/app.js...")
 ''')
 
 print("create_app_js_step2.py ready")
+

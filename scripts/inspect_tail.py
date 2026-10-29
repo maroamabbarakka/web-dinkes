@@ -11,3 +11,4 @@ print('Total baris:', len(lines))
 print('50 baris terakhir:')
 for i in range(max(0, len(lines)-60), len(lines)):
     print(f'{i+1}: {lines[i]}')
+

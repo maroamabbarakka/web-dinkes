@@ -11,3 +11,4 @@ with open('scripts/build_definitive_app.py', 'w', encoding='utf-8') as f:
     f.write(text)
 
 print("Sukses perbaiki fungsi side di build_definitive_app.py!")
+

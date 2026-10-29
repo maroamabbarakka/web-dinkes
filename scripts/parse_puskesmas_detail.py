@@ -70,3 +70,4 @@ with open('public/data/puskesmas.json', 'w', encoding='utf-8') as fp:
     json.dump(puskesmas_list, fp, ensure_ascii=False, indent=2)
 
 print('Sukses update public/data/puskesmas.json!')
+

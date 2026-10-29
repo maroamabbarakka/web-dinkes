@@ -15,3 +15,4 @@ for p in imgs:
         print(f'{os.path.basename(p)}: Exists! Dimensi = {im.size}')
     else:
         print(f'{os.path.basename(p)}: NOT FOUND')
+

@@ -17,3 +17,4 @@ for a in articles[:8]:
     local_img = img.replace('https://dinkes.pinrangkab.go.id/wp-content/uploads/', '03_FOTO/wp-content/uploads/').replace('/', os.sep)
     exists = os.path.exists(local_img)
     print(f"ID {a['id']}: {a['title'][:55]}... | Img: {os.path.basename(img)} (Exists: {exists})")
+

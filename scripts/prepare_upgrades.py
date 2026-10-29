@@ -208,3 +208,4 @@ new_organisasi_page = """function organisasiPage(){
 }"""
 
 print("Selesai siapkan fungsi profilPage & organisasiPage baru!")
+

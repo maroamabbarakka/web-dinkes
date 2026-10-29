@@ -17,3 +17,4 @@ with open('scripts/build_pages_part2.py', 'w', encoding='utf-8') as f:
     f.write(t2)
 
 print("Sukses membersihkan karakter unicode di part1 & part2!")
+

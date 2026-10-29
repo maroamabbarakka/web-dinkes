@@ -6,3 +6,4 @@ print(f'Total baris style.css: {len(lines)}')
 content = ''.join(lines)
 for c in ['v4-executive', 'profile-card', 'kadis', 'pagination', 'badge', 'modal', 'card-grid']:
     print(f'Class {c} in style.css:', c in content)
+

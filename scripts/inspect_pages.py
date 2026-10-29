@@ -12,3 +12,4 @@ def show_func(name):
 
 for fn in ['homePage', 'profilPage', 'organisasiPage', 'layananPage', 'puskesmasPage', 'edukasiPage', 'beritaPage', 'dataPage']:
     show_func(fn)
+
