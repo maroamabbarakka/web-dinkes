@@ -15,3 +15,4 @@ for i, page in enumerate(doc):
     print(f"Tersimpan ke: {out_path} ({os.path.getsize(out_path)} bytes)")
 
 doc.close()
+

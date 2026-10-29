@@ -11,3 +11,4 @@ for m in matches:
 print(f"Total inline grid styles found: {len(found)}")
 for item in sorted(found):
     print("-", item)
+

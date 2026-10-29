@@ -45,3 +45,4 @@ def update_file(path):
 
 update_file('public/assets/app.v4.js')
 update_file('public/assets/app.js')
+

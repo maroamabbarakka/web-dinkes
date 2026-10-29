@@ -295,3 +295,4 @@ v4_content = v4_content.rstrip() + '\n\n' + responsive_css.strip() + '\n'
 with open('public/assets/v4.css', 'w', encoding='utf-8') as f:
     f.write(v4_content)
 print("Berhasil menyematkan responsive_css ke public/assets/v4.css")
+

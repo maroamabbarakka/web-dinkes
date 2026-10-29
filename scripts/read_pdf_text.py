@@ -12,3 +12,4 @@ for i, page in enumerate(doc):
         print("Snippet:", lines[:15])
 
 doc.close()
+

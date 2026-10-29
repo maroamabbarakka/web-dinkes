@@ -29,3 +29,4 @@ full_img.save(out_full, quality=90)
 print(f"Berhasil menyimpan gambar penuh ke: {out_full} ({os.path.getsize(out_full)} bytes)")
 
 doc.close()
+

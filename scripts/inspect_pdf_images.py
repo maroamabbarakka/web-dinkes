@@ -10,3 +10,4 @@ for i in range(len(doc)):
         base_img = doc.extract_image(xref)
         print(f"  xref: {xref}, ext: {base_img['ext']}, w: {base_img['width']}, h: {base_img['height']}")
 doc.close()
+
