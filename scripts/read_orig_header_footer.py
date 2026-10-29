@@ -11,3 +11,4 @@ m_ftr = re.search(r'function footer\([^)]*\)\s*\{([\s\S]*?)\nfunction [a-zA-Z0-9
 if m_ftr:
     print('=== FUNGSI FOOTER ASLI ===')
     print(m_ftr.group(0))
+

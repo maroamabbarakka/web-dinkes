@@ -11,3 +11,4 @@ for root, dirs, files in os.walk('public'):
                         print('Ditemukan di:', fp)
             except Exception as e:
                 pass
+

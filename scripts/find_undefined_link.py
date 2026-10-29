@@ -7,3 +7,4 @@ for i, l in enumerate(lines):
         for j in range(i, min(i+40, len(lines))):
             if 'href=' in lines[j]:
                 print(f"  L{j+1}: {lines[j].strip()[:100]}")
+

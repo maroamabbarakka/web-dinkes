@@ -161,3 +161,4 @@ with open('scripts/build_definitive_app.py', 'w', encoding='utf-8') as f:
     f.write(header_footer_code)
 
 print("Sukses update scripts/build_definitive_app.py dengan markup V4 asli!")
+

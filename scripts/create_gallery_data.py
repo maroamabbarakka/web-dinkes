@@ -1,0 +1,142 @@
+import json, os
+
+albums = [
+  {
+    "id": "germas-2026",
+    "title": "Kampanye Gerakan Masyarakat Hidup Sehat (GERMAS)",
+    "category": "Promosi Kesehatan",
+    "date": "23 Oktober 2026",
+    "location": "Kecamatan Batulappa & Lanrisang, Pinrang",
+    "description": "Rangkaian penutupan kampanye GERMAS terpadu oleh Timker Promkes Dinkes Pinrang bersama masyarakat untuk deteksi dini penyakit dan pembiasaan hidup bugar.",
+    "cover": "uploads/2026/10/cbe0e611-4ec4-4b64-b3ca-7fce94ef85a7.jpeg",
+    "photos": [
+      {
+        "url": "uploads/2026/10/cbe0e611-4ec4-4b64-b3ca-7fce94ef85a7.jpeg",
+        "caption": "Penutupan Rangkaian Kampanye GERMAS di Kecamatan Batulappa bersama jajaran Nakes dan Masyarakat."
+      },
+      {
+        "url": "uploads/2026/10/1bc6a3ea-2aef-49dd-891c-f1be7469aca3.jpeg",
+        "caption": "Kepala Dinas Kesehatan dr. H. Ramli Yunus, M.Kes memberikan arahan hidup sehat di Kampanye GERMAS Lanrisang."
+      },
+      {
+        "url": "uploads/2026/09/WhatsApp-Image-2026-09-28-at-08.09.04.jpeg",
+        "caption": "Senam bersama dan deteksi dini faktor risiko penyakit tidak menular (PTM) peserta GERMAS."
+      }
+    ]
+  },
+  {
+    "id": "kantor-dinkes",
+    "title": "Gedung & Penataan Kantor Dinas Kesehatan Kab. Pinrang",
+    "category": "Sarana & Kelembagaan",
+    "date": "06 Mei 2026",
+    "location": "Jl. Jenderal Sukawati No. 40, Pinrang",
+    "description": "Dokumentasi lingkungan kerja yang sehat, bersih, dan asri yang mengantarkan Dinkes Pinrang meraih Juara Lomba Kebersihan dan Penataan Kantor.",
+    "cover": "assets/kantor_dinkes_pinrang.jpg",
+    "photos": [
+      {
+        "url": "assets/kantor_dinkes_pinrang.jpg",
+        "caption": "Penerimaan Penghargaan Penataan Kantor dan Lingkungan Sehat Dinas Kesehatan Kabupaten Pinrang."
+      },
+      {
+        "url": "uploads/2020/11/wellcomedinkes.png",
+        "caption": "Gedung Kantor Dinas Kesehatan Pemerintah Kabupaten Pinrang di Jl. Jenderal Sukawati."
+      },
+      {
+        "url": "assets/struktur_organisasi_dinkes.jpeg",
+        "caption": "Bagan Tata Kerja dan Struktur Organisasi Dinas Kesehatan Kabupaten Pinrang."
+      }
+    ]
+  },
+  {
+    "id": "spp-irt-umkm",
+    "title": "Pendampingan Sertifikasi Pangan Industri Rumah Tangga (SPP-IRT)",
+    "category": "Pelayanan & SDK",
+    "date": "21 Oktober 2026",
+    "location": "Aula Dinas Kesehatan Pinrang",
+    "description": "Fasilitasi penyuluhan keamanan pangan gratis untuk meningkatkan mutu produk olahan pangan UMKM di Kabupaten Pinrang.",
+    "cover": "uploads/2026/10/ea1473c4-840a-4595-b375-61e9c0030936.jpeg",
+    "photos": [
+      {
+        "url": "uploads/2026/10/ea1473c4-840a-4595-b375-61e9c0030936.jpeg",
+        "caption": "Penyuluhan Keamanan Pangan bagi para pelaku usaha industri rumah tangga (P-IRT) se-Kabupaten Pinrang."
+      },
+      {
+        "url": "uploads/2026/07/WhatsApp-Image-2026-07-20-at-11.09.24.jpeg",
+        "caption": "Pemeriksaan dan asistensi pemenuhan standar higienitas sarana pengolahan pangan."
+      }
+    ]
+  },
+  {
+    "id": "penghargaan-prestasi",
+    "title": "Dokumentasi Penghargaan Nasional Kabupaten Sehat & UHC",
+    "category": "Prestasi Daerah",
+    "date": "Tahun 2021 - 2026",
+    "location": "Jakarta & Makassar",
+    "description": "Bukti apresiasi Kementerian Kesehatan dan lembaga nasional atas tata kelola kesehatan bermutu di Kabupaten Pinrang.",
+    "cover": "uploads/2026/01/38bc8607-83a1-401a-9444-eedb572aed42.jpeg",
+    "photos": [
+      {
+        "url": "uploads/2026/01/38bc8607-83a1-401a-9444-eedb572aed42.jpeg",
+        "caption": "Penerimaan Penghargaan Universal Health Coverage (UHC) Kategori Pratama oleh Pemkab Pinrang."
+      },
+      {
+        "url": "uploads/2021/11/wistara-IV4-1.jpg",
+        "caption": "Plakat Penghargaan Tertinggi Kabupaten Sehat Swasti Saba Wistara Ke-IV dari Kemenkes RI."
+      },
+      {
+        "url": "uploads/2023/02/Frambusia2-1.jpg",
+        "caption": "Sertifikat Bebas Penyakit Frambusia dari Menteri Kesehatan Republik Indonesia."
+      },
+      {
+        "url": "uploads/2022/03/role-model-cpp-2022.jpg",
+        "caption": "Piagam Role Model Pelayanan Prima (Citra Pelayanan Prima) Organisasi Perangkat Daerah."
+      }
+    ]
+  },
+  {
+    "id": "promkes-edukasi",
+    "title": "Materi Edukasi Visual & Infografis Kesehatan Masyarakat",
+    "category": "Media Edukasi",
+    "date": "Rilisan Publikasi Terpadu",
+    "location": "19 UPTD Puskesmas Pinrang",
+    "description": "Koleksi poster resmi pencegahan stunting, imunisasi anak, dan pola hidup bersih sehat.",
+    "cover": "uploads/2024/06/poster-stunting-64742fd008a8b563763892c2.jpeg",
+    "photos": [
+      {
+        "url": "uploads/2024/06/poster-stunting-64742fd008a8b563763892c2.jpeg",
+        "caption": "Poster Edukasi Pencegahan Stunting Balita melalui Gizi Seimbang dan ASI Eksklusif."
+      },
+      {
+        "url": "uploads/2022/01/VAksin-booster.jpg",
+        "caption": "Poster Vaksinasi Booster untuk Penguatan Imunitas Masyarakat Daerah."
+      },
+      {
+        "url": "uploads/2021/12/files86460Poster-Vaksin-Anak_001.jpg",
+        "caption": "Poster Sosialisasi Vaksinasi Aman untuk Anak dan Remaja."
+      },
+      {
+        "url": "uploads/2026/07/Biru-Oranye-Modern-Informasi-Darurat-Instagram-Post.png",
+        "caption": "Media Informasi Pengaduan & Layanan Darurat Kesehatan Dinas Kesehatan Pinrang."
+      }
+    ]
+  }
+]
+
+# Verifikasi keberadaan file
+valid_albums = []
+for a in albums:
+    valid_photos = []
+    for p in a['photos']:
+        fpath = os.path.join('public', p['url'])
+        if os.path.exists(fpath):
+            valid_photos.append(p)
+        else:
+            print(f"File foto tidak ditemukan: {fpath}")
+    if valid_photos:
+        a['photos'] = valid_photos
+        valid_albums.append(a)
+
+with open('public/data/gallery_albums.json', 'w', encoding='utf-8') as f:
+    json.dump(valid_albums, f, ensure_ascii=False, indent=2)
+
+print(f"Berhasil menyimpan {len(valid_albums)} album galeri resmi ke public/data/gallery_albums.json")

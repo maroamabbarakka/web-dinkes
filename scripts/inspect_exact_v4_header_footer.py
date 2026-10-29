@@ -11,3 +11,4 @@ m_ftr = re.search(r'function footer\([^)]*\)\s*\{[\s\S]*?\nfunction [a-zA-Z0-9_]
 if m_ftr:
     print('FOOTER CODE:')
     print(m_ftr.group(0))
+

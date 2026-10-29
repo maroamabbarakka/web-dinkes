@@ -14,3 +14,4 @@ while True:
     print(f"=== Match at {pos} ===")
     print(text[start:end])
     idx = pos + 5
+

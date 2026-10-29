@@ -10,3 +10,4 @@ for i, l in enumerate(lines[:120]):
         print(f"\nImplementasi side di L{i+1}:")
         for j in range(i, i+15):
             print(lines[j], end='')
+

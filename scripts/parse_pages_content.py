@@ -26,3 +26,4 @@ with open('DAFTAR_ARTIKEL_DAN_HALAMAN.csv', encoding='utf-8-sig', errors='ignore
             with open(txt_path, 'r', encoding='utf-8', errors='ignore') as tf:
                 lines = [line.strip() for line in tf.readlines() if line.strip()]
                 print("Cuplikan:", lines[:4])
+

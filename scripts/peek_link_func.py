@@ -13,3 +13,4 @@ else:
     print("Tidak ditemukan, cari 'link('")
     matches = [m.start() for m in re.finditer(r'\blink\(', text)]
     print(matches[:5])
+

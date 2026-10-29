@@ -175,3 +175,4 @@ with open('public/assets/app.js', 'w', encoding='utf-8') as f:
     f.write(full_app)
 
 print(f"Sukses merakit public/assets/app.js! Total panjang: {len(full_app)}")
+
