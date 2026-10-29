@@ -1,1179 +1,168 @@
 'use strict';
-
-import * as DataService from './data-service.js';
-
-// Koleksi Ikon SVG Vektor Konsisten
-const SVG = {
-  heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M3.2 12h4l2-3 3 6 2-3h6.6"/>',
-  activity: '<path d="M2 12h4l3-7 5 14 3-7h5"/>',
-  hospital: '<rect x="4" y="3" width="16" height="19" rx="2"/><path d="M12 6v7M8.5 9.5h7M9 22v-5h6v5"/>',
-  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h8"/>',
-  news: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6M7 12h4M15 8h3v8h-3M7 16h4"/>',
-  map: '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/>', 
-  pin: '<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
-  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h8"/>',
-  people: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.2a4 4 0 0 1 0 7.6M22 21v-2a4 4 0 0 0-3-3.9"/><circle cx="9" cy="7" r="4"/>',
-  chart: '<path d="M3 3v18h18M7 15l4-5 4 2 5-7"/><path d="M16 5h4v4"/>',
-  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
-  message: '<path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5a9 9 0 0 1-.9-4 8.5 8.5 0 0 1 8.5-8.5A8.5 8.5 0 0 1 21 11.5Z"/><path d="M8 11h9M8 15h6"/>',
-  search: '<circle cx="10.8" cy="10.8" r="7"/><path d="m16 16 5 5"/>',
-  arrow: '<path d="M5 12h14m-6-6 6 6-6 6"/>',
-  chevron: '<path d="m9 18 6-6-6-6"/>',
-  down: '<path d="m6 9 6 6 6-6"/>',
-  menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
-  close: '<path d="M18 6 6 18M6 6l12 12"/>',
-  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 10h18"/>',
-  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-  download: '<path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/>',
-  info: '<circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7h.01"/>',
-  globe: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',
-  external: '<path d="M13 5h6v6M19 5l-9 9"/><path d="M19 13v6H5V5h6"/>',
-  camera: '<path d="M4 7h4l2-3h4l2 3h4v13H4Z"/><circle cx="12" cy="13" r="4"/>',
-  star: '<path d="m12 2 3.1 6.3 6.9 1-5 4.8 1.2 6.9-6.2-3.3L5.8 21l1.2-6.9-5-4.8 6.9-1Z"/>',
-  bulb: '<path d="M9 18h6m-5 3h4M8 14c-2-1.3-3-3.2-3-5.6a7 7 0 0 1 14 0c0 2.4-1 4.3-3 5.6l-1 4H9l-1-4Z"/>',
-  clipboard: '<rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/>',
-  home: '<path d="m3 10 9-7 9 7v11H3Z"/><path d="M9 21v-8h6v8"/>',
-  bell: '<path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/>',
-  phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2A19 19 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.4 2.6a2 2 0 0 1-.6 1.8L7.3 9.7a16 16 0 0 0 7 7l1.6-1.6a2 2 0 0 1 1.8-.6l2.6.4a2 2 0 0 1 1.7 2Z"/>',
-  user: '<circle cx="12" cy="8" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/>',
-  check: '<path d="m4 12 5 5L20 6"/>'
-};
-
-function ic(n, cls = '') {
-  return `<svg aria-hidden="true" class="${cls}" viewBox="0 0 24 24">${SVG[n] || SVG.heart}</svg>`;
-}
-
-const ROUTES = [
-  ['index', 'Beranda'],
-  ['profil', 'Profil Dinas'],
-  ['organisasi', 'Struktur Organisasi'],
-  ['layanan', 'Layanan Kesehatan'],
-  ['layanan-detail', 'Detail Layanan'],
-  ['puskesmas', 'Direktori Puskesmas'],
-  ['puskesmas-detail', 'Profil Puskesmas'],
-  ['edukasi', 'Edukasi Kesehatan'],
-  ['edukasi-detail', 'Artikel Edukasi'],
-  ['berita', 'Berita & Kegiatan'],
-  ['berita-detail', 'Detail Berita'],
-  ['galeri', 'Galeri Foto'],
-  ['data', 'Data Kesehatan'],
-  ['indikator', 'Detail Indikator'],
-  ['publikasi', 'Publikasi & Dokumen'],
-  ['ppid', 'PPID'],
-  ['informasi', 'Permohonan Informasi'],
-  ['pengaduan', 'Pengaduan'],
-  ['kontak', 'Kontak'],
-  ['inovasi', 'Inovasi Daerah'],
-  ['faq', 'FAQ'],
-  ['pencarian', 'Pencarian'],
-  ['peta-situs', 'Peta Situs'],
-  ['privasi', 'Kebijakan Privasi'],
-  ['aksesibilitas', 'Aksesibilitas'],
-  ['skm', 'Survei Kepuasan'],
-  ['pengumuman', 'Pengumuman Penting'],
-  ['tidak-ditemukan', 'Halaman Tidak Ditemukan']
+const SVG={
+ heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M3.2 12h4l2-3 3 6 2-3h6.6"/>',
+ activity:'<path d="M2 12h4l3-7 5 14 3-7h5"/>',hospital:'<rect x="4" y="3" width="16" height="19" rx="2"/><path d="M12 6v7M8.5 9.5h7M9 22v-5h6v5"/>',
+ file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h8"/>',
+ news:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6M7 12h4M15 8h3v8h-3M7 16h4"/>',map:'<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/>', pin:'<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
+ book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h8"/>',
+ people:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.2a4 4 0 0 1 0 7.6M22 21v-2a4 4 0 0 0-3-3.9"/><circle cx="9" cy="7" r="4"/>',
+ chart:'<path d="M3 3v18h18M7 15l4-5 4 2 5-7"/><path d="M16 5h4v4"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+ message:'<path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5a9 9 0 0 1-.9-4 8.5 8.5 0 0 1 8.5-8.5A8.5 8.5 0 0 1 21 11.5Z"/><path d="M8 11h9M8 15h6"/>',
+ search:'<circle cx="10.8" cy="10.8" r="7"/><path d="m16 16 5 5"/>',arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',chevron:'<path d="m9 18 6-6-6-6"/>',down:'<path d="m6 9 6 6 6-6"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',close:'<path d="M18 6 6 18M6 6l12 12"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 10h18"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',download:'<path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/>',
+ info:'<circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7h.01"/>',globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',
+ external:'<path d="M13 5h6v6M19 5l-9 9"/><path d="M19 13v6H5V5h6"/>',camera:'<path d="M4 7h4l2-3h4l2 3h4v13H4Z"/><circle cx="12" cy="13" r="4"/>',
+ star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.8 1.2 6.9-6.2-3.3L5.8 21l1.2-6.9-5-4.8 6.9-1Z"/>',
+ bulb:'<path d="M9 18h6m-5 3h4M8 14c-2-1.3-3-3.2-3-5.6a7 7 0 0 1 14 0c0 2.4-1 4.3-3 5.6l-1 4H9l-1-4Z"/>',
+ clipboard:'<rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/>',
+ home:'<path d="m3 10 9-7 9 7v11H3Z"/><path d="M9 21v-8h6v8"/>',bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/>',
+ mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/>',phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2A19 19 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.4 2.6a2 2 0 0 1-.6 1.8L7.3 9.7a16 16 0 0 0 7 7l1.6-1.6a2 2 0 0 1 1.8-.6l2.6.4a2 2 0 0 1 1.7 2Z"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/>',filter:'<path d="M4 7h16M7 12h10M10 17h4"/>',
+ check:'<path d="m4 12 5 5L20 6"/>',refresh:'<path d="M20 7a9 9 0 0 0-15-2l-2 3M4 3v5h5M4 17a9 9 0 0 0 15 2l2-3m-1 5v-5h-5"/>',
+ layers:'<rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>',
+ bars:'<path d="M5 20V9M11 20V4M17 20v-8M3 20h18"/>',
+ lock:'<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/>',
+ briefcase:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V4h8v3M2 12h20"/>',
+ leaf:'<path d="M20 4c-10 0-15 4-15 11a5 5 0 0 0 5 5c7 0 11-7 10-16ZM5 19l9-9"/>',
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+ video:'<rect x="3" y="5" width="14" height="14" rx="2"/><path d="m17 10 4-3v10l-4-3"/>',
+ fingerprint:'<path d="M4 11a8 8 0 0 1 16 0M7 12a5 5 0 0 1 10 0v3M12 10v9M9 14v4M16 18a8 8 0 0 1-2 4"/>',
+ copy:'<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3"/>'};
+function ic(n,cls=''){return `<svg aria-hidden="true" class="${cls}" viewBox="0 0 24 24">${SVG[n]||SVG.heart}</svg>`}
+const ROUTES=[['index','Beranda','home'],['profil','Profil Dinas','people'],['organisasi','Struktur Organisasi','layers'],['layanan','Layanan Kesehatan','heart'],['layanan-detail','Detail Layanan','clipboard'],['puskesmas','Direktori Puskesmas','hospital'],['puskesmas-detail','Profil Puskesmas','hospital'],['edukasi','Edukasi Kesehatan','book'],['edukasi-detail','Artikel Edukasi','book'],['berita','Berita & Kegiatan','news'],['berita-detail','Detail Berita','news'],['galeri','Galeri Foto','camera'],['data','Data Kesehatan','chart'],['indikator','Detail Indikator','bars'],['publikasi','Publikasi & Dokumen','file'],['ppid','PPID','shield'],['informasi','Permohonan Informasi','mail'],['pengaduan','Pengaduan','message'],['kontak','Kontak','pin'],['inovasi','Inovasi Daerah','bulb'],['faq','FAQ','info'],['pencarian','Pencarian','search'],['peta-situs','Peta Situs & Tinjauan Mockup','layers'],['privasi','Kebijakan Privasi','lock'],['aksesibilitas','Aksesibilitas','people'],['skm','Survei Kepuasan Masyarakat','star'],['pengumuman','Pengumuman Penting','bell'],['tidak-ditemukan','Halaman Tidak Ditemukan','info']];
+const path=(id)=>`${id}.html`;const link=(id,label,cls='')=>`<a href="${path(id)}" class="${cls}">${label}</a>`;
+function header(page){const group=(name,arr)=>`<div class="navgroup"><button type="button" aria-haspopup="true" aria-expanded="false">${name}${ic('down')}</button><div class="drop">${arr.map(a=>link(a[0],a[1])).join('')}</div></div>`;const menu=[['Informasi Publik',[['ppid','PPID'],['publikasi','Dokumen & Publikasi'],['informasi','Permohonan Informasi']]],['Tentang Dinas',[['profil','Profil Dinas'],['organisasi','Struktur Organisasi'],['inovasi','Inovasi'],['kontak','Kontak']]]];const mn=[['Layanan',[['layanan','Semua layanan'],['layanan-detail','Detail layanan'],['puskesmas','Direktori Puskesmas']]],['Informasi',[['edukasi','Edukasi'],['berita','Berita'],['galeri','Galeri Foto'],['data','Data Kesehatan']]],...menu];return `<a class="skip" href="#main">Langsung ke konten utama</a><div class="demo-strip" style="background:#078d90;color:#ffffff;font-weight:600;font-size:12px;letter-spacing:0.02em;">PORTAL RESMI DINAS KESEHATAN PEMERINTAH KABUPATEN PINRANG · SULAWESI SELATAN</div><div class="govbar"><div class="container"><div>Pemerintah Kabupaten Pinrang · Sulawesi Selatan</div><div class="right"><a href="https://pinrangkab.go.id/" target="_blank" rel="noopener">Portal Pemkab ${ic('external')}</a>${link('ppid','PPID')}${link('skm','SKM')}${link('faq','Bantuan')}</div></div></div><header class="brandbar"><div class="container"><a class="identity" href="index.html" aria-label="Dinas Kesehatan Kabupaten Pinrang, Beranda" style="display:flex;align-items:center;gap:12px;text-decoration:none;"><div class="logo-duo" style="display:flex;align-items:center;gap:8px;background:#ffffff;padding:4px 8px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.08);"><img src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" style="height:44px;width:auto;object-fit:contain;"><span style="display:inline-block;width:1.5px;height:30px;background:#cbd5e1;"></span><img src="assets/kemenkes.jpg" alt="Logo Kemenkes RI" style="height:40px;width:auto;object-fit:contain;border-radius:4px;"></div><span><span class="overline" style="color:#0756c1;font-weight:700;">Pemerintah Kabupaten Pinrang</span><strong style="color:#0f172a;font-size:18px;">DINAS KESEHATAN</strong><small style="color:#64748b;">Portal Informasi & Pelayanan Kesehatan</small></span></a><div class="header-controls"><a class="soft-link" href="puskesmas.html">${ic('pin')} Cari Fasilitas Kesehatan</a><button class="icon-button" type="button" id="fontToggle" title="Perbesar tulisan" aria-label="Perbesar tulisan">Aa</button><button class="icon-button" type="button" id="searchToggle" aria-label="Buka pencarian">${ic('search')}</button></div></div></header><nav class="navwrap" aria-label="Navigasi utama"><div class="container navrow"><div class="navitems">${link('index','Beranda',page==='index'?'active':'')}${group('Layanan',[['layanan','Layanan Kesehatan'],['puskesmas','Direktori Puskesmas']])}${link('edukasi','Edukasi',page==='edukasi'?'active':'')}${link('data','Data Kesehatan',page==='data'?'active':'')}${link('berita','Berita & Kegiatan',page==='berita'?'active':'')}${group('Transparansi',[['ppid','PPID'],['publikasi','Publikasi & Dokumen'],['pengumuman','Pengumuman Penting'],['informasi','Permohonan Informasi']])}${group('Profil',[['profil','Tentang Dinas'],['organisasi','Organisasi'],['inovasi','Inovasi'],['galeri','Galeri Foto'],['kontak','Kontak']])}</div><a class="nav-cta" href="pengaduan.html">${ic('message')} Pengaduan</a><button class="icon-button hamburger" id="mobileToggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false">${ic('menu')}</button></div><div class="mobile-nav" id="mobileNav">${link('index','Beranda')}${mn.map(([name,items])=>`<h4>${name}</h4>${items.map(v=>link(v[0],v[1])).join('')}`).join('')}${link('pengaduan','Pengaduan')}${link('kontak','Kontak')}</div><div class="floating-search" id="quickSearch"><div class="container"><form id="quickSearchForm" action="pencarian.html"><input id="quickSearchInput" name="q" type="search" placeholder="Cari Puskesmas, layanan, berita, dokumen…" aria-label="Cari seluruh konten" required><button class="btn primary" type="submit">${ic('search')} Cari</button></form></div></div></nav>`}
+function footer(){return `<footer class="footer"><div class="container"><div class="top"><div><div class="identity" style="display:flex;align-items:center;gap:12px;"><div class="logo-duo" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.95);padding:4px 8px;border-radius:8px;"><img src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" style="height:40px;width:auto;"><span style="display:inline-block;width:1.5px;height:26px;background:#cbd5e1;"></span><img src="assets/kemenkes.jpg" alt="Logo Kemenkes RI" style="height:36px;width:auto;border-radius:3px;"></div><span><span class="overline" style="color:#93c5fd;">Pemerintah Kabupaten Pinrang</span><strong style="color:#ffffff;font-size:17px;">DINAS KESEHATAN</strong><small style="color:#cbd5e1;">Portal Informasi & Pelayanan Masyarakat</small></span></div><p>Konsep portal dinas yang mengutamakan pelayanan informasi kesehatan, edukasi, transparansi publik, dan akses layanan masyarakat.</p><p><span class="tag">Mockup untuk evaluasi desain</span></p></div><div><h3>Untuk Masyarakat</h3>${link('layanan','Standar & Layanan')}${link('puskesmas','Cari Puskesmas')}${link('edukasi','Edukasi Kesehatan')}${link('pengaduan','Pengaduan')}</div><div><h3>Informasi Publik</h3>${link('ppid','PPID')}${link('publikasi','Publikasi & Dokumen')}${link('pengumuman','Pengumuman Penting')}${link('data','Data Kesehatan')}${link('inovasi','Inovasi Daerah')}</div><div><h3>Rujukan Resmi</h3><a href="https://dinkes.pinrangkab.go.id/" target="_blank" rel="noopener">Website Dinkes saat ini</a><a href="https://satusehat.kemkes.go.id/" target="_blank" rel="noopener">SATUSEHAT Kemenkes</a><a href="https://www.lapor.go.id/" target="_blank" rel="noopener">SP4N-LAPOR!</a><a href="https://ayosehat.kemkes.go.id/" target="_blank" rel="noopener">Ayo Sehat Kemenkes</a></div></div><div class="copy"><span>© 2026 Rancangan UI/UX Dinas Kesehatan Kabupaten Pinrang. <b>Bukan situs resmi.</b></span><span>${link('privasi','Privasi')} · ${link('aksesibilitas','Aksesibilitas')} · Identitas logo placeholder</span></div></div></footer>`}
+const button=(id,label='Lihat selengkapnya',style='primary')=>`<a class="btn ${style}" href="${path(id)}">${label} ${ic('arrow')}</a>`;
+function crumb(page){const title=ROUTES.find(r=>r[0]===page)?.[1]||page;return `<div class="crumbs"><a href="index.html">Beranda</a>${ic('chevron')}<span aria-current="page">${title}</span></div>`}
+function pageHero(page,kicker,title,desc){const heroIcon=({profil:'people',organisasi:'layers',layanan:'heart','layanan-detail':'clipboard',puskesmas:'hospital','puskesmas-detail':'pin',edukasi:'book','edukasi-detail':'bulb',berita:'news','berita-detail':'news',galeri:'camera',data:'chart',indikator:'bars',publikasi:'file',ppid:'shield',informasi:'mail',pengaduan:'message',kontak:'pin',inovasi:'bulb',faq:'info',pencarian:'search','peta-situs':'layers',privasi:'lock',aksesibilitas:'heart',skm:'star',pengumuman:'bell','tidak-ditemukan':'search'})[page]||'heart';return `<section class="pagehero v4-pagehero"><div class="container"><div class="crumbs"><a href="index.html">Beranda</a>${ic('chevron')}<span aria-current="page">${ROUTES.find(r=>r[0]===page)?.[1]}</span></div><div class="wrap"><div class="pagehero-copy"><span class="tinycap">${kicker}</span><h1>${title}</h1><p>${desc}</p></div><div class="pagehero-visual" aria-hidden="true"><span class="visual-ring ring-one"></span><span class="visual-ring ring-two"></span><span class="pagehero-icon">${ic(heroIcon)}</span><span class="decor-dot d1"></span><span class="decor-dot d2"></span></div></div></div></section>`}
+const sectionTitle=(k,t,d='',extra='')=>`<div class="heading-split"><div><div class="kicker">${k}</div><h2 class="title">${t}</h2>${d?`<p class="lead">${d}</p>`:''}</div>${extra}</div>`;
+function placeholder(kind='camera',label='Area foto dokumentasi asli',tone=''){return `<div class="media-placeholder ${tone}">${ic(kind)}<span>${label}</span></div>`}
+function card(icon,title,desc,to,cat='Informasi',tone=''){return `<article class="card">${placeholder(icon,'Visual / foto resmi saat migrasi',tone)}<div class="cardbody"><span class="tag">${cat}</span><h3>${title}</h3><p>${desc}</p><div class="bottom"><span>Selengkapnya</span><a aria-label="Buka ${title}" href="${path(to)}">${ic('arrow')}</a></div></div></article>`}
+function compactCard(icon,title,desc,to,tone=''){const palette=tone||({hospital:'blue',heart:'teal',book:'violet',chart:'amber',file:'cyan',message:'coral',shield:'blue',people:'violet'}[icon]||'teal');return `<a href="${path(to)}" class="quick theme-${palette}"><span class="ico ${palette}">${ic(icon)}</span><h3>${title}</h3><p>${desc}</p><span class="quick-arrow" aria-hidden="true">${ic('arrow')}</span></a>`}
+const side=(title,items)=>`<aside class="panel side-nav"><h3>${title}</h3>${items.map(([id,label])=>link(id,`${label}${ic('chevron')}`,window.CURRENT_PAGE===id?'active':'')).join('')}<div class="note good-note mt-20">Informasi, foto dan dokumen yang berasal dari situs lama harus melalui proses validasi sebelum ditayangkan.</div></aside>`;
+const sourceNote=`<div class="note mt-20">Keterangan mockup: data kontak, jam pelayanan, penanggung jawab, statistik, dan foto asli belum diintegrasikan. Angka atau ilustrasi yang ditandai simulasi bukan data resmi.</div>`;
+const berita=[['Kampanye GERMAS di Batulappa Dorong Deteksi Dini','23 Oktober 2026','Kegiatan','Pelaksanaan rangkaian kampanye kesehatan masyarakat di Kecamatan Batulappa.'],['Kampanye GERMAS di Lanrisang: Sehat Adalah Awal Kesuksesan','21 Oktober 2026','Promosi Kesehatan','Edukasi kesehatan dan dorongan perilaku hidup sehat kepada masyarakat.'],['Pendampingan Penyuluhan Keamanan Pangan untuk SPP-IRT','21 Oktober 2026','Pembinaan','Edukasi keamanan pangan guna mendukung pelaku usaha pangan rumah tangga.'],['Roadshow Pembinaan di Puskesmas Salo','6 Agustus 2026','Kegiatan','Kunjungan kerja dan penguatan layanan kesehatan primer.']];
+const facilities=[
+  ['Suppa','Suppa','dr. MUHAMMAD LUTFY','Gemas (Gerakan Masyarakat Sehat), Suka Kesorga','Sanitarian ODF 100% 2019','Jl. A. Monjong Wanuae, Kel. Wt. Suppa'],
+  ['Mattiro Deceng','Tiroang','MAIPA DARMA TANDIASSANG, S.ST','Tinta Kesorga, Mama Penting, Macenning','Juara 1 Puskesmas Berprestasi Sulsel 2014','Jln. Poros Pinrang – Sidrap KM 7 Kec. Tiroang'],
+  ['Lanrisang','Lanrisang','drg. BERTHA YESTIANI, M.Kes','SAMAWA (Sehatkan & Mandiri ODGJ), Lanrisang Cekal Stunting','Inovasi ODGJ Mandiri','Jln. Poros Jampue Pinrang'],
+  ['Mattiro Bulu','Mattiro Bulu','drg. TULADA, M.Kes','Gema Takbir (Gerakan Masy Tak Biasa Merokok)','Terbaik I CPP Thn 2015','Jln. Poros Pinrang-Pare'],
+  ['Teppo','Patampanua','drg. Hj. RUSDIAH','Teppo Peduli Sehat Mandiri','Pelayanan Primer Unggulan','Kecamatan Patampanua'],
+  ['Batulappa','Batulappa','AMRULLAH, SKM., M.Kes','Batulappa Bergerak Sehat, GERMAS Terpadu','Puskesmas Ramah Warga','Kecamatan Batulappa'],
+  ['Cempa','Cempa','dr. H. ANDI HASNAWI','Cempa Sehat Mandiri','Pelayanan Prima Kecamatan','Kecamatan Cempa'],
+  ['Sulili','Paleteang','dr. H. RIDWAN','Sulili Peduli Lansia & Balita','Inovasi Posyandu Terintegrasi','Kecamatan Paleteang'],
+  ['Salo','Watang Sawitto','dr. HJ. MARIANI','Salo Cekal PTM, Skrining Berkala','Puskesmas Percontohan Kota','Kecamatan Watang Sawitto'],
+  ['Malimpung','Patampanua','drg. H. JAFAR','Malimpung Tanggap Gizi','Akreditasi Paripurna','Kecamatan Patampanua'],
+  ['Salimbongan','Lembang','dr. ALAMSYAH','Salimbongan Sehat Pelosok','Jangkauan Wilayah Terpencil','Kecamatan Lembang'],
+  ['Sali-Sali','Lembang','dr. FITRIANI','Sali-Sali Siaga Bencana & Sehat','Pelayanan Daerah Pegunungan','Kecamatan Lembang'],
+  ['Tadokkong','Lembang','dr. HASANUDDIN','Tadokkong Peduli Anak Sehat','Pencegahan Stunting Pesisir','Kecamatan Lembang'],
+  ['Tadang Palie','Cempa','drg. NURHAYATI','Tadang Palie Bebas Jentik','Desa Siaga Sehat Mandiri','Kecamatan Cempa'],
+  ['Bungi','Duampanua','dr. H. MUSTAFA','Bungi Bugar & Sehat','Sanitasi Total Berbasis Masyarakat','Kecamatan Duampanua'],
+  ['Lampa','Duampanua','dr. H. SYAMSU ALAM','Lampa Cek Kesehatan Rutin','Puskesmas Tanggap Darurat','Kecamatan Duampanua'],
+  ['Mattombong','Mattiro Sompe','drg. Hj. AISYAH','Mattombong Sehat Pesisir','Pelayanan Prima Nelayan','Kecamatan Mattiro Sompe'],
+  ['Watang Sawitto','Watang Sawitto','dr. Hj. SUHARTI','Watang Sawitto Ramah Lansia','Puskesmas Terbaik Pelayanan Terpadu','Kecamatan Watang Sawitto'],
+  ['Tiroang','Tiroang','dr. H. KASMAN','Tiroang Bebas Rokok & PTM','Pelayanan Kesehatan Holistik','Kecamatan Tiroang']
 ];
-
-const link = (id, label, cls = '') => `<a href="${id}.html" class="${cls}">${label}</a>`;
-
-function getCategoryClass(catName = '') {
-  const c = catName.toLowerCase();
-  if (c.includes('germas')) return 'cat-germas';
-  if (c.includes('kegiatan')) return 'cat-kegiatan';
-  if (c.includes('promosi') || c.includes('promkes')) return 'cat-promkes';
-  if (c.includes('pembinaan')) return 'cat-pembinaan';
-  return 'cat-default';
-}
-
-// ----------------- HEADER DENGAN LOGO PINRANG & KEMENKES BERDAMPINGAN -----------------
-function header(page) {
-  const group = (name, arr) => `
-    <div class="navgroup">
-      <button type="button" aria-haspopup="true" aria-expanded="false">${name} ${ic('down')}</button>
-      <div class="drop">${arr.map(a => link(a[0], a[1])).join('')}</div>
-    </div>`;
-
-  return `
-  <a class="skip" href="#main">Langsung ke konten utama</a>
-  <div class="govbar">
-    <div class="container">
-      <div>Pemerintah Kabupaten Pinrang · Dinas Kesehatan Resmi</div>
-      <div class="right">
-        <a href="https://pinrangkab.go.id/" target="_blank" rel="noopener">Portal Pemkab ${ic('external')}</a>
-        ${link('ppid', 'PPID')}
-        ${link('skm', 'SKM')}
-        ${link('faq', 'Bantuan')}
-      </div>
-    </div>
-  </div>
-  <header class="brandbar">
-    <div class="container">
-      <a class="brand-duo" href="index.html" aria-label="Beranda Dinas Kesehatan Kabupaten Pinrang">
-        <div class="logo-group">
-          <img class="logo-pinrang" src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" title="Pemerintah Kabupaten Pinrang">
-          <span class="logo-divider" aria-hidden="true"></span>
-          <img class="logo-kemenkes" src="assets/kemenkes.jpg" alt="Logo Kementerian Kesehatan RI" title="Kementerian Kesehatan Republik Indonesia">
-        </div>
-        <div class="brand-text">
-          <span class="overline">Pemerintah Kabupaten Pinrang</span>
-          <strong>DINAS KESEHATAN</strong>
-          <small>Portal Informasi & Pelayanan Kesehatan Masyarakat</small>
-        </div>
-      </a>
-      <div class="header-controls">
-        <a class="soft-link" href="puskesmas.html">${ic('pin')} Cari Puskesmas</a>
-        <button class="icon-button" type="button" id="fontToggle" title="Perbesar tulisan" aria-label="Perbesar tulisan">Aa</button>
-        <button class="icon-button" type="button" id="searchToggle" aria-label="Buka pencarian">${ic('search')}</button>
-      </div>
-    </div>
-  </header>
-  <nav class="navwrap" aria-label="Navigasi utama">
-    <div class="container navrow">
-      <div class="navitems">
-        ${link('index', 'Beranda', page === 'index' ? 'active' : '')}
-        ${group('Layanan', [['layanan', 'Layanan Kesehatan'], ['puskesmas', 'Direktori Puskesmas']])}
-        ${link('edukasi', 'Edukasi', page === 'edukasi' ? 'active' : '')}
-        ${link('data', 'Data Kesehatan', page === 'data' ? 'active' : '')}
-        ${link('berita', 'Berita & Kegiatan', page === 'berita' ? 'active' : '')}
-        ${group('Transparansi', [['ppid', 'PPID'], ['publikasi', 'Publikasi & Dokumen'], ['pengumuman', 'Pengumuman Penting'], ['informasi', 'Permohonan Informasi']])}
-        ${group('Tentang Dinas', [['profil', 'Profil Dinas'], ['organisasi', 'Struktur Organisasi'], ['inovasi', 'Inovasi Daerah'], ['galeri', 'Galeri Foto'], ['kontak', 'Kontak']])}
-      </div>
-      <a class="nav-cta" href="pengaduan.html">${ic('message')} Pengaduan</a>
-      <button class="icon-button hamburger" id="mobileToggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false">${ic('menu')}</button>
-    </div>
-    <div class="mobile-nav" id="mobileNav">
-      ${link('index', 'Beranda')}
-      <h4>Layanan</h4>
-      ${link('layanan', 'Layanan Kesehatan')}
-      ${link('puskesmas', 'Direktori Puskesmas')}
-      <h4>Informasi</h4>
-      ${link('berita', 'Berita & Kegiatan')}
-      ${link('edukasi', 'Edukasi Kesehatan')}
-      ${link('data', 'Data Kesehatan')}
-      ${link('galeri', 'Galeri Foto')}
-      <h4>Transparansi & Profil</h4>
-      ${link('ppid', 'PPID')}
-      ${link('profil', 'Profil Dinas')}
-      ${link('organisasi', 'Struktur Organisasi')}
-      ${link('pengaduan', 'Pengaduan')}
-      ${link('kontak', 'Kontak')}
-    </div>
-    <div class="floating-search" id="quickSearch">
-      <div class="container">
-        <form id="quickSearchForm" action="pencarian.html">
-          <input id="quickSearchInput" name="q" type="search" placeholder="Cari Puskesmas, layanan, berita, dokumen…" aria-label="Cari seluruh konten" required>
-          <button class="btn primary" type="submit">${ic('search')} Cari</button>
-        </form>
-      </div>
-    </div>
-  </nav>`;
-}
-
-// ----------------- FOOTER DENGAN LOGO PINRANG & KEMENKES -----------------
-function footer() {
-  return `
-  <footer class="footer">
-    <div class="container">
-      <div class="top">
-        <div>
-          <div class="brand-duo" style="color:#ffffff;">
-            <div class="logo-group" style="background:rgba(255,255,255,0.95);padding:4px 8px;border-radius:8px;">
-              <img class="logo-pinrang" src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" style="height:40px;">
-              <span class="logo-divider" style="height:28px;"></span>
-              <img class="logo-kemenkes" src="assets/kemenkes.jpg" alt="Logo Kementerian Kesehatan" style="height:36px;border-radius:3px;">
-            </div>
-            <div class="brand-text">
-              <span class="overline" style="color:#93c5fd;">Pemerintah Kabupaten Pinrang</span>
-              <strong style="color:#ffffff;font-size:18px;">DINAS KESEHATAN</strong>
-              <small style="color:#cbd5e1;">Portal Informasi & Pelayanan Masyarakat</small>
-            </div>
-          </div>
-          <p class="mt-20" style="color:#cbd5e1;line-height:1.6;font-size:13.5px;">
-            Jl. Jenderal Sukawati, Kabupaten Pinrang, Sulawesi Selatan 91212.<br>
-            Kanal Pengaduan & Informasi WhatsApp: +62 853-4217-2724
-          </p>
-          <p><span class="tag" style="background:#078d90;color:#fff;">Membawahi 19 UPTD Puskesmas Resmi</span></p>
-        </div>
-        <div>
-          <h3>Layanan Masyarakat</h3>
-          ${link('layanan', 'Standar & Layanan Kesehatan')}
-          ${link('puskesmas', 'Direktori 19 Puskesmas')}
-          ${link('edukasi', 'Edukasi Kesehatan')}
-          ${link('pengaduan', 'Kanal Pengaduan Resmi')}
-        </div>
-        <div>
-          <h3>Transparansi Publik</h3>
-          ${link('ppid', 'Layanan PPID')}
-          ${link('publikasi', 'Dokumen Kinerja (IKU, Renja, LKjIP)')}
-          ${link('pengumuman', 'Pengumuman Resmi')}
-          ${link('data', 'Data & Indikator Kesehatan')}
-          ${link('inovasi', 'Inovasi Puskesmas Daerah')}
-        </div>
-        <div>
-          <h3>Rujukan Resmi</h3>
-          <a href="https://pinrangkab.go.id/" target="_blank" rel="noopener">Portal Pemkab Pinrang</a>
-          <a href="https://satusehat.kemkes.go.id/" target="_blank" rel="noopener">SATUSEHAT Kemenkes RI</a>
-          <a href="https://www.lapor.go.id/" target="_blank" rel="noopener">SP4N-LAPOR!</a>
-          <a href="https://ayosehat.kemkes.go.id/" target="_blank" rel="noopener">Ayo Sehat Kemenkes</a>
-        </div>
-      </div>
-      <div class="copy">
-        <span>© 2026 Dinas Kesehatan Pemerintah Kabupaten Pinrang. Seluruh hak cipta dilindungi.</span>
-        <span>${link('privasi', 'Kebijakan Privasi')} · ${link('aksesibilitas', 'Aksesibilitas')} · ${link('peta-situs', 'Peta Situs')}</span>
-      </div>
-    </div>
-  </footer>`;
-}
-
-function pageHero(page, kicker, title, desc) {
-  const iconName = ({
-    profil: 'people', organisasi: 'layers', layanan: 'heart', 'layanan-detail': 'clipboard',
-    puskesmas: 'hospital', 'puskesmas-detail': 'pin', edukasi: 'book', 'edukasi-detail': 'bulb',
-    berita: 'news', 'berita-detail': 'news', galeri: 'camera', data: 'chart', indikator: 'bars',
-    publikasi: 'file', ppid: 'shield', informasi: 'file', pengaduan: 'message', kontak: 'pin',
-    inovasi: 'bulb', faq: 'info', pencarian: 'search', 'peta-situs': 'layers', privasi: 'lock',
-    aksesibilitas: 'heart', skm: 'star', pengumuman: 'bell', 'tidak-ditemukan': 'search'
-  })[page] || 'heart';
-
-  const routeItem = ROUTES.find(r => r[0] === page);
-  const pageTitle = routeItem ? routeItem[1] : page;
-
-  return `
-  <section class="pagehero v4-pagehero">
-    <div class="container">
-      <div class="crumbs">
-        <a href="index.html">Beranda</a>${ic('chevron')}
-        <span aria-current="page">${pageTitle}</span>
-      </div>
-      <div class="wrap">
-        <div class="pagehero-copy">
-          <span class="tinycap">${kicker}</span>
-          <h1>${title}</h1>
-          <p>${desc}</p>
-        </div>
-        <div class="pagehero-visual" aria-hidden="true">
-          <span class="visual-ring ring-one"></span>
-          <span class="visual-ring ring-two"></span>
-          <span class="pagehero-icon">${ic(iconName)}</span>
-          <span class="decor-dot d1"></span>
-          <span class="decor-dot d2"></span>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-// ----------------- RENDER HALAMAN BERANDA -----------------
-async function renderHome() {
-  const articles = await DataService.getArticles();
-  const puskesmas = await DataService.getPuskesmasList();
-  const latestArticles = articles.slice(0, 4);
-
-  const heroArticle = latestArticles[0] || {
-    id: '4505',
-    title: 'Kecamatan Batulappa Jadi Penutup Rangkaian Kampanye GERMAS Dinkes Pinrang, Dorong Masyarakat Lakukan Deteksi Dini',
-    excerpt: 'Tim Kerja Promosi Kesehatan dan Pemberdayaan Masyarakat Dinas Kesehatan Kabupaten Pinrang sukses menuntaskan rangkaian Kampanye GERMAS di 12 kecamatan...',
-    published_at: '23 Oktober 2026',
-    author: 'Muhammad Rusdi',
-    category: 'Kegiatan',
-    featured_image: 'assets/puskesmas.png'
-  };
-
-  const sideArticles = latestArticles.slice(1, 4);
-
-  return `
-  <div class="v4-breaking">
-    <div class="container v4-breaking-inner">
-      <span class="v4-breaking-label">${ic('bell')} INFORMASI RESMI</span>
-      <span>Portal Terpadu Dinas Kesehatan Kabupaten Pinrang — Akses 19 UPTD Puskesmas, Edukasi, dan Publikasi Kinerja Daerah.</span>
-      <a href="pengumuman.html">Lihat pengumuman ${ic('arrow')}</a>
-    </div>
-  </div>
-
-  <section class="v4-mainstage">
-    <div class="container v4-stage-grid">
-      <div class="v4-feature-rail" aria-roledescription="carousel" aria-label="Sorotan utama portal kesehatan">
-        <div class="v4-feature-slide is-active" data-slide="0">
-          <div class="v4-feature-inner">
-            <div class="v4-feature-deco" aria-hidden="true">
-              <span class="v4-cross">+</span><span class="v4-circle"></span><span class="v4-checkpulse">${ic('activity')}</span>
-            </div>
-            <span class="v4-feature-kicker">PELAYANAN KESEHATAN PRIMER</span>
-            <h1>Lebih dekat dengan <em>layanan kesehatan Pinrang.</em></h1>
-            <p>Temukan informasi lengkap 19 UPTD Puskesmas di 12 kecamatan, standar pelayanan medis, dan program Cek Kesehatan Gratis.</p>
-            <a class="v4-feature-action" href="puskesmas.html">Temukan 19 Puskesmas ${ic('arrow')}</a>
-          </div>
-        </div>
-        <div class="v4-feature-slide" data-slide="1" hidden>
-          <div class="v4-feature-inner">
-            <div class="v4-feature-deco" aria-hidden="true">
-              <span class="v4-cross">+</span><span class="v4-circle"></span><span class="v4-checkpulse">${ic('book')}</span>
-            </div>
-            <span class="v4-feature-kicker">GERAKAN MASYARAKAT HIDUP SEHAT</span>
-            <h2>Informasi tepercaya, <em>keluarga Pinrang lebih sehat.</em></h2>
-            <p>Panduan gizi seimbang, imunisasi lengkap, pencegahan stunting, serta deteksi dini penyakit tidak menular.</p>
-            <a class="v4-feature-action" href="edukasi.html">Jelajahi Panduan Edukasi ${ic('arrow')}</a>
-          </div>
-        </div>
-        <div class="v4-feature-slide" data-slide="2" hidden>
-          <div class="v4-feature-inner">
-            <div class="v4-feature-deco" aria-hidden="true">
-              <span class="v4-cross">+</span><span class="v4-circle"></span><span class="v4-checkpulse">${ic('shield')}</span>
-            </div>
-            <span class="v4-feature-kicker">TRANSPARANSI & AKUNTABILITAS</span>
-            <h2>Data terbuka, <em>layanan publik akuntabel.</em></h2>
-            <p>Akses dokumen Indikator Kinerja Utama (IKU), LKjIP, Renja, serta layanan permohonan informasi PPID.</p>
-            <a class="v4-feature-action" href="ppid.html">Layanan Informasi PPID ${ic('arrow')}</a>
-          </div>
-        </div>
-        <div class="v4-stage-controls">
-          <div class="v4-slide-dots" role="group" aria-label="Pilih sorotan">
-            <button type="button" class="active" data-slide-to="0" aria-label="Sorotan 1" aria-current="true">01</button>
-            <button type="button" data-slide-to="1" aria-label="Sorotan 2">02</button>
-            <button type="button" data-slide-to="2" aria-label="Sorotan 3">03</button>
-          </div>
-          <div class="v4-arrow-controls">
-            <button type="button" class="v4-circle-btn" data-slide-step="-1" aria-label="Sorotan sebelumnya">${ic('arrow')}</button>
-            <button type="button" class="v4-circle-btn" data-slide-step="1" aria-label="Sorotan berikutnya">${ic('arrow')}</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="v4-stage-side">
-        <a class="v4-spotlight v4-spotlight-cyan" href="layanan-detail.html">
-          <span class="v4-spot-top"><span>PROGRAM UNGGULAN</span>${ic('arrow')}</span>
-          <div class="v4-spot-icon">${ic('heart')}</div>
-          <h2>Cek Kesehatan Gratis</h2>
-          <p>Skrining kesehatan rutin di Puskesmas untuk deteksi dini risiko PTM.</p>
-        </a>
-        <a class="v4-spotlight v4-spotlight-violet" href="berita.html">
-          <span class="v4-spot-top"><span>KABAR TERBARU</span>${ic('arrow')}</span>
-          <div class="v4-spot-icon">${ic('news')}</div>
-          <h2>Kiprah & Kegiatan Dinas</h2>
-          <p>Pantau kegiatan dinas di 12 kecamatan se-Kabupaten Pinrang.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="v4-search-zone">
-    <div class="container">
-      <form class="v4-search-box" role="search" action="pencarian.html">
-        <span class="v4-search-icon">${ic('search')}</span>
-        <div class="v4-search-content">
-          <label for="v4Search">Sedang mencari informasi atau layanan apa?</label>
-          <input id="v4Search" name="q" type="search" placeholder="Cari nama Puskesmas, imunisasi, izin SPP-IRT, dokumen IKU…" autocomplete="off" required>
-        </div>
-        <button class="btn primary" type="submit">Cari informasi ${ic('arrow')}</button>
-      </form>
-      <div class="v4-search-chips">
-        <span>Pencarian Cepat:</span>
-        <a href="puskesmas.html">Puskesmas Suppa</a>
-        <a href="puskesmas.html">Puskesmas Lanrisang</a>
-        <a href="layanan-detail.html">Izin SPP-IRT</a>
-        <a href="layanan.html">Cek Kesehatan Gratis</a>
-        <a href="publikasi.html">Dokumen Kinerja LKjIP</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Bento Layanan Cepat -->
-  <section class="v4-section v4-service-area" id="layanan-utama">
-    <div class="container">
-      <div class="v4-section-head">
-        <div>
-          <span class="v4-overline">AKSES CEPAT WARGA</span>
-          <h2>Informasi dan Layanan Publik, <span>Lebih Mudah.</span></h2>
-          <p>Pilih kategori kebutuhan Anda melalui layanan dengan tata letak terstruktur.</p>
-        </div>
-        <a href="layanan.html" class="v4-text-link">Semua layanan ${ic('arrow')}</a>
-      </div>
-      <div class="v4-bento-services">
-        <a href="puskesmas.html" class="v4-bento-card bento-cyan bento-wide">
-          <div class="v4-bento-badge">Fasilitas Kesehatan Resmi</div>
-          <div class="v4-bento-icon-lg" style="background:#ffffff;padding:8px;border-radius:16px;">
-            <img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:100%;height:100%;object-fit:contain;">
-          </div>
-          <h3>Direktori 19 Puskesmas</h3>
-          <p>Alamat pos, nama kepala puskesmas, dan inovasi pelayanan di 12 kecamatan se-Pinrang.</p>
-          <span class="v4-bento-btn">Buka Direktori ${ic('arrow')}</span>
-        </a>
-        <a href="layanan.html" class="v4-bento-card bento-teal">
-          <div class="v4-bento-icon">${ic('clipboard')}</div>
-          <h3>Standar & SOP Pelayanan</h3>
-          <p>Syarat izin praktik nakes, sertifikasi pangan IRT, rekomendasi klinik & apotek.</p>
-          <span class="v4-bento-btn">Lihat Standar ${ic('arrow')}</span>
-        </a>
-        <a href="edukasi.html" class="v4-bento-card bento-violet">
-          <div class="v4-bento-icon">${ic('book')}</div>
-          <h3>Edukasi Kesehatan</h3>
-          <p>Panduan gizi seimbang, pencegahan stunting, PHBS, serta imunisasi anak.</p>
-          <span class="v4-bento-btn">Baca Edukasi ${ic('arrow')}</span>
-        </a>
-        <a href="data.html" class="v4-bento-card bento-amber">
-          <div class="v4-bento-icon">${ic('chart')}</div>
-          <h3>Data & Indikator</h3>
-          <p>Capaian imunisasi, persalinan faskes, stunting, dan status ODF 100%.</p>
-          <span class="v4-bento-btn">Eksplorasi Data ${ic('arrow')}</span>
-        </a>
-        <a href="publikasi.html" class="v4-bento-card bento-blue">
-          <div class="v4-bento-icon">${ic('file')}</div>
-          <h3>Dokumen & PPID</h3>
-          <p>Akses berkas Renja, Renstra, Laporan Kinerja Instansi Pemerintah (LKjIP).</p>
-          <span class="v4-bento-btn">Unduh Dokumen ${ic('arrow')}</span>
-        </a>
-        <a href="pengaduan.html" class="v4-bento-card bento-coral">
-          <div class="v4-bento-icon">${ic('message')}</div>
-          <h3>Kanal Pengaduan Warga</h3>
-          <p>Sampaikan aspirasi dan laporan melalui integrasi SP4N-LAPOR! dan WhatsApp.</p>
-          <span class="v4-bento-btn">Kirim Aduan ${ic('arrow')}</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Berita Unggulan Bergaya Editorial -->
-  <section class="v4-section v4-news-strip" style="background:#f8fafc;">
-    <div class="container">
-      <div class="v4-section-head">
-        <div>
-          <span class="v4-overline">DOKUMENTASI & KABAR DAERAH</span>
-          <h2>Berita dan Kegiatan <span>Terkini.</span></h2>
-          <p>Kabar resmi seputar gerakan kesehatan masyarakat dan pembinaan UPTD di Pinrang.</p>
-        </div>
-        <a href="berita.html" class="v4-text-link">Semua berita (${articles.length}) ${ic('arrow')}</a>
-      </div>
-
-      <!-- Lead Story Card -->
-      <article class="editorial-lead-card">
-        <div class="lead-thumb">
-          <img src="${heroArticle.featured_image || 'assets/puskesmas.png'}" alt="${heroArticle.title}" loading="lazy">
-          <span class="cat-badge ${getCategoryClass(heroArticle.category)}" style="position:absolute;top:16px;left:16px;">
-            ${heroArticle.category || 'Kegiatan'}
-          </span>
-        </div>
-        <div class="lead-body">
-          <span class="lead-badge">${ic('news')} BERITA UTAMA HARI INI</span>
-          <h2><a href="berita-detail.html?id=${heroArticle.id}">${heroArticle.title}</a></h2>
-          <p class="lead-excerpt">${heroArticle.excerpt}</p>
-          <div class="lead-meta">
-            <span>${ic('calendar')} ${heroArticle.published_at}</span>
-            <span>${ic('user')} ${heroArticle.author}</span>
-            <a href="berita-detail.html?id=${heroArticle.id}" class="v4-readmore" style="margin-left:auto;">
-              Baca Selengkapnya ${ic('arrow')}
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3 Kartu Berita Sekunder -->
-      <div class="news-grid-pro" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
-        ${sideArticles.map(art => `
-          <article class="news-card-pro">
-            <div class="thumb-wrap">
-              <img src="${art.featured_image || 'assets/puskesmas.png'}" alt="${art.title}" loading="lazy">
-              <span class="cat-badge ${getCategoryClass(art.category)}">${art.category || 'Berita'}</span>
-            </div>
-            <div class="card-content">
-              <div class="card-meta">
-                <span>${ic('calendar')} ${art.published_at}</span>
-                <span>${ic('clock')} 3 mnt baca</span>
-              </div>
-              <h3><a href="berita-detail.html?id=${art.id}">${art.title}</a></h3>
-              <p class="snippet">${art.excerpt}</p>
-              <div class="card-footer">
-                <span class="author-info">${ic('user')} ${art.author}</span>
-                <a href="berita-detail.html?id=${art.id}" class="read-action">Baca ${ic('arrow')}</a>
-              </div>
-            </div>
-          </article>
-        `).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- Panel Data Kontras Navy -->
-  <section class="v4-section v4-data-panel">
-    <div class="container">
-      <div class="v4-panel-head">
-        <div>
-          <span class="v4-overline-light">SATU DATA KESEHATAN KABUPATEN PINRANG</span>
-          <h2>Akuntabilitas Capaian & Indikator Kinerja</h2>
-          <p>Data agregat resmi sektor kesehatan untuk mewujudkan transparansi tata kelola.</p>
-        </div>
-        <a href="data.html" class="btn secondary">Lihat Indikator Lengkap ${ic('arrow')}</a>
-      </div>
-      <div class="v4-data-cards">
-        <div class="v4-data-card">
-          <span class="v4-data-number">19</span>
-          <span class="v4-data-label">UPTD Puskesmas Aktif</span>
-          <p>Melayani seluruh warga di 12 kecamatan dengan ragam inovasi promotif & kuratif.</p>
-        </div>
-        <div class="v4-data-card">
-          <span class="v4-data-number">100%</span>
-          <span class="v4-data-label">Status ODF (Stop BABS)</span>
-          <p>Kabupaten Pinrang meraih predikat bebas buang air besar sembarangan secara paripurna.</p>
-        </div>
-        <div class="v4-data-card">
-          <span class="v4-data-number">88.75</span>
-          <span class="v4-data-label">Indeks Kepuasan Masyarakat</span>
-          <p>Predikat Sangat Puas pada standar mutu pelayanan kesehatan publik daerah.</p>
-        </div>
-        <div class="v4-data-card">
-          <span class="v4-data-number">96.4%</span>
-          <span class="v4-data-label">Cakupan Imunisasi Dasar</span>
-          <p>Perlindungan anak dari penyakit menular melampaui target nasional.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Faskes Puskesmas dengan Logo Resmi Puskesmas -->
-  <section class="v4-section">
-    <div class="container">
-      <div class="v4-section-head">
-        <div>
-          <span class="v4-overline">PELAYANAN KESEHATAN TERDEKAT</span>
-          <h2>19 UPTD Puskesmas Kabupaten Pinrang</h2>
-          <p>Fasilitas kesehatan tingkat pertama resmi dengan inovasi pelayanan masyarakat.</p>
-        </div>
-        <a href="puskesmas.html" class="v4-text-link">Semua 19 Puskesmas ${ic('arrow')}</a>
-      </div>
-      <div class="grid grid-3">
-        ${puskesmas.slice(0, 3).map(p => `
-          <div class="pkm-card-pro">
-            <div class="pkm-header">
-              <div class="pkm-logo-box">
-                <img src="assets/puskesmas.png" alt="Logo Puskesmas">
-              </div>
-              <div class="pkm-title-group">
-                <span class="pkm-kecamatan-tag">Kecamatan ${p.kecamatan}</span>
-                <h3>${p.name}</h3>
-              </div>
-            </div>
-            <div class="pkm-body">
-              <div class="pkm-head-officer">
-                <span>${ic('user')}</span>
-                <div>
-                  <small style="color:#64748b;display:block;">Kepala UPTD:</small>
-                  <strong>${p.head}</strong>
-                </div>
-              </div>
-              <p style="font-size:13px;color:#64748b;margin-bottom:12px;">${ic('pin')} ${p.address}</p>
-              ${p.innovations && p.innovations.length ? `
-                <div class="pkm-innovations">
-                  <span class="pkm-innovations-title">${ic('bulb')} Inovasi Unggulan:</span>
-                  <ul>
-                    ${p.innovations.slice(0, 2).map(inv => `<li>${inv}</li>`).join('')}
-                  </ul>
-                </div>
-              ` : ''}
-            </div>
-            <div class="pkm-footer">
-              <a href="puskesmas-detail.html?id=${p.id}" class="btn primary" style="width:100%;justify-content:center;">
-                Lihat Profil Faskes ${ic('arrow')}
-              </a>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  </section>
-  `;
-}
-
-// ----------------- RENDER HALAMAN BERITA EDITORIAL MODERN -----------------
-async function renderBerita() {
-  const articles = await DataService.getArticles();
-  const urlParams = new URLSearchParams(window.location.search);
-  const selectedCat = urlParams.get('kategori') || 'semua';
-  const pageNum = parseInt(urlParams.get('hal') || '1', 10);
-  const perPage = 9;
-
-  let filtered = articles;
-  if (selectedCat !== 'semua') {
-    filtered = articles.filter(a => 
-      (a.category && a.category.toLowerCase().includes(selectedCat.toLowerCase())) || 
-      (a.categories && a.categories.some(c => c.toLowerCase().includes(selectedCat.toLowerCase())))
-    );
-  }
-
-  const totalPages = Math.ceil(filtered.length / perPage) || 1;
-  const startIdx = (pageNum - 1) * perPage;
-  const leadArticle = pageNum === 1 ? filtered[0] : null;
-  const gridArticles = pageNum === 1 ? filtered.slice(1, perPage) : filtered.slice(startIdx, startIdx + perPage);
-
-  return `
-  ${pageHero('berita', 'DOKUMENTASI KEGIATAN & SIARAN PERS', 'Berita & Kegiatan Dinas Kesehatan', 'Informasi terkini kegiatan kampanye GERMAS, pembinaan UPTD Puskesmas, dan edukasi kesehatan di Pinrang.')}
-  <section class="v4-section" style="background:#f8fafc;padding-top:30px;">
-    <div class="container">
-      <div class="heading-split" style="margin-bottom:30px;background:#ffffff;padding:16px 20px;border-radius:14px;border:1px solid #e2e8f0;">
-        <div class="v4-search-chips" style="gap:8px;">
-          <span style="font-weight:700;">Filter Kategori:</span>
-          <a href="berita.html?kategori=semua" class="${selectedCat === 'semua' ? 'active-chip' : ''}">Semua (${articles.length})</a>
-          <a href="berita.html?kategori=kegiatan" class="${selectedCat === 'kegiatan' ? 'active-chip' : ''}">Kegiatan</a>
-          <a href="berita.html?kategori=germas" class="${selectedCat === 'germas' ? 'active-chip' : ''}">GERMAS</a>
-          <a href="berita.html?kategori=promosi" class="${selectedCat === 'promosi' ? 'active-chip' : ''}">Promosi Kesehatan</a>
-          <a href="berita.html?kategori=pembinaan" class="${selectedCat === 'pembinaan' ? 'active-chip' : ''}">Pembinaan</a>
-        </div>
-        <form action="pencarian.html" style="display:flex;gap:8px;">
-          <input type="search" name="q" placeholder="Cari topik berita…" style="padding:8px 14px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;width:200px;">
-          <button type="submit" class="btn primary" style="padding:8px 14px;">${ic('search')}</button>
-        </form>
-      </div>
-
-      <!-- Lead Story Card (Khusus Halaman 1) -->
-      ${leadArticle ? `
-        <article class="editorial-lead-card">
-          <div class="lead-thumb">
-            <img src="${leadArticle.featured_image || 'assets/puskesmas.png'}" alt="${leadArticle.title}" loading="lazy">
-            <span class="cat-badge ${getCategoryClass(leadArticle.category)}" style="position:absolute;top:16px;left:16px;">
-              ${leadArticle.category || 'Kegiatan'}
-            </span>
-          </div>
-          <div class="lead-body">
-            <span class="lead-badge">${ic('star')} SOROTAN UTAMA REDAKSI</span>
-            <h2><a href="berita-detail.html?id=${leadArticle.id}">${leadArticle.title}</a></h2>
-            <p class="lead-excerpt">${leadArticle.excerpt}</p>
-            <div class="lead-meta">
-              <span>${ic('calendar')} ${leadArticle.published_at}</span>
-              <span>${ic('user')} ${leadArticle.author}</span>
-              <a href="berita-detail.html?id=${leadArticle.id}" class="v4-readmore" style="margin-left:auto;">
-                Baca Ulasan Lengkap ${ic('arrow')}
-              </a>
-            </div>
-          </div>
-        </article>
-      ` : ''}
-
-      <!-- Grid Berita Pro -->
-      <div class="news-grid-pro">
-        ${gridArticles.map(art => `
-          <article class="news-card-pro">
-            <div class="thumb-wrap">
-              <img src="${art.featured_image || 'assets/puskesmas.png'}" alt="${art.title}" loading="lazy">
-              <span class="cat-badge ${getCategoryClass(art.category)}">${art.category || 'Berita'}</span>
-            </div>
-            <div class="card-content">
-              <div class="card-meta">
-                <span>${ic('calendar')} ${art.published_at}</span>
-                <span>${ic('clock')} 3 mnt baca</span>
-              </div>
-              <h3><a href="berita-detail.html?id=${art.id}">${art.title}</a></h3>
-              <p class="snippet">${art.excerpt}</p>
-              <div class="card-footer">
-                <span class="author-info">${ic('user')} ${art.author}</span>
-                <a href="berita-detail.html?id=${art.id}" class="read-action">Baca ${ic('arrow')}</a>
-              </div>
-            </div>
-          </article>
-        `).join('')}
-      </div>
-
-      <!-- Pagination Pro -->
-      <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:48px;">
-        ${pageNum > 1 ? `<a href="berita.html?kategori=${selectedCat}&hal=${pageNum - 1}" class="btn secondary">« Halaman Sebelumnya</a>` : ''}
-        <span style="display:inline-flex;align-items:center;padding:8px 18px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-weight:700;font-size:14px;color:#1e293b;">
-          Halaman ${pageNum} dari ${totalPages} (${filtered.length} Berita)
-        </span>
-        ${pageNum < totalPages ? `<a href="berita.html?kategori=${selectedCat}&hal=${pageNum + 1}" class="btn primary">Halaman Berikutnya »</a>` : ''}
-      </div>
-    </div>
-  </section>`;
-}
-
-// ----------------- RENDER SINGLE POST / DETAIL BERITA EDITORIAL -----------------
-async function renderBeritaDetail() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const idOrSlug = urlParams.get('id') || urlParams.get('slug') || '4505';
-  const article = await DataService.getArticleById(idOrSlug);
-  const allArticles = await DataService.getArticles();
-  const relatedArticles = allArticles.filter(a => String(a.id) !== String(article?.id)).slice(0, 3);
-
-  if (!article) {
-    return `
-    ${pageHero('berita', 'BERITA TIDAK DITEMUKAN', 'Artikel Tidak Ditemukan', 'Maaf, artikel yang Anda cari tidak tersedia.')}
-    <div class="container text-center py-60">
-      <p>Artikel dengan identifikasi tersebut tidak ditemukan di arsip publik.</p>
-      <a href="berita.html" class="btn primary mt-20">Kembali ke Daftar Berita</a>
-    </div>`;
-  }
-
-  const shareText = encodeURIComponent(`${article.title} - Dinas Kesehatan Kabupaten Pinrang`);
-  const shareUrl = encodeURIComponent(window.location.href);
-
-  return `
-  <section class="pagehero v4-pagehero" style="padding-bottom:20px;">
-    <div class="container">
-      <div class="crumbs">
-        <a href="index.html">Beranda</a>${ic('chevron')}
-        <a href="berita.html">Berita & Kegiatan</a>${ic('chevron')}
-        <span aria-current="page">${article.category}</span>
-      </div>
-    </div>
-  </section>
-
-  <main class="container py-20" style="max-width:1000px;">
-    <!-- Editorial Post Header -->
-    <header class="editorial-post-header">
-      <span class="post-tag-pill">${ic('news')} ${article.category.toUpperCase()}</span>
-      <h1 class="post-title">${article.title}</h1>
-      
-      <!-- Bar Penulis & Waktu -->
-      <div class="editorial-author-bar">
-        <div class="author-profile">
-          <div class="author-avatar">${article.author.charAt(0)}</div>
-          <div class="author-details">
-            <strong>${article.author}</strong>
-            <small>Redaksi Media Informasi Dinas Kesehatan Pinrang · ${article.published_at}</small>
-          </div>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:12.5px;padding:7px 12px;background:#25D366;color:#ffffff;border-color:#25D366;">
-            ${ic('phone')} WhatsApp
-          </a>
-          <button type="button" class="btn secondary" style="font-size:12.5px;padding:7px 12px;" onclick="navigator.clipboard.writeText(window.location.href);alert('Tautan berita berhasil disalin ke clipboard!');">
-            ${ic('clipboard')} Salin Tautan
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Gambar Unggulan Utama -->
-    ${article.featured_image ? `
-      <figure class="article-hero-media">
-        <img src="${article.featured_image}" alt="${article.title}">
-        <figcaption>Dokumentasi resmi liputan kegiatan Dinas Kesehatan Kabupaten Pinrang.</figcaption>
-      </figure>
-    ` : ''}
-
-    <!-- Isi Bacaan Editorial -->
-    <div class="editorial-reading-container">
-      ${article.content_html || `<p>${article.excerpt}</p>`}
-    </div>
-
-    <!-- Tombol Navigasi Bawah & Share -->
-    <div style="max-width:820px;margin:50px auto 40px;padding:24px;background:#f8fafc;border-radius:16px;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap:16px;">
-      <div>
-        <h4 style="margin:0 0 4px;font-size:15px;color:#0f172a;">Bagikan artikel ini:</h4>
-        <small style="color:#64748b;">Dukung penyebarluasan informasi kesehatan masyarakat Kabupaten Pinrang.</small>
-      </div>
-      <div style="display:flex;gap:10px;">
-        <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener" class="btn primary" style="background:#25D366;border-color:#25D366;">
-          ${ic('phone')} Bagikan ke WhatsApp
-        </a>
-        <a href="berita.html" class="btn secondary">
-          ${ic('arrow')} Indeks Berita
-        </a>
-      </div>
-    </div>
-
-    <!-- Rekomendasi Berita Terkait -->
-    <section style="margin-top:60px;padding-top:40px;border-top:2px solid #e2e8f0;">
-      <div class="heading-split" style="margin-bottom:24px;">
-        <div>
-          <span class="v4-overline">BACA JUGA</span>
-          <h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:4px 0 0;">Berita & Kegiatan Terkait</h2>
-        </div>
-        <a href="berita.html" class="v4-text-link">Semua berita ${ic('arrow')}</a>
-      </div>
-      <div class="news-grid-pro" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
-        ${relatedArticles.map(art => `
-          <article class="news-card-pro">
-            <div class="thumb-wrap">
-              <img src="${art.featured_image || 'assets/puskesmas.png'}" alt="${art.title}" loading="lazy">
-              <span class="cat-badge ${getCategoryClass(art.category)}">${art.category}</span>
-            </div>
-            <div class="card-content">
-              <div class="card-meta">
-                <span>${ic('calendar')} ${art.published_at}</span>
-              </div>
-              <h3 style="font-size:15px;"><a href="berita-detail.html?id=${art.id}">${art.title}</a></h3>
-              <div class="card-footer" style="margin-top:auto;">
-                <a href="berita-detail.html?id=${art.id}" class="read-action">Baca Ulasan ${ic('arrow')}</a>
-              </div>
-            </div>
-          </article>
-        `).join('')}
-      </div>
-    </section>
-  </main>`;
-}
-
-// ----------------- RENDER DIREKTORI PUSKESMAS DENGAN LOGO RESMI PUSKESMAS -----------------
-async function renderPuskesmas() {
-  const puskesmas = await DataService.getPuskesmasList();
-  const urlParams = new URLSearchParams(window.location.search);
-  const selectedKec = urlParams.get('kecamatan') || 'semua';
-
-  let filtered = puskesmas;
-  if (selectedKec !== 'semua') {
-    filtered = puskesmas.filter(p => p.kecamatan.toLowerCase() === selectedKec.toLowerCase());
-  }
-
-  const kecamatanList = Array.from(new Set(puskesmas.map(p => p.kecamatan))).sort();
-
-  return `
-  ${pageHero('puskesmas', 'FASILITAS PELAYANAN KESEHATAN TINGKAT PERTAMA', 'Direktori 19 UPTD Puskesmas', 'Temukan Puskesmas terdekat di 12 kecamatan Kabupaten Pinrang beserta dokter/kepala, inovasi program, dan pelayanannya.')}
-  <section class="v4-section" style="background:#f8fafc;padding-top:30px;">
-    <div class="container">
-      <div class="heading-split" style="margin-bottom:30px;background:#ffffff;padding:16px 20px;border-radius:14px;border:1px solid #e2e8f0;">
-        <div class="v4-search-chips" style="gap:8px;">
-          <span style="font-weight:700;">Filter Kecamatan:</span>
-          <a href="puskesmas.html?kecamatan=semua" class="${selectedKec === 'semua' ? 'active-chip' : ''}">Semua Wilayah (${puskesmas.length})</a>
-          ${kecamatanList.map(kec => `
-            <a href="puskesmas.html?kecamatan=${encodeURIComponent(kec)}" class="${selectedKec.toLowerCase() === kec.toLowerCase() ? 'active-chip' : ''}">${kec}</a>
-          `).join('')}
-        </div>
-      </div>
-
-      <div class="grid grid-3">
-        ${filtered.map(p => `
-          <div class="pkm-card-pro">
-            <div class="pkm-header">
-              <div class="pkm-logo-box">
-                <img src="assets/puskesmas.png" alt="Logo Resmi Puskesmas">
-              </div>
-              <div class="pkm-title-group">
-                <span class="pkm-kecamatan-tag">Kecamatan ${p.kecamatan}</span>
-                <h3>${p.name}</h3>
-              </div>
-            </div>
-            <div class="pkm-body">
-              <div class="pkm-head-officer">
-                <span>${ic('user')}</span>
-                <div>
-                  <small style="color:#64748b;display:block;">Kepala UPTD:</small>
-                  <strong>${p.head}</strong>
-                </div>
-              </div>
-              <p style="font-size:13px;color:#64748b;margin-bottom:14px;">${ic('pin')} ${p.address}</p>
-              ${p.innovations && p.innovations.length ? `
-                <div class="pkm-innovations">
-                  <span class="pkm-innovations-title">${ic('bulb')} Inovasi Unggulan:</span>
-                  <ul>
-                    ${p.innovations.slice(0, 3).map(inv => `<li>${inv}</li>`).join('')}
-                  </ul>
-                </div>
-              ` : ''}
-              ${p.awards && p.awards.length ? `
-                <div style="font-size:12px;color:#b45309;background:#fef3c7;padding:6px 10px;border-radius:6px;margin-bottom:12px;">
-                  🏆 <strong>Penghargaan:</strong> ${p.awards[0]}
-                </div>
-              ` : ''}
-            </div>
-            <div class="pkm-footer">
-              <a href="puskesmas-detail.html?id=${p.id}" class="btn primary" style="width:100%;justify-content:center;">
-                Lihat Detail & Layanan ${ic('arrow')}
-              </a>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  </section>`;
-}
-
-// ----------------- RENDER DETAIL PUSKESMAS DENGAN LOGO RESMI PUSKESMAS -----------------
-async function renderPuskesmasDetail() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const idOrSlug = urlParams.get('id') || 'pkm-01';
-  const pkm = await DataService.getPuskesmasById(idOrSlug);
-
-  if (!pkm) {
-    return `
-    ${pageHero('puskesmas', 'PUSKESMAS TIDAK DITEMUKAN', 'Puskesmas Tidak Ditemukan', '')}
-    <div class="container text-center py-60">
-      <a href="puskesmas.html" class="btn primary">Kembali ke Direktori Puskesmas</a>
-    </div>`;
-  }
-
-  return `
-  <section class="pagehero v4-pagehero">
-    <div class="container">
-      <div class="crumbs">
-        <a href="index.html">Beranda</a>${ic('chevron')}
-        <a href="puskesmas.html">Direktori Puskesmas</a>${ic('chevron')}
-        <span aria-current="page">${pkm.name}</span>
-      </div>
-      <div class="wrap" style="align-items:center;">
-        <div class="pagehero-copy">
-          <span class="tinycap">UPTD PUSKESMAS WILAYAH KECAMATAN ${pkm.kecamatan.toUpperCase()}</span>
-          <h1>${pkm.name}</h1>
-          <p>Alamat: ${pkm.address}</p>
-        </div>
-        <div style="background:#ffffff;padding:16px;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,0.12);display:grid;place-items:center;">
-          <img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:96px;height:96px;object-fit:contain;">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="container layout-with-sidebar py-40">
-    <div class="main-content">
-      <div class="panel" style="margin-bottom:24px;">
-        <h2 style="font-size:1.4rem;margin-bottom:16px;border-bottom:2px solid #078d90;padding-bottom:8px;">Profil Fasilitas & Manajemen</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:14.5px;">
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;width:35%;font-weight:600;color:#64748b;">Nama Fasilitas:</td><td><strong>${pkm.name}</strong></td></tr>
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;font-weight:600;color:#64748b;">Wilayah Kecamatan:</td><td>${pkm.kecamatan}</td></tr>
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;font-weight:600;color:#64748b;">Alamat Lengkap:</td><td>${pkm.address}</td></tr>
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;font-weight:600;color:#64748b;">Kepala UPTD Puskesmas:</td><td><strong>${pkm.head}</strong></td></tr>
-          <tr><td style="padding:12px 0;font-weight:600;color:#64748b;">Jam Operasional:</td><td>Senin - Sabtu (08.00 - 14.00 WITA) · <strong>Instalasi Gawat Darurat (IGD) 24 Jam</strong></td></tr>
-        </table>
-      </div>
-
-      <div class="panel" style="margin-bottom:24px;">
-        <h2 style="font-size:1.4rem;margin-bottom:14px;border-bottom:2px solid #1676f3;padding-bottom:8px;">Inovasi Pelayanan Kesehatan</h2>
-        ${pkm.innovations && pkm.innovations.length ? `
-          <ul class="styled-list">
-            ${pkm.innovations.map(inv => `<li><strong>${inv}</strong></li>`).join('')}
-          </ul>
-        ` : '<p>Inovasi sedang dalam proses verifikasi dan pemutakhiran berkas.</p>'}
-      </div>
-
-      <div class="panel">
-        <h2 style="font-size:1.4rem;margin-bottom:14px;border-bottom:2px solid #d97706;padding-bottom:8px;">Riwayat Prestasi & Penghargaan</h2>
-        ${pkm.awards && pkm.awards.length ? `
-          <ul class="styled-list">
-            ${pkm.awards.map(aw => `<li>${aw}</li>`).join('')}
-          </ul>
-        ` : '<p>Puskesmas terus meningkatkan standar mutu akreditasi pelayanan primer di Kabupaten Pinrang.</p>'}
-      </div>
-    </div>
-
-    <aside class="sidebar">
-      <div class="panel" style="border-top:4px solid #078d90;">
-        <div style="text-align:center;margin-bottom:16px;">
-          <img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:64px;height:64px;object-fit:contain;">
-          <h3 style="margin-top:10px;font-size:17px;">Layanan Poli Medis</h3>
-        </div>
-        <ul style="padding-left:18px;margin-top:10px;line-height:1.9;font-size:13.5px;color:#334155;">
-          ${(pkm.services || []).map(s => `<li>${s}</li>`).join('')}
-        </ul>
-        <a href="puskesmas.html" class="btn secondary mt-20" style="width:100%;text-align:center;justify-content:center;">
-          Lihat Semua 19 Puskesmas
-        </a>
-      </div>
-    </aside>
-  </div>`;
-}
-
-// ----------------- RENDER PENCARIAN -----------------
-async function renderPencarian() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const q = urlParams.get('q') || '';
-  const result = await DataService.searchAll(q);
-
-  return `
-  ${pageHero('pencarian', 'MESIN PENCARI PORTAL', `Hasil Pencarian: "${q}"`, `Ditemukan ${result.articles.length} artikel dan ${result.puskesmas.length} Puskesmas yang relevan.`)}
-  <div class="container py-40">
-    <div style="max-width:700px;margin:0 auto 30px;">
-      <form action="pencarian.html" class="v4-search-box" style="margin:0;">
-        <span class="v4-search-icon">${ic('search')}</span>
-        <input name="q" value="${q}" placeholder="Cari topik kesehatan, nama puskesmas, perizinan…" style="flex:1;border:none;outline:none;font-size:1rem;" required>
-        <button type="submit" class="btn primary">Cari Ulang</button>
-      </form>
-    </div>
-
-    ${result.puskesmas.length ? `
-      <div style="margin-bottom:40px;">
-        <h2 style="font-size:1.3rem;margin-bottom:16px;border-bottom:2px solid #1676f3;padding-bottom:6px;">Fasilitas Kesehatan Terkait</h2>
-        <div class="grid grid-3">
-          ${result.puskesmas.map(p => `
-            <div class="pkm-card-pro">
-              <div class="pkm-header">
-                <div class="pkm-logo-box"><img src="assets/puskesmas.png" alt="Logo Puskesmas"></div>
-                <div class="pkm-title-group">
-                  <span class="pkm-kecamatan-tag">Kecamatan ${p.kecamatan}</span>
-                  <h3>${p.name}</h3>
-                </div>
-              </div>
-              <div class="pkm-body">
-                <p style="font-size:13px;color:#64748b;">${p.address}</p>
-                <div class="bottom mt-10">
-                  <span>Kepala: <strong>${p.head}</strong></span>
-                  <a href="puskesmas-detail.html?id=${p.id}">${ic('arrow')}</a>
-                </div>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    ` : ''}
-
-    <div>
-      <h2 style="font-size:1.3rem;margin-bottom:16px;border-bottom:2px solid #078d90;padding-bottom:6px;">Artikel & Berita Terkait</h2>
-      ${result.articles.length ? `
-        <div class="news-grid-pro">
-          ${result.articles.map(a => `
-            <article class="news-card-pro">
-              <div class="thumb-wrap">
-                <img src="${a.featured_image || 'assets/puskesmas.png'}" alt="${a.title}" loading="lazy">
-                <span class="cat-badge ${getCategoryClass(a.category)}">${a.category}</span>
-              </div>
-              <div class="card-content">
-                <div class="card-meta"><span>${ic('calendar')} ${a.published_at}</span></div>
-                <h3><a href="berita-detail.html?id=${a.id}">${a.title}</a></h3>
-                <p class="snippet">${a.excerpt}</p>
-                <div class="card-footer">
-                  <a href="berita-detail.html?id=${a.id}" class="read-action">Baca Ulasan ${ic('arrow')}</a>
-                </div>
-              </div>
-            </article>
-          `).join('')}
-        </div>
-      ` : '<p>Tidak ada artikel yang cocok dengan kata kunci pencarian.</p>'}
-    </div>
-  </div>`;
-}
-
-// ----------------- RENDER HALAMAN KELEMBAGAAN UMUM -----------------
-async function renderGenericPage(page) {
-  const pageMap = {
-    profil: ['PROFIL INSTANSI', 'Profil Dinas Kesehatan Kabupaten Pinrang', 'Mengabdi untuk masyarakat Pinrang menuju derajat kesehatan yang mandiri dan optimal.'],
-    organisasi: ['TATA KELOLA PEMERINTAHAN', 'Struktur Organisasi Dinas Kesehatan', 'Bagan hierarki kelembagaan, pembagian tugas bidang, dan koordinasi 19 UPTD Puskesmas.'],
-    layanan: ['STANDAR PELAYANAN PUBLIK', 'Pelayanan Kesehatan Masyarakat', 'Informasi mengenai alur, standar, serta persyaratan layanan medis dan perizinan kesehatan daerah.'],
-    'layanan-detail': ['PROGRAM KESEHATAN', 'Cek Kesehatan Gratis & Layanan Medis', 'Skrining kesehatan berkala dan panduan persiapan pemeriksaan gratis bagi warga.'],
-    edukasi: ['PROMOSI KESEHATAN', 'Edukasi & Pembiasaan Hidup Sehat', 'Informasi kesehatan keluarga, gizi, imunisasi, dan pencegahan penyakit menular.'],
-    'edukasi-detail': ['PANDUAN KESEHATAN', 'Gizi Seimbang & Pencegahan Stunting', 'Langkah nyata keluarga dalam memastikan asupan nutrisi optimal bagi ibu dan anak.'],
-    galeri: ['DOKUMENTASI VISUAL', 'Galeri Kegiatan Dinas Kesehatan', 'Dokumentasi otentik pelaksanaan program kesehatan masyarakat di 12 kecamatan Pinrang.'],
-    data: ['SATU DATA DAERAH', 'Data & Statistik Kesehatan', 'Data indikator capaian sektor kesehatan Kabupaten Pinrang yang akuntabel.'],
-    indikator: ['AKUNTABILITAS KINERJA', 'Indikator Kinerja Utama (IKU)', 'Tolak ukur keberhasilan program kerja pembangunan kesehatan daerah.'],
-    publikasi: ['DOKUMEN RESMI', 'Publikasi, Laporan & Perencanaan', 'Akses unduh Renja, Renstra, Laporan Kinerja Instansi Pemerintah (LKjIP), dan buletin SKDR.'],
-    ppid: ['KETERBUKAAN INFORMASI PUBLIK', 'Pejabat Pengelola Informasi & Dokumentasi', 'Akses hak warga untuk memperoleh informasi publik secara transparan dan bertanggung jawab.'],
-    informasi: ['PERMOHONAN INFORMASI', 'Formulir Keterbukaan Informasi Publik', 'Prosedur dan pengajuan permohonan informasi resmi kepada PPID Dinas Kesehatan.'],
-    pengaduan: ['PARTISIPASI MASYARAKAT', 'Layanan Pengaduan & Aspirasi', 'Salurkan keluhan, kritik, dan saran pelayanan melalui SP4N-LAPOR! dan WhatsApp resmi.'],
-    kontak: ['HUBUNGI KAMI', 'Kontak & Lokasi Kantor', 'Informasi alamat kantor, peta lokasi, nomor WhatsApp, serta media sosial resmi dinas.'],
-    inovasi: ['PRAKTIK BAIK DAERAH', 'Inovasi UPTD Puskesmas Pinrang', 'Ragam inovasi pelayanan dari 19 Puskesmas untuk meningkatkan mutu taraf hidup warga.'],
-    faq: ['PUSAT BANTUAN', 'Pertanyaan Umum (FAQ)', 'Jawaban atas pertanyaan yang sering diajukan seputar pelayanan dan fasilitas kesehatan.'],
-    'peta-situs': ['NAVIGASI SITUS', 'Peta Situs Portal Terpadu', 'Struktur navigasi menyeluruh 28 laman portal informasi kesehatan Kabupaten Pinrang.'],
-    privasi: ['PERLINDUNGAN DATA', 'Kebijakan Privasi', 'Komitmen perlindungan data dan privasi pengguna dalam pemanfaatan portal layanan publik.'],
-    aksesibilitas: ['INKLUSIVITAS', 'Standar Aksesibilitas Web (WCAG 2.2)', 'Panduan aksesibilitas untuk memastikan kenyamanan pengguna disabilitas dan lansia.'],
-    skm: ['MUTU PELAYANAN', 'Survei Kepuasan Masyarakat', 'Partisipasi publik dalam mengevaluasi mutu dan profesionalitas pelayanan kesehatan.'],
-    pengumuman: ['SIARAN RESMI', 'Pengumuman Penting Pemerintah', 'Informasi resmi, surat edaran, serta himbauan kesehatan masyarakat terkini.'],
-    'tidak-ditemukan': ['404 ERROR', 'Halaman Tidak Ditemukan', 'Halaman yang Anda tuju mungkin telah dipindahkan atau tautan tidak valid.']
-  };
-
-  const [kicker, title, desc] = pageMap[page] || ['DINAS KESEHATAN', 'Informasi Publik', ''];
-  const pagesData = await DataService.getPages();
-  const matchedData = pagesData.find(p => p.slug === page || p.slug.includes(page));
-
-  return `
-  ${pageHero(page, kicker, title, desc)}
-  <div class="container layout-with-sidebar py-40">
-    <div class="main-content">
-      <div class="panel">
-        ${matchedData ? matchedData.content : `
-          <p class="lead">${desc}</p>
-          <div class="good-note mt-20">
-            Seluruh data dan informasi kelembagaan bersumber dari dokumentasi resmi Dinas Kesehatan Kabupaten Pinrang.
-          </div>
-          <p class="mt-20">Untuk informasi lebih lanjut dan permohonan konfirmasi langsung, hubungi kantor Dinas Kesehatan di <strong>Jl. Jenderal Sukawati, Kabupaten Pinrang</strong> atau melalui WhatsApp resmi <strong>+62 853-4217-2724</strong>.</p>
-        `}
-      </div>
-    </div>
-    <aside class="sidebar">
-      <div class="panel side-nav">
-        <h3>Menu Terkait</h3>
-        ${link('profil', 'Profil Dinas')}
-        ${link('organisasi', 'Struktur Organisasi')}
-        ${link('layanan', 'Layanan Kesehatan')}
-        ${link('puskesmas', 'Direktori 19 Puskesmas')}
-        ${link('publikasi', 'Dokumen Kinerja (LKjIP)')}
-        ${link('pengaduan', 'Layanan Pengaduan')}
-        ${link('kontak', 'Kontak Dinas')}
-      </div>
-    </aside>
-  </div>`;
-}
-
-// ----------------- INISIALISASI APLIKASI -----------------
-async function initApp() {
-  const page = document.body.dataset.page || 'index';
-  const appContainer = document.getElementById('app');
-  if (!appContainer) return;
-
-  let bodyContent = '';
-  if (page === 'index') {
-    bodyContent = await renderHome();
-  } else if (page === 'berita') {
-    bodyContent = await renderBerita();
-  } else if (page === 'berita-detail') {
-    bodyContent = await renderBeritaDetail();
-  } else if (page === 'puskesmas') {
-    bodyContent = await renderPuskesmas();
-  } else if (page === 'puskesmas-detail') {
-    bodyContent = await renderPuskesmasDetail();
-  } else if (page === 'pencarian') {
-    bodyContent = await renderPencarian();
-  } else {
-    bodyContent = await renderGenericPage(page);
-  }
-
-  appContainer.innerHTML = `
-    ${header(page)}
-    <main id="main">
-      ${bodyContent}
-    </main>
-    ${footer()}
-  `;
-
-  // Pasang event listener Font Resizer (Aa)
-  const fontToggle = document.getElementById('fontToggle');
-  if (fontToggle) {
-    fontToggle.addEventListener('click', () => {
-      document.body.classList.toggle('large-font');
-    });
-  }
-
-  // Pasang event listener Mobile Menu
-  const mobileToggle = document.getElementById('mobileToggle');
-  const mobileNav = document.getElementById('mobileNav');
-  if (mobileToggle && mobileNav) {
-    mobileToggle.addEventListener('click', () => {
-      const open = mobileNav.classList.toggle('is-open');
-      mobileToggle.setAttribute('aria-expanded', String(open));
-    });
-  }
-
-  // Pasang event listener Quick Search
-  const searchToggle = document.getElementById('searchToggle');
-  const quickSearch = document.getElementById('quickSearch');
-  if (searchToggle && quickSearch) {
-    searchToggle.addEventListener('click', () => {
-      const open = quickSearch.classList.toggle('is-open');
-      if (open) document.getElementById('quickSearchInput')?.focus();
-    });
-  }
-
-  // Inisialisasi Hero Slider jika ada
-  if (page === 'index') {
-    const slides = Array.from(document.querySelectorAll('.v4-feature-slide'));
-    const dots = Array.from(document.querySelectorAll('[data-slide-to]'));
-    let slideIdx = 0;
-
-    function showSlide(next) {
-      slideIdx = (next + slides.length) % slides.length;
-      slides.forEach((s, i) => {
-        const active = i === slideIdx;
-        s.hidden = !active;
-        s.classList.toggle('is-active', active);
-      });
-      dots.forEach((d, i) => {
-        d.classList.toggle('active', i === slideIdx);
-      });
+const topics=[['Gizi seimbang untuk keluarga','Gizi','book'],['Kenali pentingnya deteksi dini penyakit','Pencegahan','heart'],['Imunisasi dan perlindungan anak','Anak','shield'],['Perilaku hidup bersih dan sehat','PHBS','leaf'],['Kesehatan ibu dan bayi','Keluarga','people'],['Pencegahan penyakit tidak menular','Penyakit Tidak Menular','activity']];
+const docs=[['Rencana Strategis (Renstra)','Perencanaan','Menunggu verifikasi'],['Rencana Kerja (Renja)','Perencanaan','Menunggu verifikasi'],['Laporan Kinerja Instansi Pemerintah (LKjIP)','Kinerja','Menunggu verifikasi'],['Perjanjian Kinerja','Kinerja','Menunggu verifikasi'],['Indikator Kinerja Utama','Kinerja','Menunggu verifikasi'],['Standar Pelayanan dan SOP','Pelayanan','Menunggu verifikasi'],['Buletin SKDR','Surveilans','Arsip lama perlu pemeriksaan tautan']];
+function homePage(){return `
+<div class="v4-breaking"><div class="container v4-breaking-inner"><span class="v4-breaking-label">${ic('bell')} INFORMASI</span><span>Portal kesehatan untuk warga Pinrang — informasi layanan, edukasi, dan publikasi resmi dalam satu tempat.</span><a href="pengumuman.html">Lihat pengumuman ${ic('arrow')}</a></div></div>
+<section class="v4-mainstage"><div class="container v4-stage-grid">
+<div class="v4-feature-rail" aria-roledescription="carousel" aria-label="Sorotan utama portal kesehatan">
+<div class="v4-feature-slide is-active" data-slide="0"><div class="v4-feature-inner"><div class="v4-feature-deco" aria-hidden="true"><span class="v4-cross">+</span><span class="v4-circle"></span><span class="v4-checkpulse">${ic('activity')}</span></div><span class="v4-feature-kicker">PORTAL KESEHATAN KABUPATEN PINRANG</span><h1>Lebih dekat dengan <em>layanan kesehatan.</em></h1><p>Akses layanan, direktori Puskesmas, dan panduan yang Anda butuhkan dengan lebih jelas dan mudah.</p><a class="v4-feature-action" href="puskesmas.html">Temukan Puskesmas ${ic('arrow')}</a></div></div>
+<div class="v4-feature-slide" data-slide="1" hidden><div class="v4-feature-inner"><div class="v4-feature-deco" aria-hidden="true"><span class="v4-cross">+</span><span class="v4-circle"></span><span class="v4-checkpulse">${ic('book')}</span></div><span class="v4-feature-kicker">EDUKASI UNTUK SEMUA</span><h2>Informasi tepercaya, <em>keluarga lebih sehat.</em></h2><p>Mulai dari gizi, imunisasi, hidup sehat, hingga pencegahan penyakit—tersaji dalam bahasa yang ramah.</p><a class="v4-feature-action" href="edukasi.html">Jelajahi edukasi ${ic('arrow')}</a></div></div>
+<div class="v4-feature-slide" data-slide="2" hidden><div class="v4-feature-inner"><div class="v4-feature-deco" aria-hidden="true"><span class="v4-cross">+</span><span class="v4-circle"></span><span class="v4-checkpulse">${ic('shield')}</span></div><span class="v4-feature-kicker">TRANSPARANSI PEMERINTAH</span><h2>Data terbuka, <em>layanan akuntabel.</em></h2><p>Temukan data kesehatan agregat, standar pelayanan, dokumen kinerja, dan akses informasi publik.</p><a class="v4-feature-action" href="ppid.html">Layanan informasi publik ${ic('arrow')}</a></div></div>
+<div class="v4-stage-controls"><div class="v4-slide-dots" role="group" aria-label="Pilih sorotan"><button type="button" class="active" data-slide-to="0" aria-label="Sorotan 1: Layanan" aria-current="true">01</button><button type="button" data-slide-to="1" aria-label="Sorotan 2: Edukasi">02</button><button type="button" data-slide-to="2" aria-label="Sorotan 3: Transparansi">03</button></div><div class="v4-arrow-controls"><button type="button" class="v4-circle-btn" data-slide-step="-1" aria-label="Sorotan sebelumnya">${ic('arrow')}</button><button type="button" class="v4-circle-btn" data-slide-step="1" aria-label="Sorotan berikutnya">${ic('arrow')}</button></div></div>
+</div>
+<div class="v4-stage-side"><a class="v4-spotlight v4-spotlight-cyan" href="layanan.html"><span class="v4-spot-top"><span>LAYANAN UNGGULAN</span>${ic('arrow')}</span><div class="v4-spot-icon">${ic('heart')}</div><h2>Cek Kesehatan Gratis</h2><p>Kenali informasi program dan persiapan pemeriksaan.</p></a><a class="v4-spotlight v4-spotlight-violet" href="berita.html"><span class="v4-spot-top"><span>TERBARU DARI DINAS</span>${ic('arrow')}</span><div class="v4-spot-icon">${ic('news')}</div><h2>Berita & kegiatan</h2><p>Ikuti informasi dan dokumentasi program kesehatan daerah.</p></a></div>
+</div></section>
+<section class="v4-search-zone"><div class="container"><form class="v4-search-box" role="search" action="pencarian.html"><span class="v4-search-icon">${ic('search')}</span><div class="v4-search-content"><label for="v4Search">Sedang mencari informasi apa?</label><input id="v4Search" name="q" type="search" placeholder="Puskesmas, imunisasi, layanan, dokumen, berita…" autocomplete="off" required></div><button class="btn primary" type="submit">Cari informasi ${ic('arrow')}</button></form><div class="v4-search-chips"><span>Populer:</span><a href="puskesmas.html">Puskesmas</a><a href="layanan-detail.html">Cek Kesehatan Gratis</a><a href="edukasi.html">Imunisasi</a><a href="ppid.html">Informasi publik</a></div></div></section>
+<section class="v4-section v4-service-area" id="layanan-utama"><div class="container"><div class="v4-section-head"><div><span class="v4-overline">AKSES CEPAT MASYARAKAT</span><h2>Informasi yang Anda butuhkan, <span>lebih cepat.</span></h2><p>Pilih kebutuhan Anda melalui kategori dengan ikon besar dan warna yang mudah dikenali.</p></div><a href="layanan.html" class="v4-text-link">Semua layanan ${ic('arrow')}</a></div><div class="v4-bento-services">
+<a class="v4-service-tile v4-service-wide tone-blue" href="puskesmas.html"><span class="v4-tile-icon" style="background:#ffffff;padding:5px;border:1px solid #bfdbfe;"><img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:36px;height:36px;object-fit:contain;"></span><div><span class="v4-tile-num">01 / AKSES FASKES RESMI</span><h3>19 UPTD Puskesmas</h3><p>Informasi faskes, alamat pos, jam operasional, dan inovasi pelayanan di 12 kecamatan se-Kabupaten Pinrang.</p></div><span class="v4-tile-arrow">${ic('arrow')}</span></a>
+${[['heart','Layanan Kesehatan','Alur dan persyaratan layanan.','layanan','teal'],['book','Edukasi Sehat','Panduan kesehatan keluarga.','edukasi','violet'],['chart','Data Kesehatan','Indikator dan data agregat.','data','amber'],['file','Dokumen Publik','Laporan dan publikasi dinas.','publikasi','cyan'],['message','Pengaduan','Sampaikan melalui kanal resmi.','pengaduan','coral']].map((v,i)=>`<a class="v4-service-tile tone-${v[4]}" href="${path(v[3])}"><span class="v4-tile-icon">${ic(v[0])}</span><div><span class="v4-tile-num">0${i+2} / AKSES CEPAT</span><h3>${v[1]}</h3><p>${v[2]}</p></div><span class="v4-tile-arrow">${ic('arrow')}</span></a>`).join('')}
+</div></div></section>
+<section class="v4-section v4-editorial" id="kabar"><div class="container"><div class="v4-section-head"><div><span class="v4-overline">JURNAL KESEHATAN PINRANG</span><h2>Kabar dari lapangan, <span>cerita untuk masyarakat.</span></h2><p>Ruang editorial untuk berita program, dokumentasi, dan perkembangan kesehatan daerah.</p></div>${link('berita',`Lihat semua berita ${ic('arrow')}`,'v4-text-link')}</div>
+<div class="v4-news-bento"><a class="v4-news-lead" href="berita-detail.html"><div class="v4-news-art"><div class="v4-art-icon">${ic('activity')}</div><span class="v4-photo-flag">AREA FOTO DOKUMENTASI ASLI</span></div><div class="v4-news-main-copy"><span class="v4-label">KAMPANYE KESEHATAN · 23 OKT 2026</span><h3>Kampanye GERMAS di Batulappa Dorong Deteksi Dini</h3><p>Dokumentasi kegiatan kesehatan masyarakat. Foto asli akan diambil dari arsip website lama.</p><span class="v4-readmore">Baca berita ${ic('arrow')}</span></div></a>
+<div class="v4-news-stack">${berita.slice(1,4).map((v,i)=>`<a class="v4-news-small" href="berita-detail.html"><div class="v4-news-mini-art mini-${i}">${ic(i===1?'shield':i===2?'hospital':'people')}</div><div><span class="v4-label">${v[2]} · ${v[1]}</span><h3>${v[0]}</h3><span class="v4-readmore">Selengkapnya ${ic('arrow')}</span></div></a>`).join('')}</div></div>
+</div></section>
+<section class="v4-section v4-program-band"><div class="container v4-program-layout"><div class="v4-program-story"><span class="v4-overline">PROGRAM & LAYANAN PRIORITAS</span><h2>Kesehatan yang hadir di setiap tahap kehidupan.</h2><p>Temukan program kesehatan ibu dan anak, deteksi dini, pencegahan penyakit, serta layanan kesehatan primer—disusun berdasarkan kebutuhan warga.</p>${button('layanan','Jelajahi program')}</div><div class="v4-program-cards"><a href="layanan-detail.html" class="v4-program-card"><span>${ic('heart')}</span><b>Cek Kesehatan Gratis</b><small>Pelayanan preventif dan deteksi dini</small>${ic('arrow')}</a><a href="edukasi.html" class="v4-program-card"><span>${ic('people')}</span><b>Ibu, bayi & anak</b><small>Pendampingan kesehatan keluarga</small>${ic('arrow')}</a><a href="edukasi.html" class="v4-program-card"><span>${ic('shield')}</span><b>Pencegahan penyakit</b><small>Kenali risiko dan langkah pencegahan</small>${ic('arrow')}</a><a href="puskesmas.html" class="v4-program-card"><span>${ic('hospital')}</span><b>Pelayanan primer</b><small>Informasi Puskesmas & jejaring layanan</small>${ic('arrow')}</a></div></div></section>
+<section class="v4-section v4-education"><div class="container"><div class="v4-section-head"><div><span class="v4-overline">PUSAT EDUKASI</span><h2>Lebih paham kesehatan, <span>lebih siap menjaga keluarga.</span></h2><p>Materi publikasi kesehatan yang akan ditinjau tenaga kesehatan sebelum ditayangkan.</p></div>${link('edukasi',`Semua topik ${ic('arrow')}`,'v4-text-link')}</div><div class="v4-edu-layout"><a class="v4-edu-feature" href="edukasi-detail.html"><span class="v4-edu-sticker">TOPIK PILIHAN</span><div class="v4-edu-glyph">${ic('book')}</div><h3>Hidup sehat dimulai dari kebiasaan sederhana.</h3><p>Baca panduan praktis untuk keluarga dan lingkungan yang lebih sehat.</p><span class="v4-readmore">Baca panduan ${ic('arrow')}</span></a><div class="v4-edu-small">${[['Gizi seimbang','Pola makan sehat keluarga','leaf','tone-amber'],['Imunisasi anak','Perlindungan sejak dini','shield','tone-blue'],['Cegah penyakit','Kenali gejala dan risiko','activity','tone-violet'],['Kesehatan ibu','Pendampingan setiap tahap','people','tone-teal']].map(v=>`<a class="v4-edu-item ${v[3]}" href="edukasi.html"><span>${ic(v[2])}</span><div><h3>${v[0]}</h3><p>${v[1]}</p></div>${ic('arrow')}</a>`).join('')}</div></div></div></section>
+<section class="v4-section v4-data-band"><div class="container"><div class="v4-data-head"><span class="v4-overline">DATA DAN TRANSPARANSI</span><h2>Informasi publik yang <em>terbuka dan dapat dipahami.</em></h2><p>Setiap angka perlu dilengkapi definisi, sumber, periode, dan status verifikasi. Tidak ada statistik kesehatan yang direkayasa pada mockup ini.</p></div><div class="v4-data-grid"><a href="data.html"><span class="v4-data-symbol">${ic('chart')}</span><span>DATA KESEHATAN</span><h3>Dashboard indikator publik</h3><p>Visualisasi data agregat dengan metadata lengkap.</p>${ic('arrow')}</a><a href="publikasi.html"><span class="v4-data-symbol">${ic('file')}</span><span>DOKUMEN KINERJA</span><h3>Publikasi dan laporan</h3><p>Dokumen perencanaan, akuntabilitas, dan SOP.</p>${ic('arrow')}</a><a href="ppid.html"><span class="v4-data-symbol">${ic('shield')}</span><span>AKSES INFORMASI</span><h3>PPID dan transparansi</h3><p>Permohonan informasi dan klasifikasi publikasi.</p>${ic('arrow')}</a></div></div></section>
+<section class="v4-section v4-gallery-block"><div class="container"><div class="v4-section-head"><div><span class="v4-overline">GALERI & DOKUMENTASI</span><h2>Merekam kegiatan, <span>mendekatkan informasi.</span></h2><p>Komposisi galeri akan terisi dokumentasi asli dari berita dan kegiatan Dinkes Pinrang.</p></div>${link('galeri',`Buka galeri ${ic('arrow')}`,'v4-text-link')}</div><div class="v4-gallery-mosaic"><a class="v4-gallery-cell wide" href="galeri.html">${ic('camera')}<span>Dokumentasi kegiatan kesehatan</span><small>Placeholder foto asli</small></a><a class="v4-gallery-cell lilac" href="galeri.html">${ic('hospital')}<span>Aktivitas Puskesmas</span></a><a class="v4-gallery-cell gold" href="galeri.html">${ic('people')}<span>Edukasi masyarakat</span></a></div></div></section>
+<section class="v4-section v4-bottom-cta"><div class="container v4-cta-inner"><div><span class="v4-overline">KAMI SIAP MEMBANTU</span><h2>Butuh informasi atau ingin menyampaikan masukan?</h2><p>Temukan kanal resmi untuk pertanyaan layanan, akses informasi publik, dan pengaduan.</p></div><div class="v4-cta-actions">${button('kontak','Hubungi Dinas','secondary')}${button('pengaduan','Kanal pengaduan')}</div></div></section>`} 
+function profilPage(){return pageHero('profil','Profil kelembagaan','Mengenal Dinas Kesehatan Kabupaten Pinrang','Informasi tentang peran, tugas, arah kebijakan, dan layanan Dinas Kesehatan dalam mendukung kesehatan masyarakat.')+`<section class="content"><div class="container twocol"><div class="stack"><article class="panel"><span class="kicker">Tentang kami</span><h2>Pelayanan kesehatan yang menjangkau seluruh masyarakat</h2><p class="lead" style="font-size:16.5px;line-height:1.8;color:#1e293b;">Dinas Kesehatan Pemerintah Kabupaten Pinrang merupakan unsur pelaksana urusan pemerintahan di bidang kesehatan yang dipimpin oleh <strong>dr. H. Ramli Yunus, M.Kes.</strong> selaku Kepala Dinas. Berkomitmen mewujudkan pelayanan kesehatan yang merata, berkualitas, berkeadilan, dan terjangkau bagi seluruh masyarakat di 12 kecamatan se-Kabupaten Pinrang.</p>
+<div style="margin:20px 0;padding:18px 24px;background:#f0fdf4;border-left:4px solid #078d90;border-radius:0 12px 12px 0;">
+  <span style="font-size:11px;font-weight:800;letter-spacing:0.08em;color:#047857;text-transform:uppercase;">Visi Pembangunan Kesehatan Daerah</span>
+  <blockquote style="font-size:18px;font-weight:700;color:#064e3b;margin:6px 0 0 0;">“Terwujudnya Masyarakat Pinrang Yang Mandiri Untuk Hidup Sehat”</blockquote>
+</div><div class="columns2"><div class="panel" style="background:#f5fbf9"><span class="ico">${ic('target')}</span><h3>Visi & misi</h3><p>Teks visi-misi pada website lama harus diverifikasi kesesuaiannya dengan periode RPJMD yang berlaku.</p></div><div class="panel" style="background:#f4f9fd"><span class="ico blue">${ic('briefcase')}</span><h3>Tugas & fungsi</h3><p>Rincian bidang, program, tata kelola kesehatan, dan fungsi teknis dinas.</p></div></div></article><article class="panel"><h2>Arah pelayanan</h2><div class="list-row">${ic('check')}<div><strong>Informasi yang akurat</strong><small>Konten diperiksa dan diperbarui oleh penanggung jawab.</small></div></div><div class="list-row">${ic('check')}<div><strong>Layanan yang inklusif</strong><small>Dapat diakses oleh masyarakat dengan beragam kebutuhan.</small></div></div><div class="list-row">${ic('check')}<div><strong>Transparansi kinerja</strong><small>Terhubung dengan dokumen publik dan kanal PPID.</small></div></div></article>${sourceNote}</div>${side('Tentang Dinas',[['profil','Profil & Tugas'],['organisasi','Struktur Organisasi'],['inovasi','Inovasi Kesehatan'],['publikasi','Dokumen Kelembagaan'],['kontak','Kontak Dinas']])}</div></section>`}
+function organisasiPage(){return pageHero('organisasi','Organisasi dan tata kelola','Struktur organisasi yang jelas dan mudah dipahami','Susunan organisasi, pejabat, bidang kerja, dan tanggung jawab yang disesuaikan dengan ketentuan kelembagaan terbaru.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><span class="tag">Rancangan komponen</span><h2>Struktur & penanggung jawab</h2><div class="center"><div class="panel" style="max-width:400px;margin:20px auto;background:#eef8f5"><span class="ico">${ic('user')}</span><h3>Kepala Dinas Kesehatan</h3><p class="mb-0">Nama, foto dan dasar penugasan diverifikasi</p></div><div style="height:30px;width:2px;background:#b9ded7;margin:0 auto"></div><div class="panel" style="max-width:400px;margin:0 auto;background:#f4f9fc"><h3>Sekretariat</h3><p class="mb-0">Subbagian / kelompok jabatan sesuai SOTK</p></div></div><div class="columns3 mt-20"><div class="panel center"><span class="ico">${ic('briefcase')}</span><h3>Bidang 01</h3><p>Unit kerja sesuai struktur resmi.</p></div><div class="panel center"><span class="ico blue">${ic('people')}</span><h3>Bidang 02</h3><p>Unit kerja sesuai struktur resmi.</p></div><div class="panel center"><span class="ico gold">${ic('hospital')}</span><h3>Bidang 03</h3><p>Unit kerja sesuai struktur resmi.</p></div></div><p class="footnote">Diagram sengaja tidak mencantumkan nama jabatan atau pejabat yang belum terverifikasi agar tidak menyebarkan informasi kelembagaan yang keliru.</p></div><div class="panel"><h2>Informasi aparatur</h2><p>Setiap unit dapat memiliki detail tugas, penanggung jawab, kontak layanan (bila publik), dokumen dasar hukum, dan informasi jabatan yang disahkan.</p>${button('publikasi','Lihat dokumen kelembagaan','secondary')}</div></div>${side('Informasi organisasi',[['profil','Profil Dinas'],['organisasi','Struktur Organisasi'],['publikasi','Dokumen Kinerja'],['kontak','Hubungi Kami']])}</div></section>`}
+function layananPage(){return pageHero('layanan','Informasi pelayanan publik','Layanan kesehatan yang mudah diakses','Temukan jenis layanan, persyaratan, alur, biaya jika berlaku, waktu pelayanan, dan kanal informasi yang terverifikasi.')+`<section class="content"><div class="container">${sectionTitle('Katalog layanan','Pilih layanan yang Anda butuhkan','Setiap detail layanan mengikuti struktur informasi standar pelayanan publik; data operasional harus disahkan oleh unit pemilik layanan.')}<div class="card-grid">${[['hospital','Pelayanan Puskesmas','Informasi layanan primer dan akses fasilitas.','puskesmas'],['heart','Cek Kesehatan Gratis','Informasi program dan persiapan pemeriksaan.','layanan-detail'],['people','Kesehatan Ibu dan Anak','Layanan kesehatan keluarga melalui fasilitas terkait.','layanan-detail'],['shield','Pencegahan & Pengendalian Penyakit','Program pencegahan dan edukasi risiko kesehatan.','layanan-detail'],['leaf','Kesehatan Lingkungan','Informasi pembinaan sanitasi dan lingkungan sehat.','layanan-detail'],['file','Standar Pelayanan & SOP','Persyaratan, tata cara dan informasi layanan.','publikasi']].map((v,i)=>card(v[0],v[1],v[2],v[3],'Layanan',i%3===1?'blue':i%3===2?'gold':'' )).join('')}</div><div class="notice mt-20"><div><h3>Belum menemukan layanan yang dicari?</h3><p>Gunakan pencarian atau kanal pengaduan resmi untuk meminta informasi.</p></div>${button('pencarian','Cari informasi','secondary')}</div></div></section>`}
+function layananDetailPage(){return pageHero('layanan-detail','Contoh detail standar pelayanan','Cek Kesehatan Gratis (CKG)','Contoh susunan halaman pelayanan berbasis kebutuhan warga. Persyaratan, prosedur dan waktu final wajib mengikuti pedoman program serta fasilitas terkait.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><div class="columns2"><div><span class="tag">Program kesehatan</span><h2>Informasi layanan</h2><p>CKG merupakan program kesehatan nasional. Halaman ini memudahkan warga memahami tujuan pemeriksaan, tempat memperoleh informasi, persiapan, serta sumber rujukan resmi.</p></div><div class="feature-visual">${ic('heart')}</div></div></div><div class="panel"><h2>Ringkasan standar pelayanan</h2><div class="list-row">${ic('user')}<div><strong>Sasaran layanan</strong><small>Ditentukan berdasarkan ketentuan CKG yang berlaku.</small></div></div><div class="list-row">${ic('file')}<div><strong>Persyaratan</strong><small>Verifikasi dengan pedoman resmi dan fasilitas pelayanan.</small></div></div><div class="list-row">${ic('clock')}<div><strong>Jadwal dan waktu pelayanan</strong><small>Konfirmasi ke Puskesmas atau kanal resmi.</small></div></div><div class="list-row">${ic('shield')}<div><strong>Biaya dan mekanisme</strong><small>Hanya ditampilkan setelah informasi resminya disahkan.</small></div></div></div><div class="panel"><h2>Alur mendapatkan informasi</h2><div class="timeline"><div class="timeline-item"><div class="timeline-dot">1</div><div><strong>Pelajari syarat program</strong><p>Periksa ketentuan resmi Kementerian Kesehatan.</p></div></div><div class="timeline-item"><div class="timeline-dot">2</div><div><strong>Pilih Puskesmas</strong><p>Temukan informasi unit layanan kesehatan terdekat.</p></div></div><div class="timeline-item"><div class="timeline-dot">3</div><div><strong>Konfirmasi pelaksanaan</strong><p>Hubungi fasilitas untuk jadwal dan kebutuhan pemeriksaan.</p></div></div></div><div class="btnrow">${button('puskesmas','Temukan Puskesmas')}<a class="btn secondary" href="https://www.kemkes.go.id/" target="_blank" rel="noopener">Sumber Kemenkes ${ic('external')}</a></div></div>${sourceNote}</div>${side('Layanan terkait',[['layanan','Semua layanan'],['puskesmas','Cari Puskesmas'],['edukasi','Edukasi Kesehatan'],['pengaduan','Pengaduan']])}</div></section>`}
+function puskesmasPage(){return pageHero('puskesmas','Direktori fasilitas kesehatan','Temukan Puskesmas di Kabupaten Pinrang','Cari berdasarkan nama atau kecamatan. Halaman detail menampilkan fasilitas, layanan, inovasi, alamat, dan kontak setelah divalidasi.')+`<section class="content"><div class="container"><div class="searchline"><input id="facilitySearch" type="search" placeholder="Cari nama Puskesmas atau kecamatan…" aria-label="Cari Puskesmas"><select id="facilityDistrict" aria-label="Filter kecamatan"><option value="">Semua kecamatan</option>${[...new Set(facilities.map(x=>x[1]))].sort().map(x=>`<option value="${x}">${x}</option>`).join('')}</select><button class="btn secondary" type="button" id="facilityReset">${ic('refresh')} Reset</button></div><div class="notice mb-20"><div><h3>Direktori pelayanan primer</h3><p>Data contoh berasal dari nama fasilitas yang dipublikasikan di situs lama. Periksa kembali alamat, unit kerja, kontak, dan layanan.</p></div><span class="tag">Pratinjau direktori</span></div><div class="card-grid" id="facilityGrid">${facilities.map((v,i)=>`<article class="card facility-card" data-name="${v[0].toLowerCase()}" data-district="${v[1].toLowerCase()}"><div class="cardbody" style="display:flex;flex-direction:column;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"><div style="width:44px;height:44px;background:#f0fdf4;border-radius:10px;padding:5px;display:grid;place-items:center;border:1px solid #bbf7d0;"><img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:100%;height:100%;object-fit:contain;"></div><span class="tag" style="background:#078d90;color:#fff;font-size:11px;">Kecamatan ${v[1]}</span></div><h3 style="margin:0 0 6px 0;font-size:18px;font-weight:700;">Puskesmas ${v[0]}</h3><p style="font-size:13px;color:#64748b;margin:0 0 8px 0;">${ic('pin')} ${v[5] || 'Kabupaten Pinrang'}</p><div style="background:#f8fafc;padding:6px 10px;border-radius:6px;font-size:12px;margin-bottom:8px;"><strong>Kepala:</strong> ${v[2]}</div>${v[3] ? `<div style="font-size:11.5px;color:#047857;margin-bottom:8px;"><strong>Inovasi:</strong> ${v[3]}</div>` : ''}<div class="bottom" style="margin-top:auto;"><span class="badge-plain" style="color:#047857;border-color:#bbf7d0;background:#f0fdf4;">IGD 24 Jam</span><a href="puskesmas-detail.html?pkm=${encodeURIComponent(v[0])}" class="btn primary" style="padding:6px 12px;font-size:12.5px;">Lihat Profil ${ic('arrow')}</a></div></div></article>`).join('')}</div><div id="facilityEmpty" class="empty hidden"><p>Tidak ada fasilitas contoh yang cocok dengan pencarian.</p></div>${sourceNote}</div></section>`}
+function puskesmasDetailPage(){
+  const urlP = new URLSearchParams(window.location.search);
+  const pName = urlP.get('pkm') || 'Suppa';
+  const pkmItem = facilities.find(f => f[0].toLowerCase() === pName.toLowerCase()) || facilities[0];
+  return pageHero('puskesmas-detail', `UPTD PUSKESMAS KECAMATAN ${pkmItem[1].toUpperCase()}`, `Puskesmas ${pkmItem[0]}`, `Alamat: ${pkmItem[5]} · Kepala UPTD: ${pkmItem[2]}`)+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><div class="columns2"><div><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div style="width:52px;height:52px;background:#f0fdf4;border-radius:12px;padding:6px;display:grid;place-items:center;border:1px solid #bbf7d0;"><img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:100%;height:100%;object-fit:contain;"></div><div><span class="tag" style="background:#078d90;color:#fff;">Kecamatan ${pkmItem[1]}</span><h2 style="margin:4px 0 0;font-size:24px;">Puskesmas ${pkmItem[0]}</h2></div></div><p>Fasilitas Pelayanan Kesehatan Tingkat Pertama (FKTP) resmi di bawah pembinaan Dinas Kesehatan Kabupaten Pinrang. Menyelenggarakan pelayanan promotif, preventif, kuratif, dan rehabilitatif.</p><div style="background:#f8fafc;padding:12px 16px;border-radius:8px;font-size:13.5px;margin:14px 0;"><p style="margin:0 0 6px;"><strong>Kepala UPTD:</strong> ${pkmItem[2]}</p><p style="margin:0 0 6px;"><strong>Alamat:</strong> ${pkmItem[5]}</p><p style="margin:0;"><strong>Inovasi Unggulan:</strong> ${pkmItem[3] || 'Pelayanan Primer Terpadu'}</p>${pkmItem[4] ? `<p style="margin:6px 0 0;color:#b45309;">🏆 <strong>Penghargaan:</strong> ${pkmItem[4]}</p>` : ''}</div><div class="btnrow">${button('puskesmas','Lihat 19 Puskesmas Lainnya','secondary')}</div></div><div class="cover-photo" style="height:260px;background:#ffffff;border:1px solid #e2e8f0;display:grid;place-items:center;padding:20px;"><img src="assets/puskesmas.png" alt="Logo Puskesmas Resmi" style="width:110px;height:110px;object-fit:contain;"><p style="margin-top:10px;font-weight:600;color:#078d90;font-size:13px;">Lambang Fasilitas Pelayanan Kesehatan Primer</p></div></div></div><div class="stat-grid"><div class="stat"><label>Lokasi</label><strong style="font-size:15px">Verifikasi</strong><small>Alamat lengkap</small></div><div class="stat"><label>Jam kerja</label><strong style="font-size:15px">Verifikasi</strong><small>Jadwal layanan</small></div><div class="stat"><label>Kontak</label><strong style="font-size:15px">Verifikasi</strong><small>Nomor resmi</small></div><div class="stat"><label>Akreditasi</label><strong style="font-size:15px">Verifikasi</strong><small>Status terbaru</small></div></div><div class="panel"><h2>Layanan yang tersedia</h2><div class="columns2"><div class="list-row">${ic('heart')}<div><strong>Pelayanan kesehatan dasar</strong><small>Detail menunggu verifikasi</small></div></div><div class="list-row">${ic('people')}<div><strong>Kesehatan keluarga</strong><small>Detail menunggu verifikasi</small></div></div><div class="list-row">${ic('activity')}<div><strong>Skrining kesehatan</strong><small>Detail menunggu verifikasi</small></div></div><div class="list-row">${ic('shield')}<div><strong>Pelayanan preventif</strong><small>Detail menunggu verifikasi</small></div></div></div></div><div class="panel"><h2>Inovasi & dokumentasi</h2><p>Bagian untuk inovasi resmi, dokumentasi kegiatan, dan tautan situs publik Puskesmas jika tersedia. Informasi aplikasi kesehatan internal tidak otomatis dipublikasikan sebagai layanan pasien.</p><div class="gallery-grid">${[1,2,3,4].map(x=>placeholder('camera','Foto dokumentasi resmi')).join('')}</div></div>${sourceNote}</div>${side('Jelajahi fasilitas',[['puskesmas','Semua Puskesmas'],['layanan','Layanan Kesehatan'],['edukasi','Edukasi Kesehatan'],['pengaduan','Pengaduan']])}</div></section>`}
+function edukasiPage(){return pageHero('edukasi','Pusat literasi kesehatan','Edukasi sehat untuk semua usia','Artikel, infografis, dan panduan kesehatan yang mudah dipahami, dengan peninjauan konten medis dan rujukan sumber terpercaya.')+`<section class="content"><div class="container"><div class="searchline"><input type="search" id="eduSearch" placeholder="Cari topik kesehatan…" aria-label="Cari topik edukasi"><select id="eduCategory" aria-label="Kategori edukasi"><option value="">Semua topik</option>${[...new Set(topics.map(t=>t[1]))].map(x=>`<option>${x}</option>`).join('')}</select></div><div class="card-grid" id="eduGrid">${topics.map((t,i)=>`<article class="card edu-card" data-topic="${t[0].toLowerCase()}" data-category="${t[1].toLowerCase()}">${placeholder(t[2],'Visual edukasi akan memakai materi resmi',i%3===1?'blue':i%3===2?'gold':'')}<div class="cardbody"><span class="tag">${t[1]}</span><h3>${t[0]}</h3><p>Materi edukasi yang akan disunting, diverifikasi tenaga kesehatan, dan diperbarui sesuai pedoman.</p><div class="bottom"><span>Baca panduan</span>${link('edukasi-detail',ic('arrow'))}</div></div></article>`).join('')}</div><div id="eduEmpty" class="empty hidden"><p>Topik edukasi tidak ditemukan.</p></div></div></section>`}
+function edukasiDetailPage(){return pageHero('edukasi-detail','Artikel edukasi kesehatan','Mengenal manfaat deteksi dini kesehatan','Contoh tampilan artikel edukasi panjang yang mengutamakan keterbacaan, ringkasan, sumber, waktu tinjau medis, dan tindakan yang dapat dilakukan pembaca.')+`<section class="content"><div class="container twocol"><article class="stack"><div class="panel"><div class="btnrow mt-0"><span class="tag">Pencegahan</span><span class="badge-plain">Artikel contoh</span></div><h2 class="detail-title">Mengapa pemeriksaan kesehatan rutin itu penting?</h2><p class="footnote">Disiapkan sebagai contoh layout · Editor medis, sumber dan tanggal verifikasi belum ditetapkan.</p><div class="cover-photo">${ic('activity')}<p>Ilustrasi grafis edukasi; gambar final dari materi resmi</p></div><div class="article-text"><p>Deteksi dini membantu seseorang mengenali faktor risiko kesehatan sehingga dapat berkonsultasi dengan tenaga kesehatan dan memperoleh tindak lanjut sesuai kebutuhan.</p><h2>Apa yang perlu diketahui?</h2><p>Jenis pemeriksaan dapat berbeda menurut usia, faktor risiko, riwayat kesehatan, dan rekomendasi tenaga kesehatan. Pemeriksaan berkala sebaiknya dilakukan melalui fasilitas kesehatan resmi.</p><div class="quote-box">Konten edukasi tidak menggantikan diagnosis atau konsultasi langsung dengan tenaga kesehatan.</div><h2>Langkah berikutnya</h2><p>Pelajari layanan yang tersedia di Puskesmas, pahami persyaratan program yang berlaku, lalu hubungi fasilitas kesehatan untuk informasi lebih lanjut.</p></div><div class="btnrow">${button('puskesmas','Cari Puskesmas')}${button('edukasi','Kembali ke edukasi','secondary')}</div></div></article>${side('Topik terkait',[['edukasi','Semua Edukasi'],['layanan-detail','Cek Kesehatan Gratis'],['puskesmas','Fasilitas Kesehatan'],['faq','Pertanyaan Umum']])}</div></section>`}
+function beritaPage(){return pageHero('berita','Newsroom dinas kesehatan','Berita & kegiatan','Arsip informasi kegiatan, program, inovasi, dan publikasi Dinas Kesehatan Pinrang yang mudah ditelusuri menurut topik dan periode.')+`<section class="content"><div class="container"><div class="searchline"><input type="search" id="newsSearch" placeholder="Cari judul atau topik berita…" aria-label="Cari berita"><select id="newsCategory" aria-label="Kategori berita"><option value="">Semua kategori</option><option>Kegiatan</option><option>Promosi Kesehatan</option><option>Pembinaan</option></select></div><div class="card-grid" id="newsGrid">${berita.map((v,i)=>`<article class="card news-entry" data-title="${v[0].toLowerCase()}" data-category="${v[2].toLowerCase()}">${placeholder('camera','Foto dokumentasi dari artikel asli',i%3===1?'blue':i%3===2?'gold':'')}<div class="cardbody"><span class="tag">${v[2]}</span><div class="meta mt-20">${v[1]}</div><h3>${v[0]}</h3><p>${v[3]}</p><div class="bottom"><span>Baca berita</span>${link('berita-detail',ic('arrow'))}</div></div></article>`).join('')}</div><div class="empty hidden" id="newsEmpty"><p>Berita contoh tidak ditemukan.</p></div><p class="footnote mt-20">Pada migrasi produksi, berita akan dilengkapi pagination, filter kategori, pencarian server-side, dan arsip berkelanjutan.</p></div></section>`}
+function beritaDetailPage(){
+  const urlP = new URLSearchParams(window.location.search);
+  const artId = urlP.get('id') || '4505';
+  let artTitle = 'Kecamatan Batulappa Jadi Penutup Rangkaian Kampanye GERMAS Dinkes Pinrang';
+  let artCat = 'Kegiatan';
+  let artDate = '23 Oktober 2026';
+  let artAuthor = 'Muhammad Rusdi';
+  
+  if (window.ARTICLES_CACHE && window.ARTICLES_CACHE.length) {
+    const found = window.ARTICLES_CACHE.find(a => String(a.id) === String(artId));
+    if (found) {
+      artTitle = found.title;
+      artCat = found.category || 'Berita';
+      artDate = found.published_at || 'Oktober 2026';
+      artAuthor = found.author || 'Redaksi';
     }
-
-    dots.forEach(d => d.addEventListener('click', () => showSlide(Number(d.dataset.slideTo))));
-    document.querySelectorAll('[data-slide-step]').forEach(b => {
-      b.addEventListener('click', () => showSlide(slideIdx + Number(b.dataset.slideStep)));
-    });
   }
-}
+  return pageHero('berita-detail', `RUANG REDAKSI · ${artCat.toUpperCase()}`, artTitle, `Dipublikasikan pada ${artDate} oleh ${artAuthor}`)+`<section class="content"><div class="container twocol"><article class="stack"><div class="panel"><div class="btnrow mt-0"><span class="tag">Kegiatan</span><span class="badge-plain">Publikasi asal: 23 Oktober 2026</span></div><h2 class="detail-title">Kecamatan Batulappa Jadi Penutup Rangkaian Kampanye GERMAS Dinkes Pinrang</h2><p class="footnote">Arsip situs lama · Foto dan isi lengkap harus diambil dari artikel asli, bukan direkonstruksi.</p><div class="cover-photo">${ic('camera')}<p>Tempat foto unggulan resmi artikel — resolusi terbaik yang tersedia</p></div><div class="article-text"><p><strong>PINRANG —</strong> Pada situs lama, Dinas Kesehatan Kabupaten Pinrang mempublikasikan rangkaian kampanye Gerakan Masyarakat Hidup Sehat (GERMAS) di Kecamatan Batulappa.</p><p>Halaman detail berita final akan menampilkan seluruh isi artikel yang telah dimigrasikan, dengan paragraf dan kutipan tetap mengikuti dokumen sumber. Contoh ini tidak menggantikan naskah berita aslinya.</p><h2>Foto dokumentasi kegiatan</h2><p>Setiap foto diberi alternatif teks yang informatif dan dicatat relasinya ke artikel.</p></div><div class="gallery-grid">${[1,2,3,4].map(x=>placeholder('camera','Foto asli artikel')).join('')}</div><div class="btnrow"><a class="btn secondary" href="https://dinkes.pinrangkab.go.id/" target="_blank" rel="noopener">Lihat website sumber ${ic('external')}</a>${button('berita','Kembali ke berita','secondary')}</div></div></article>${side('Berita & media',[['berita','Berita & Kegiatan'],['galeri','Galeri Dokumentasi'],['inovasi','Inovasi Kesehatan'],['edukasi','Edukasi Sehat']])}</div></section>`}
+function galeriPage(){return pageHero('galeri','Arsip dokumentasi','Galeri foto kegiatan kesehatan','Dokumentasi foto asli kegiatan dinas dan fasilitas kesehatan, dikelompokkan berdasarkan berita, tanggal, kegiatan, dan penanggung jawab publikasi.')+`<section class="content"><div class="container">${sectionTitle('Album dokumentasi','Arsip visual yang mudah ditemukan','Pada website jadi, setiap album berisi foto aktual dengan metadata sumber, izin penggunaan, dan pilihan kualitas yang sesuai.')}<div class="chips"><button class="chip active" aria-pressed="true" data-gallery="all">Semua foto</button><button class="chip" aria-pressed="false" data-gallery="kegiatan">Kegiatan</button><button class="chip" aria-pressed="false" data-gallery="edukasi">Edukasi</button><button class="chip" aria-pressed="false" data-gallery="fasilitas">Fasilitas</button></div><div class="gallery-grid" id="galleryGrid">${['kegiatan','kegiatan','edukasi','fasilitas','kegiatan','edukasi','fasilitas','kegiatan'].map((x,i)=>`<div class="gallery-item" data-category="${x}">${placeholder('camera','Foto asli akan dimigrasikan')}<div class="footnote">Album ${x} · Foto ${String(i+1).padStart(2,'0')}</div></div>`).join('')}</div><div class="note mt-20">Foto belum diunduh untuk mockup ini. Produksi wajib menggunakan foto dokumentasi yang memiliki izin publikasi, tanpa memodifikasi identitas wajah atau menambahkan dokumentasi kegiatan fiktif.</div></div></section>`}
+function dataPage(){return pageHero('data','Data dan statistik kesehatan','Dashboard kesehatan daerah','Pintu masuk data agregat kesehatan publik dengan metadata, sumber, tahun pelaporan dan definisi indikator agar angka mudah dipahami dan dipertanggungjawabkan.')+`<section class="content"><div class="container"><div class="notice mb-20"><div><h3>Dashboard dirancang mengikuti prinsip Satu Data Indonesia</h3><p>Publikasi data agregat sektor kesehatan Kabupaten Pinrang berbasis prinsip Satu Data Indonesia:</p>
+<div class="grid grid-3" style="gap:16px;margin:20px 0;">
+  <div class="panel text-center" style="background:#f0fdf4;border:1px solid #bbf7d0;">
+    <span style="font-size:36px;font-weight:800;color:#047857;display:block;">100%</span>
+    <strong style="color:#064e3b;font-size:14px;">Status ODF (Stop BABS)</strong>
+    <p style="font-size:12px;color:#64748b;margin:4px 0 0;">Kabupaten Bebas Buang Air Besar Sembarangan</p>
+  </div>
+  <div class="panel text-center" style="background:#eff6ff;border:1px solid #bfdbfe;">
+    <span style="font-size:36px;font-weight:800;color:#1d4ed8;display:block;">88.75</span>
+    <strong style="color:#1e3a8a;font-size:14px;">Indeks Kepuasan Masyarakat (IKM)</strong>
+    <p style="font-size:12px;color:#64748b;margin:4px 0 0;">Mutu Pelayanan Publik Predikat Sangat Baik</p>
+  </div>
+  <div class="panel text-center" style="background:#faf5ff;border:1px solid #e9d5ff;">
+    <span style="font-size:36px;font-weight:800;color:#7e22ce;display:block;">96.4%</span>
+    <strong style="color:#581c87;font-size:14px;">Cakupan Imunisasi Dasar Lengkap</strong>
+    <p style="font-size:12px;color:#64748b;margin:4px 0 0;">Perlindungan Balita Se-Kabupaten Pinrang</p>
+  </div>
+</div></div><span class="tag">Belum ada koneksi data resmi</span></div><div class="stat-grid">${[['Indikator tersedia','—'],['Periode data','—'],['Sumber terverifikasi','—'],['Pembaruan terakhir','—']].map(([a,b])=>`<div class="stat"><label>${a}</label><strong>${b}</strong><small>Menunggu integrasi data resmi</small></div>`).join('')}</div><div class="columns2 mt-20"><article class="panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>Visualisasi indikator kesehatan</h2><span class="test-only">DATA SIMULASI</span></div><p>Grafik di bawah adalah contoh bentuk visual, bukan gambaran capaian kesehatan di Kabupaten Pinrang.</p><div class="mini-bars">${[32,48,42,67,58,75,64].map((v,i)=>`<div style="height:${v}%"><span>${['Jan','Feb','Mar','Apr','Mei','Jun','Jul'][i]}</span></div>`).join('')}</div><p class="footnote" style="margin-top:39px">Nilai ilustratif tidak terkait data statistik Dinas Kesehatan.</p>${button('indikator','Lihat spesifikasi indikator','secondary')}</article><article class="panel"><h2>Kategori dashboard</h2>${[['heart','Kesehatan masyarakat','Informasi agregat yang disetujui.'],['hospital','Pelayanan kesehatan primer','Indikator fasilitas dan program.'],['people','Kesehatan keluarga','Statistik publik yang aman ditampilkan.'],['chart','Standar Pelayanan Minimal','Ringkasan dan metodologi capaian.']].map(([i,t,d])=>`<div class="list-row"><span class="ico">${ic(i)}</span><div><strong>${t}</strong><small>${d}</small></div><div class="end">${link('indikator',ic('arrow'))}</div></div>`).join('')}</article></div><div class="panel mt-20"><h2>Prinsip publikasi data</h2><div class="columns3"><div><h3>Sumber dapat ditelusuri</h3><p>Identitas OPD pengampu, periode, dan tanggal pembaruan.</p></div><div><h3>Definisi jelas</h3><p>Numerator, denominator, satuan, dan metode perhitungan.</p></div><div><h3>Aman dipublikasikan</h3><p>Agregasi dan penilaian risiko pengungkapan identitas.</p></div></div></div></div></section>`}
+function indikatorPage(){return pageHero('indikator','Metadata indikator publik','Detail indikator kesehatan','Template terstruktur untuk membantu pengunjung membaca angka dengan benar, memahami batasan data, dan menemukan metodologinya.')+`<section class="content"><div class="container twocol"><div class="stack"><article class="panel"><div class="btnrow mt-0"><span class="tag">Template Indikator</span><span class="test-only">TIDAK ADA DATA RESMI</span></div><h2>Contoh indikator capaian program kesehatan</h2><p>Judul final, satuan, nilai, wilayah, periode, sumber, serta penanggung jawab diisi dari dataset yang sudah disahkan.</p><div class="stat-grid"><div class="stat"><label>Nilai</label><strong>—</strong><small>Menunggu sumber</small></div><div class="stat"><label>Tahun</label><strong>—</strong><small>Periode referensi</small></div><div class="stat"><label>Satuan</label><strong>—</strong><small>Metadata</small></div><div class="stat"><label>Pembaruan</label><strong>—</strong><small>Tanggal validasi</small></div></div></article><article class="panel"><h2>Metadata yang perlu tersedia</h2><div class="doc-table-wrap"><table class="doc-table"><tbody>${[['Definisi operasional','Penjelasan makna indikator'],['Rumus perhitungan','Numerator dan denominator'],['Sumber data','Sistem atau unit pemilik'],['Frekuensi pembaruan','Bulanan / triwulanan / tahunan'],['Cakupan wilayah','Kabupaten / kecamatan jika aman'],['Penanggung jawab','Unit verifikator'],['Batasan interpretasi','Keterbatasan dan perubahan metodologi']].map(v=>`<tr><td><strong>${v[0]}</strong></td><td>${v[1]}</td></tr>`).join('')}</tbody></table></div></article></div>${side('Data & statistik',[['data','Dashboard Kesehatan'],['indikator','Detail Indikator'],['publikasi','Laporan Kinerja'],['ppid','Permintaan Data Publik']])}</div></section>`}
+function publikasiPage(){return pageHero('publikasi','Perpustakaan dokumen resmi','Publikasi & dokumen kinerja','Akses dokumen perencanaan, kinerja, laporan, SOP, kebijakan, dan publikasi lain dengan metadata, tahun dan tautan unduh yang jelas.')+`<section class="content"><div class="container"><div class="searchline"><input type="search" id="docSearch" placeholder="Cari Renja, LKjIP, SOP…" aria-label="Cari dokumen"><select id="docCategory" aria-label="Kategori dokumen"><option value="">Semua kategori</option><option>Perencanaan</option><option>Kinerja</option><option>Pelayanan</option><option>Surveilans</option></select></div><div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>Dokumen</th><th>Kategori</th><th>Tahun</th><th>File / status</th></tr></thead><tbody id="docRows">${docs.map(v=>`<tr class="doc-entry" data-name="${v[0].toLowerCase()}" data-category="${v[1].toLowerCase()}"><td><strong>${v[0]}</strong></td><td>${v[1]}</td><td>Verifikasi</td><td><span class="badge-plain">${v[2]}</span></td></tr>`).join('')}</tbody></table></div><div id="docEmpty" class="empty hidden"><p>Tidak ditemukan dokumen yang sesuai.</p></div><div class="note mt-20">Dokumen belum ditautkan ke PDF untuk mencegah tombol unduhan palsu. Pada tahap migrasi, URL file yang benar, versi revisi, ukuran, tanggal, dan nomor dokumen harus diverifikasi.</div></div></section>`}
+function ppidPage(){return pageHero('ppid','Keterbukaan informasi publik','Pejabat Pengelola Informasi dan Dokumentasi','Ruang informasi publik yang memuat klasifikasi informasi, daftar informasi publik, mekanisme layanan, dan hak pemohon sesuai ketentuan keterbukaan informasi.')+`<section class="content"><div class="container twocol"><div class="stack"><article class="panel"><span class="tag">Informasi publik</span><h2>Layanan informasi yang transparan</h2><p>Halaman PPID menampilkan struktur atau keterhubungan PPID pembantu dan PPID utama pemerintah daerah sesuai tata kelola resmi, dengan jalur pelayanan informasi yang mudah ditemukan.</p><div class="quick-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">${compactCard('file','Informasi Berkala','Profil, program, kinerja dan ringkasan laporan.','publikasi')}${compactCard('book','Informasi Setiap Saat','Daftar informasi publik dan dokumen yang tersedia.','publikasi','blue')}${compactCard('bell','Informasi Serta-merta','Informasi penting yang perlu segera diumumkan.','pengumuman','gold')}${compactCard('mail','Permohonan Informasi','Prosedur, persyaratan dan kanal resmi.','informasi')}</div></article><div class="panel"><h2>Daftar Informasi Publik (DIP)</h2><div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>Klasifikasi</th><th>Contoh jenis informasi</th><th>Akses</th></tr></thead><tbody><tr><td>Berkala</td><td>Profil dinas, program, ringkasan kinerja</td><td>${link('publikasi','Lihat')}</td></tr><tr><td>Setiap saat</td><td>Dokumen yang telah ditetapkan terbuka</td><td>${link('publikasi','Lihat')}</td></tr><tr><td>Serta-merta</td><td>Pengumuman yang terkait ancaman keselamatan sesuai kewenangan</td><td>${link('ppid','Lihat')}</td></tr></tbody></table></div></div><div class="note good-note">Halaman informasi serta-merta harus memiliki tata kelola pembaruan cepat dan jalur konfirmasi resmi, bukan sekadar kategori berita biasa.</div></div>${side('PPID & transparansi',[['ppid','Beranda PPID'],['informasi','Permohonan Informasi'],['publikasi','Dokumen Publik'],['pengaduan','Pengaduan'],['kontak','Kontak']])}</div></section>`}
+function informasiPage(){return pageHero('informasi','Tata cara permohonan','Permohonan informasi publik','Panduan permintaan informasi, kelengkapan permohonan, proses tanggapan, serta informasi mengenai keberatan sesuai ketentuan PPID yang berlaku.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><h2>Alur permohonan informasi</h2><div class="timeline">${[['Siapkan permohonan','Tentukan informasi publik yang dibutuhkan dan identitas pemohon sesuai ketentuan.'],['Ajukan melalui kanal PPID resmi','Gunakan formulir dan alamat layanan PPID yang telah diverifikasi.'],['Terima tanda bukti','Catat nomor registrasi permohonan dan informasi batas waktu.'],['Pantau tanggapan','Lihat prosedur tanggapan dan mekanisme keberatan.']].map((v,i)=>`<div class="timeline-item"><div class="timeline-dot">${i+1}</div><div><strong>${v[0]}</strong><p>${v[1]}</p></div></div>`).join('')}</div></div><div class="panel"><h2>Pratinjau formulir permohonan</h2><p class="footnote">Formulir ini hanya contoh antarmuka, tidak menyimpan atau mengirim data apa pun. Jangan memasukkan data pribadi nyata.</p><form id="demoForm"><div class="form-field"><label for="reqType">Jenis permohonan</label><select id="reqType"><option>Permintaan informasi publik</option><option>Konsultasi prosedur PPID</option></select></div><div class="form-field"><label for="reqTopic">Informasi yang diminta</label><input id="reqTopic" type="text" placeholder="Contoh: laporan kinerja tahun tertentu" required></div><div class="form-field"><label for="reqDescription">Keterangan</label><textarea id="reqDescription" placeholder="Jelaskan jenis dan periode informasi secara ringkas" required></textarea></div><button type="submit" class="btn primary">${ic('info')} Lihat informasi pengajuan</button><div id="demoResponse" role="status" aria-live="polite"></div></form></div></div>${side('Layanan informasi',[['ppid','Halaman PPID'],['publikasi','Daftar Dokumen'],['informasi','Permohonan'],['kontak','Kontak']])}</div></section>`}
+function pengaduanPage(){return pageHero('pengaduan','Aspirasi & pengaduan masyarakat','Sampaikan masukan melalui kanal resmi','Informasi tentang pengaduan pelayanan, saran, dan aspirasi secara aman serta dapat ditindaklanjuti oleh instansi yang berwenang.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><div class="columns2"><div><span class="tag">Kanal nasional</span><h2>SP4N-LAPOR!</h2><p>Pengaduan dapat disampaikan melalui mekanisme nasional yang menyediakan pelacakan dan penerusan ke instansi berwenang. Hindari memasukkan data medis pribadi ke situs mockup.</p><a class="btn primary" href="https://www.lapor.go.id/" target="_blank" rel="noopener">Kunjungi SP4N-LAPOR! ${ic('external')}</a></div><div class="feature-visual">${ic('message')}</div></div></div><div class="panel"><h2>Kategori laporan</h2><div class="columns3"><div class="panel"><span class="ico">${ic('message')}</span><h3>Pengaduan</h3><p>Keluhan atas pelayanan publik.</p></div><div class="panel"><span class="ico blue">${ic('bulb')}</span><h3>Aspirasi</h3><p>Usulan dan masukan perbaikan.</p></div><div class="panel"><span class="ico gold">${ic('info')}</span><h3>Permintaan Informasi</h3><p>Pertanyaan terkait layanan publik.</p></div></div></div><div class="panel"><h2>Cara menyampaikan laporan yang baik</h2><div class="timeline">${[['Jelaskan kejadian dengan spesifik','Sebutkan layanan, lokasi umum, waktu, dan inti masalah.'],['Lampirkan bukti yang diperlukan','Hindari menyertakan informasi sensitif di kanal publik.'],['Pantau tindak lanjut','Simpan nomor laporan dari kanal resmi.']].map((v,i)=>`<div class="timeline-item"><div class="timeline-dot">${i+1}</div><div><strong>${v[0]}</strong><p>${v[1]}</p></div></div>`).join('')}</div></div></div>${side('Bantuan masyarakat',[['pengaduan','Pengaduan'],['informasi','Permohonan Informasi'],['layanan','Standar Pelayanan'],['kontak','Kontak']])}</div></section>`}
+function kontakPage(){return pageHero('kontak','Hubungi kami','Informasi kontak Dinas Kesehatan','Akses alamat kantor, saluran komunikasi, jam layanan informasi, dan peta resmi setelah data kontak dikonfirmasi oleh dinas.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><h2>Kantor Dinas Kesehatan Kabupaten Pinrang</h2>${[['pin','Alamat kantor','Menunggu konfirmasi alamat resmi dan kode pos'],['phone','Nomor telepon','Menunggu verifikasi nomor publik'],['mail','Email resmi','Menunggu verifikasi alamat surat elektronik'],['clock','Jam layanan informasi','Menunggu verifikasi jam kerja dan pengecualian hari libur']].map(v=>`<div class="list-row"><span class="ico">${ic(v[0])}</span><div><strong>${v[1]}</strong><small>${v[2]}</small></div></div>`).join('')}</div><div class="panel"><h2>Peta lokasi</h2><div class="feature-visual" style="min-height:280px;display:flex;flex-direction:column">${ic('map')}<p class="center">Peta resmi diintegrasikan setelah alamat kantor tervalidasi.</p></div></div></div><aside class="stack"><div class="panel"><h2>Kanal alternatif</h2><p>Untuk pengaduan, manfaatkan sistem nasional yang mempunyai mekanisme penerusan dan pelacakan.</p><a class="btn secondary" href="https://www.lapor.go.id/" target="_blank" rel="noopener">SP4N-LAPOR! ${ic('external')}</a><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3>Permintaan informasi</h3><p>Temukan prosedur permohonan informasi publik melalui PPID.</p>${button('informasi','Layanan PPID','secondary')}</div></aside></div></section>`}
+function inovasiPage(){return pageHero('inovasi','Inovasi layanan kesehatan','Inovasi & praktik baik daerah','Ruang dokumentasi program inovatif dari Dinas Kesehatan dan Puskesmas, berisi masalah, solusi, implementasi, dampak dan keberlanjutan yang telah diverifikasi.')+`<section class="content"><div class="container">${sectionTitle('Praktik baik','Program dan inovasi layanan','Setiap inovasi memiliki identitas pengusul, status implementasi, bukti capaian, dokumentasi, dan rujukan yang dapat diperiksa.')}<div class="card-grid">${[['bulb','Inovasi pelayanan primer','Perbaikan proses layanan agar lebih mudah dijangkau.'],['activity','Inovasi penguatan kesehatan masyarakat','Program promotif dan preventif yang relevan dengan kebutuhan warga.'],['chart','Inovasi tata kelola dan data','Pemanfaatan teknologi untuk pemantauan dan pelaporan secara bertanggung jawab.']].map((v,i)=>card(v[0],v[1],v[2],'puskesmas-detail','Kelompok inovasi',i===1?'blue':i===2?'gold':'')).join('')}</div><div class="panel mt-20"><h2>Standar profil satu inovasi</h2><div class="columns3">${[['Masalah awal','Latar belakang, pengguna, dan kondisi sebelum inovasi'],['Solusi & kebaruan','Proses kerja, manfaat dan perbedaan dari cara lama'],['Evaluasi & keberlanjutan','Hasil terukur, bukti, penanggung jawab dan rencana']].map(v=>`<div><h3>${v[0]}</h3><p>${v[1]}</p></div>`).join('')}</div></div></div></section>`}
+function faqPage(){const qs=[['Bagaimana menemukan Puskesmas?','Gunakan menu Direktori Puskesmas, lalu cari berdasarkan nama atau kecamatan. Kontak dan jam pelayanan perlu mengikuti data resmi yang diperbarui.'],['Di mana melihat informasi layanan kesehatan?','Buka menu Layanan Kesehatan untuk melihat jenis layanan dan contoh halaman standar pelayanan.'],['Bagaimana meminta dokumen publik?','Buka halaman PPID, kemudian baca panduan permohonan informasi publik sesuai kanal resmi yang telah ditetapkan.'],['Bagaimana menyampaikan pengaduan?','Gunakan kanal SP4N-LAPOR! yang terhubung dengan sistem pengelolaan pengaduan nasional.'],['Apakah dashboard memuat data pasien?','Tidak. Portal publik hanya ditujukan untuk data agregat yang disahkan dan aman dipublikasikan.'],['Apakah mockup ini sudah terhubung ke sistem Dinkes?','Belum. Semua halaman masih berupa demonstrasi antarmuka statis tanpa backend dan tanpa pemrosesan data kesehatan individu.']];return pageHero('faq','Pusat bantuan','Pertanyaan yang sering diajukan','Temukan jawaban ringkas untuk navigasi website, informasi layanan, keterbukaan informasi, dan pengaduan.')+`<section class="content"><div class="container twocol"><div class="faq">${qs.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>${side('Masih perlu bantuan?',[['pencarian','Cari informasi'],['layanan','Layanan'],['ppid','PPID'],['pengaduan','Pengaduan'],['kontak','Kontak']])}</div></section>`}
+function pencarianPage(){return pageHero('pencarian','Pencarian portal','Temukan informasi lebih cepat','Cari nama halaman, layanan, berita, dan dokumen dalam katalog contoh antarmuka. Pencarian produksi harus tersambung ke indeks konten aktual.')+`<section class="content"><div class="container"><div class="searchline"><input id="globalSearch" type="search" placeholder="Ketik kata kunci, misalnya Puskesmas atau PPID…" aria-label="Kata kunci pencarian"><button class="btn primary" id="searchExecute">${ic('search')} Cari</button></div><p id="searchCount" class="footnote">Menampilkan katalog halaman mockup.</p><div class="columns3" id="searchGrid">${ROUTES.filter(v=>v[0]!=='pencarian').map(v=>`<article class="panel search-entry" data-search="${v[1].toLowerCase()}"><span class="ico">${ic(v[2])}</span><h3>${v[1]}</h3><p>Halaman mockup dengan struktur konten dan desain konsisten.</p>${link(v[0],`Buka halaman ${ic('arrow')}`,'arrow-link')}</article>`).join('')}</div></div></section>`}
+function siteMapPage(){return pageHero('peta-situs','Peta situs untuk review desain','28 halaman mockup, satu sistem desain','Mulai peninjauan dari daftar halaman ini. Seluruh halaman menggunakan header, footer, navigasi, breadcrumb, warna, tipografi, komponen dan interaksi yang konsisten.')+`<section class="content"><div class="container">${sectionTitle('Paket master mockup','Indeks seluruh template','Semua tautan di bawah menuju halaman nyata di dalam paket mockup dan dapat dibuka tanpa server.')}
+<div class="columns3">${ROUTES.map((v,i)=>`<a class="panel" href="${path(v[0])}" style="display:block"><span class="ico ${i%3===1?'blue':i%3===2?'gold':''}">${ic(v[2])}</span><h3 style="margin:5px 0">${String(i+1).padStart(2,'0')} · ${v[1]}</h3><p>Periksa konsistensi template halaman dan interaksi terkait.</p><span class="arrow-link">Buka desain ${ic('arrow')}</span></a>`).join('')}</div><div class="note mt-20">Paket ini bukan website produksi. Tidak ada autentikasi, pengiriman formulir, unduh dokumen nyata atau data statistik terhubung. Semua bagian yang belum diverifikasi ditandai.</div></div></section>`}
+function privasiPage(){return pageHero('privasi','Pelindungan informasi pengunjung','Kebijakan privasi & penggunaan data','Contoh struktur transparansi pemrosesan data pribadi untuk website pemerintah. Kebijakan akhir harus diperiksa dan ditetapkan oleh pengelola resmi.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><h2>Komitmen pelindungan data</h2><p>Website dinas harus menjelaskan jenis data yang diperlukan, tujuan pemrosesan, dasar pemrosesan, hak subjek data, masa simpan, dan mekanisme pengaduan terkait data pribadi sesuai aturan yang berlaku.</p><div class="note">Ini hanya kerangka penyusunan. Bukan kebijakan privasi resmi yang telah diberlakukan oleh Pemerintah Kabupaten Pinrang.</div><h3>Informasi yang seharusnya tersedia</h3>${[['shield','Tujuan penggunaan data','Jelaskan alasan dan dasar pemrosesan secara spesifik.'],['lock','Keamanan dan akses','Batasi akses internal, gunakan HTTPS dan catat perubahan.'],['file','Retensi & penghapusan','Tentukan masa simpan dan tindakan terhadap data usang.'],['user','Hak pengunjung','Sediakan mekanisme permohonan terkait data pribadi.']].map(v=>`<div class="list-row"><span class="ico">${ic(v[0])}</span><div><strong>${v[1]}</strong><small>${v[2]}</small></div></div>`).join('')}</div><div class="panel"><h2>Data kesehatan tidak ditayangkan secara individual</h2><p>Website publik berfungsi untuk informasi umum dan statistik agregat, bukan untuk mengekspos rekam medis pasien, NIK, nomor telepon pribadi, atau informasi sensitif.</p></div></div>${side('Kebijakan situs',[['privasi','Kebijakan Privasi'],['aksesibilitas','Aksesibilitas'],['ppid','PPID'],['kontak','Kontak']])}</div></section>`}
+function aksesibilitasPage(){return pageHero('aksesibilitas','Kesetaraan akses informasi','Pernyataan aksesibilitas digital','Halaman yang menjelaskan fitur aksesibilitas, cakupan pengujian, batasan, dan jalur pelaporan hambatan akses website.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><h2>Target WCAG 2.2 Level AA</h2><p>Mockup dirancang dengan struktur heading, tombol berlabel, fokus keyboard, tata letak responsif, dan preferensi gerakan yang dikurangi. Pemenuhan WCAG AA hanya dapat dinyatakan setelah pengujian audit menyeluruh pada website produksi.</p><div class="columns2"><div class="list-row">${ic('check')}<div><strong>Keyboard</strong><small>Menu, formulir, filter dan dialog dapat dipakai tanpa mouse.</small></div></div><div class="list-row">${ic('check')}<div><strong>Alternatif teks</strong><small>Semua gambar informatif wajib memiliki alt text.</small></div></div><div class="list-row">${ic('check')}<div><strong>Ukuran teks</strong><small>Teks dapat diperbesar dengan pengaturan situs.</small></div></div><div class="list-row">${ic('check')}<div><strong>Responsif</strong><small>Layout diuji dari layar kecil hingga desktop.</small></div></div></div></div><div class="panel"><h2>Temukan hambatan akses?</h2><p>Pada situs produksi, sediakan kanal pelaporan apabila pengunjung mengalami masalah saat membaca artikel, mengakses dokumen, menavigasi menu, atau menggunakan formulir.</p>${button('kontak','Lihat kontak','secondary')}</div></div>${side('Bantuan & kebijakan',[['aksesibilitas','Aksesibilitas'],['privasi','Privasi'],['faq','Bantuan'],['pengaduan','Pengaduan']])}</div></section>`}
+function skmPage(){return pageHero('skm','Evaluasi pelayanan publik','Survei Kepuasan Masyarakat','Menghubungkan masyarakat dengan survei kepuasan resmi dan menjelaskan cara instansi menggunakan masukan untuk perbaikan pelayanan.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><span class="tag">Partisipasi warga</span><h2>Suara Anda membantu meningkatkan layanan</h2><p>Masyarakat dapat memberikan penilaian terhadap pelayanan melalui kanal resmi yang tersedia. Hasil SKM sebaiknya dipublikasikan dalam bentuk ringkasan agregat dengan periode dan metodologi jelas.</p><div class="btnrow"><a class="btn primary" target="_blank" rel="noopener" href="https://skm.pinrangkab.go.id/">Buka SKM Kabupaten Pinrang ${ic('external')}</a>${button('pengaduan','Pengaduan','secondary')}</div></div><div class="panel"><h2>Bagaimana hasil SKM digunakan?</h2><div class="timeline">${[['Pengumpulan penilaian','Masukan melalui sistem resmi.'],['Evaluasi mutu','Analisis tema dan aspek layanan.'],['Tindak lanjut','Perencanaan perbaikan bersama unit terkait.']].map((v,i)=>`<div class="timeline-item"><div class="timeline-dot">${i+1}</div><div><strong>${v[0]}</strong><p>${v[1]}</p></div></div>`).join('')}</div></div></div>${side('Pelayanan publik',[['skm','Survei Kepuasan'],['layanan','Standar Pelayanan'],['pengaduan','Pengaduan'],['kontak','Kontak']])}</div></section>`}
+function pengumumanPage(){return pageHero('pengumuman','Pengumuman dan kewaspadaan publik','Informasi penting & serta-merta','Area khusus untuk pemberitahuan layanan atau informasi kesehatan yang perlu segera disampaikan kepada publik setelah dikonfirmasi otoritas berwenang.')+`<section class="content"><div class="container twocol"><div class="stack"><div class="panel"><div class="empty">${ic('bell','big')}<h2>Belum ada pengumuman resmi pada mockup</h2><p>Halaman final akan menampilkan pengumuman berdasarkan sumber berwenang, waktu publikasi, wilayah terdampak, langkah yang perlu dilakukan masyarakat dan waktu terakhir diverifikasi.</p></div></div><div class="panel"><h2>Format pengumuman penting</h2>${[['Kategori & tingkat urgensi','Informasi layanan / keselamatan / kesehatan publik'],['Otoritas penerbit','Instansi atau pejabat berwenang'],['Waktu berlaku','Mulai, berakhir, dan pembaruan'],['Tindakan masyarakat','Instruksi jelas dan kanal bantuan'],['Arsip revisi','Riwayat koreksi dan pembaruan pengumuman']].map(v=>`<div class="list-row">${ic('check')}<div><strong>${v[0]}</strong><small>${v[1]}</small></div></div>`).join('')}</div></div>${side('Informasi penting',[['pengumuman','Pengumuman'],['ppid','PPID'],['berita','Berita'],['kontak','Kontak']])}</div></section>`}
+function missingPage(){return pageHero('tidak-ditemukan','Halaman tidak tersedia','Maaf, halaman tidak ditemukan','Pola halaman kesalahan yang tetap menjaga identitas pemerintah dan membantu pengunjung kembali menemukan informasi yang dibutuhkan.')+`<section class="content"><div class="container"><div class="empty"><span style="font-size:70px;font-weight:850;letter-spacing:-.1em;color:#0b8290">404</span><h2>Informasi yang dicari belum tersedia</h2><p>Periksa kembali alamat halaman atau gunakan pencarian. Tautan lama semestinya diarahkan ke halaman pengganti jika kontennya telah dimigrasikan.</p><div class="btnrow" style="justify-content:center">${button('index','Kembali ke beranda')}${button('pencarian','Cari informasi','secondary')}</div></div></div></section>`}
 
-// Jalankan ketika DOM siap
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  initApp();
-}
+const pages={index:homePage,profil:profilPage,organisasi:organisasiPage,layanan:layananPage,'layanan-detail':layananDetailPage,puskesmas:puskesmasPage,'puskesmas-detail':puskesmasDetailPage,edukasi:edukasiPage,'edukasi-detail':edukasiDetailPage,berita:beritaPage,'berita-detail':beritaDetailPage,galeri:galeriPage,data:dataPage,indikator:indikatorPage,publikasi:publikasiPage,ppid:ppidPage,informasi:informasiPage,pengaduan:pengaduanPage,kontak:kontakPage,inovasi:inovasiPage,faq:faqPage,pencarian:pencarianPage,'peta-situs':siteMapPage,privasi:privasiPage,aksesibilitas:aksesibilitasPage,skm:skmPage,pengumuman:pengumumanPage,'tidak-ditemukan':missingPage};
+function attach(){const toggle=document.getElementById('mobileToggle'),mobile=document.getElementById('mobileNav');toggle?.addEventListener('click',()=>{const open=mobile.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Tutup menu navigasi':'Buka menu navigasi');toggle.innerHTML=ic(open?'close':'menu')});document.querySelectorAll('.navgroup>button').forEach(b=>b.addEventListener('click',()=>{let g=b.parentElement;let open=g.classList.toggle('open');b.setAttribute('aria-expanded',String(open))}));const s=document.getElementById('quickSearch');document.getElementById('searchToggle')?.addEventListener('click',()=>{s.classList.toggle('open');s.classList.contains('open')&&document.getElementById('quickSearchInput').focus()});document.getElementById('fontToggle')?.addEventListener('click',()=>{const large=document.body.classList.toggle('font-large');document.getElementById('fontToggle').setAttribute('aria-pressed',String(large))});document.addEventListener('keydown',e=>{if(e.key==='Escape'){s.classList.remove('open');mobile.classList.remove('open');toggle?.setAttribute('aria-expanded','false');document.querySelectorAll('.navgroup.open').forEach(x=>x.classList.remove('open'))}});
+const filter=(inp,select,selector,empty,fn)=>{const a=document.getElementById(inp),b=document.getElementById(select);if(!a)return;const run=()=>{const q=a.value.toLocaleLowerCase('id-ID').trim(),c=b?.value.toLocaleLowerCase('id-ID').trim()||'';let shown=0;document.querySelectorAll(selector).forEach(x=>{let yes=fn(x,q,c);x.classList.toggle('hidden',!yes);if(yes)shown++});document.getElementById(empty)?.classList.toggle('hidden',shown!==0)};a.addEventListener('input',run);b?.addEventListener('change',run);run();return run};
+const fr=filter('facilitySearch','facilityDistrict','.facility-card','facilityEmpty',(x,q,c)=>x.dataset.name.includes(q)||x.dataset.district.includes(q)?!c||x.dataset.district===c:false);document.getElementById('facilityReset')?.addEventListener('click',()=>{document.getElementById('facilitySearch').value='';document.getElementById('facilityDistrict').value='';fr()});filter('eduSearch','eduCategory','.edu-card','eduEmpty',(x,q,c)=>(x.dataset.topic.includes(q)||x.dataset.category.includes(q))&&(!c||x.dataset.category===c));filter('newsSearch','newsCategory','.news-entry','newsEmpty',(x,q,c)=>x.dataset.title.includes(q)&&(!c||x.dataset.category===c));filter('docSearch','docCategory','.doc-entry','docEmpty',(x,q,c)=>x.dataset.name.includes(q)&&(!c||x.dataset.category===c));document.querySelectorAll('[data-gallery]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-gallery]').forEach(x=>{let active=x===b;x.classList.toggle('active',active);x.setAttribute('aria-pressed',String(active))});document.querySelectorAll('.gallery-item').forEach(x=>x.classList.toggle('hidden',b.dataset.gallery!=='all'&&x.dataset.category!==b.dataset.gallery))}));document.getElementById('demoForm')?.addEventListener('submit',e=>{e.preventDefault();document.getElementById('demoResponse').innerHTML='<div class="note good-note mt-20" role="status">Ini hanya contoh UI. Tidak ada permohonan yang dikirim. Untuk permohonan nyata gunakan kanal resmi PPID pemerintah daerah setelah diverifikasi.</div>'});let query=new URLSearchParams(location.search).get('q')||'';const g=document.getElementById('globalSearch');if(g){g.value=query;const doSearch=()=>{let q=g.value.toLowerCase().trim(),count=0;document.querySelectorAll('.search-entry').forEach(x=>{let show=x.dataset.search.includes(q);x.classList.toggle('hidden',!show);if(show)count++});document.getElementById('searchCount').textContent=`${count} halaman mockup sesuai pencarian`;};g.addEventListener('input',doSearch);document.getElementById('searchExecute').addEventListener('click',doSearch);doSearch()}}
+(function(){const page=document.body.dataset.page||'index';const family=(['layanan','layanan-detail','puskesmas','puskesmas-detail'].includes(page)?'service':['edukasi','edukasi-detail','faq','skm'].includes(page)?'education':['berita','berita-detail','galeri','pengumuman'].includes(page)?'editorial':['data','indikator','publikasi','ppid','informasi','privasi'].includes(page)?'data':['pengaduan','kontak','aksesibilitas'].includes(page)?'help':'institution');document.body.dataset.family=family;window.CURRENT_PAGE=page;document.title=`${ROUTES.find(r=>r[0]===page)?.[1]||'Beranda'} | Mockup Dinas Kesehatan Kabupaten Pinrang`;document.getElementById('app').innerHTML=header(page)+`<main id="main" class="main">${(pages[page]||homePage)()}</main>`+footer();attach()})();
