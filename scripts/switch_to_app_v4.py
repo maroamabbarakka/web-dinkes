@@ -14,3 +14,4 @@ for f in files:
         print(f"Updated script in: {f}")
 
 print("Selesai memperbarui 28 HTML ke app.v4.js")
+

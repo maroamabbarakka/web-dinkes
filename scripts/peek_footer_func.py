@@ -6,3 +6,4 @@ if pos != -1:
     print(text[pos:pos+1500])
 else:
     print("function footer() tidak ditemukan")
+

@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-29",
+  "page_count": 28,
+  "home_responsive_metrics": {
+    "320": {
+      "viewport": 320,
+      "documentWidth": 320,
+      "bodyWidth": 320,
+      "slideCount": 3,
+      "services": 6,
+      "stageLayout": "292px",
+      "font": "\"Plus Jakarta Sans\", system-ui, -apple-system, sans-serif"
+    },
+    "360": {
+      "viewport": 360,
+      "documentWidth": 360,
+      "bodyWidth": 360,
+      "slideCount": 3,
+      "services": 6,
+      "stageLayout": "332px",
+      "font": "\"Plus Jakarta Sans\", system-ui, -apple-system, sans-serif"
+    },
+    "390": {
+      "viewport": 390,
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "slideCount": 3,
+      "services": 6,
+      "stageLayout": "354px",
+      "font": "\"Plus Jakarta Sans\", system-ui, -apple-system, sans-serif"
+    },
+    "768": {
+      "viewport": 768,
+      "documentWidth": 768,
+      "bodyWidth": 768,
+      "slideCount": 3,
+      "services": 6,
+      "stageLayout": "728px",
+      "font": "\"Plus Jakarta Sans\", system-ui, -apple-system, sans-serif"
+    },
+    "1024": {
+      "viewport": 1024,
+      "documentWidth": 1024,
+      "bodyWidth": 1024,
+      "slideCount": 3,
+      "services": 6,
+      "stageLayout": "606.375px 343.625px",
+      "font": "\"Plus Jakarta Sans\", system-ui, -apple-system, sans-serif"
+    },
+    "1440": {
+      "viewport": 1440,
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "slideCount": 3,
+      "services": 6,
+      "stageLayout": "822.797px 343.188px",
+      "font": "\"Plus Jakarta Sans\", system-ui, -apple-system, sans-serif"
+    },
+    "1920": {
+      "viewport": 1920,
+      "documentWidth": 1920,
+      "bodyWidth": 1920,
+      "slideCount": 3,
+      "services": 6,
+      "stageLayout": "822.797px 343.188px",
+      "font": "\"Plus Jakarta Sans\", system-ui, -apple-system, sans-serif"
+    }
+  },
+  "issues": [],
+  "test_type": "headless Chromium layout, JS and navigation smoke tests; not real-user usability or production performance"
+}

@@ -8,3 +8,4 @@ if hero_idx != -1:
     print(text[hero_idx-50:hero_idx+2000])
 else:
     print("Kata 'hero' tidak ditemukan di index.html mockup V4")
+

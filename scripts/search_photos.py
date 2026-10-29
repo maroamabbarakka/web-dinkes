@@ -17,3 +17,4 @@ for r in rows:
 print(f"Total baris foto: {len(rows)}, Ditemukan cocok: {len(found)}")
 for kw, u, fpath in found[:35]:
     print(f"[{kw}] URL: {u} | File: {fpath}")
+

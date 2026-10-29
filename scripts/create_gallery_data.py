@@ -140,3 +140,4 @@ with open('public/data/gallery_albums.json', 'w', encoding='utf-8') as f:
     json.dump(valid_albums, f, ensure_ascii=False, indent=2)
 
 print(f"Berhasil menyimpan {len(valid_albums)} album galeri resmi ke public/data/gallery_albums.json")
+

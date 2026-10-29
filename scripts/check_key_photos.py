@@ -17,3 +17,4 @@ for c in candidates:
     exists = os.path.exists(c)
     sz = os.path.getsize(c) if exists else 0
     print(f"File: {c} | Exists: {exists} | Size: {sz} bytes")
+

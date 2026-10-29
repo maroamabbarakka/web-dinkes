@@ -6,3 +6,4 @@ if pos != -1:
     print(text[pos:pos+2500])
 else:
     print("homePage tidak ditemukan di mockup V4 app.js")
+

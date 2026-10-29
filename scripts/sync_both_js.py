@@ -36,3 +36,4 @@ for target_file in ['public/assets/app.v4.js', 'public/assets/app.js']:
     with open(target_file, 'w', encoding='utf-8') as f:
         f.write(code)
     print(f"Updated {target_file}")
+

@@ -16,3 +16,4 @@ posters = [a for a in articles if any(k in a['title'].lower() for k in ['poster'
 print(f"Total poster/leaflet ditemukan di judul: {len(posters)}")
 for p in posters[:10]:
     print(f"ID: {p['id']} | Judul: {p['title']} | Gambar: {p.get('featured_image')}")
+

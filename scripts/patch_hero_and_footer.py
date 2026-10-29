@@ -102,3 +102,4 @@ if 'MAROA Project' not in code:
 with open('public/assets/app.js', 'w', encoding='utf-8') as f:
     f.write(code)
 print("Berhasil menyimpan modifikasi awal app.js")
+

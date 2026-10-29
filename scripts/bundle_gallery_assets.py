@@ -46,3 +46,4 @@ for art in articles:
 with open('public/data/articles.json', 'w', encoding='utf-8') as f:
     json.dump(articles, f, ensure_ascii=False, indent=2)
 print("Berhasil memperbarui articles.json.")
+

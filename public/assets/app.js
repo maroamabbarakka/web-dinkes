@@ -241,7 +241,7 @@ function homePage() {
       </div>
 
       <!-- SISI KANAN SPOTLIGHT V4 DENGAN STYLING MODERN (TIDAK FLAT) -->
-      <div class="v4-stage-side" style="display:grid;grid-template-rows:1fr 1fr;gap:18px;">
+      <div class="v4-stage-side">
         <a class="v4-spotlight v4-spotlight-cyan" href="layanan-detail.html" style="text-decoration:none;cursor:pointer;">
           <span class="v4-spot-top">
             <span>PROGRAM UNGGULAN DAERAH</span>
@@ -353,7 +353,7 @@ function homePage() {
         <a href="berita.html" class="btn secondary">Semua Arsip Berita (${window.ARTICLES_CACHE.length}) ${ic('arrow')}</a>
       </div>
 
-      <div class="v4-news-grid" style="grid-template-columns:1.2fr 1fr;gap:32px;">
+      <div class="v4-news-feature-grid">
         <!-- Lead News Story -->
         <article class="v4-news-card" style="box-shadow:0 12px 32px rgba(16,52,71,0.08);">
           <div class="v4-news-thumb-wrap" style="padding-top:54%;">
@@ -382,8 +382,8 @@ function homePage() {
         <!-- Side News Grid -->
         <div style="display:grid;gap:16px;">
           ${sideNews.map(item => `
-            <article class="panel" style="background:#ffffff;border:1px solid #dce8eb;border-radius:14px;padding:16px;display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;">
-              <div style="width:110px;height:85px;border-radius:10px;overflow:hidden;background:#e2e8f0;flex-shrink:0;">
+            <article class="v4-side-news-item">
+              <div class="v4-side-news-thumb">
                 <img src="${getSafeImageUrl(item.featured_image)}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;" />
               </div>
               <div>
