@@ -76,7 +76,16 @@ const ROUTES = [
 
 const link = (id, label, cls = '') => `<a href="${id}.html" class="${cls}">${label}</a>`;
 
-// Header Komprehensif
+function getCategoryClass(catName = '') {
+  const c = catName.toLowerCase();
+  if (c.includes('germas')) return 'cat-germas';
+  if (c.includes('kegiatan')) return 'cat-kegiatan';
+  if (c.includes('promosi') || c.includes('promkes')) return 'cat-promkes';
+  if (c.includes('pembinaan')) return 'cat-pembinaan';
+  return 'cat-default';
+}
+
+// ----------------- HEADER DENGAN LOGO PINRANG & KEMENKES BERDAMPINGAN -----------------
 function header(page) {
   const group = (name, arr) => `
     <div class="navgroup">
@@ -99,13 +108,17 @@ function header(page) {
   </div>
   <header class="brandbar">
     <div class="container">
-      <a class="identity" href="index.html" aria-label="Beranda Dinas Kesehatan Kabupaten Pinrang">
-        <img src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" style="width:48px;height:auto;object-fit:contain;margin-right:8px;">
-        <span>
+      <a class="brand-duo" href="index.html" aria-label="Beranda Dinas Kesehatan Kabupaten Pinrang">
+        <div class="logo-group">
+          <img class="logo-pinrang" src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" title="Pemerintah Kabupaten Pinrang">
+          <span class="logo-divider" aria-hidden="true"></span>
+          <img class="logo-kemenkes" src="assets/kemenkes.jpg" alt="Logo Kementerian Kesehatan RI" title="Kementerian Kesehatan Republik Indonesia">
+        </div>
+        <div class="brand-text">
           <span class="overline">Pemerintah Kabupaten Pinrang</span>
           <strong>DINAS KESEHATAN</strong>
           <small>Portal Informasi & Pelayanan Kesehatan Masyarakat</small>
-        </span>
+        </div>
       </a>
       <div class="header-controls">
         <a class="soft-link" href="puskesmas.html">${ic('pin')} Cari Puskesmas</a>
@@ -156,23 +169,30 @@ function header(page) {
   </nav>`;
 }
 
-// Footer Komprehensif
+// ----------------- FOOTER DENGAN LOGO PINRANG & KEMENKES -----------------
 function footer() {
   return `
   <footer class="footer">
     <div class="container">
       <div class="top">
         <div>
-          <div class="identity">
-            <img src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" style="width:44px;height:auto;object-fit:contain;margin-right:8px;">
-            <span>
-              <span class="overline">Pemerintah Kabupaten Pinrang</span>
-              <strong>DINAS KESEHATAN</strong>
-              <small>Portal Informasi & Pelayanan Kesehatan Masyarakat</small>
-            </span>
+          <div class="brand-duo" style="color:#ffffff;">
+            <div class="logo-group" style="background:rgba(255,255,255,0.95);padding:4px 8px;border-radius:8px;">
+              <img class="logo-pinrang" src="assets/logo_pinrang_opt.png" alt="Logo Pemkab Pinrang" style="height:40px;">
+              <span class="logo-divider" style="height:28px;"></span>
+              <img class="logo-kemenkes" src="assets/kemenkes.jpg" alt="Logo Kementerian Kesehatan" style="height:36px;border-radius:3px;">
+            </div>
+            <div class="brand-text">
+              <span class="overline" style="color:#93c5fd;">Pemerintah Kabupaten Pinrang</span>
+              <strong style="color:#ffffff;font-size:18px;">DINAS KESEHATAN</strong>
+              <small style="color:#cbd5e1;">Portal Informasi & Pelayanan Masyarakat</small>
+            </div>
           </div>
-          <p class="mt-10">Jl. Jenderal Sukawati, Kabupaten Pinrang, Sulawesi Selatan 91212.<br>Telepon / WA: +62 853-4217-2724</p>
-          <p><span class="tag">Terhubung ke 19 UPTD Puskesmas</span></p>
+          <p class="mt-20" style="color:#cbd5e1;line-height:1.6;font-size:13.5px;">
+            Jl. Jenderal Sukawati, Kabupaten Pinrang, Sulawesi Selatan 91212.<br>
+            Kanal Pengaduan & Informasi WhatsApp: +62 853-4217-2724
+          </p>
+          <p><span class="tag" style="background:#078d90;color:#fff;">Membawahi 19 UPTD Puskesmas Resmi</span></p>
         </div>
         <div>
           <h3>Layanan Masyarakat</h3>
@@ -198,7 +218,7 @@ function footer() {
         </div>
       </div>
       <div class="copy">
-        <span>© 2026 Dinas Kesehatan Kabupaten Pinrang. Seluruh hak cipta dilindungi.</span>
+        <span>© 2026 Dinas Kesehatan Pemerintah Kabupaten Pinrang. Seluruh hak cipta dilindungi.</span>
         <span>${link('privasi', 'Kebijakan Privasi')} · ${link('aksesibilitas', 'Aksesibilitas')} · ${link('peta-situs', 'Peta Situs')}</span>
       </div>
     </div>
@@ -250,11 +270,13 @@ async function renderHome() {
   const latestArticles = articles.slice(0, 4);
 
   const heroArticle = latestArticles[0] || {
-    title: 'Kampanye GERMAS di Batulappa Dorong Deteksi Dini',
-    excerpt: 'Pelaksanaan rangkaian kampanye kesehatan masyarakat di Kecamatan Batulappa...',
-    slug: 'germas-batulappa',
+    id: '4505',
+    title: 'Kecamatan Batulappa Jadi Penutup Rangkaian Kampanye GERMAS Dinkes Pinrang, Dorong Masyarakat Lakukan Deteksi Dini',
+    excerpt: 'Tim Kerja Promosi Kesehatan dan Pemberdayaan Masyarakat Dinas Kesehatan Kabupaten Pinrang sukses menuntaskan rangkaian Kampanye GERMAS di 12 kecamatan...',
     published_at: '23 Oktober 2026',
-    category: 'Kegiatan'
+    author: 'Muhammad Rusdi',
+    category: 'Kegiatan',
+    featured_image: 'assets/puskesmas.png'
   };
 
   const sideArticles = latestArticles.slice(1, 4);
@@ -368,10 +390,12 @@ async function renderHome() {
       </div>
       <div class="v4-bento-services">
         <a href="puskesmas.html" class="v4-bento-card bento-cyan bento-wide">
-          <div class="v4-bento-badge">Fasilitas Kesehatan</div>
-          <div class="v4-bento-icon-lg">${ic('hospital')}</div>
+          <div class="v4-bento-badge">Fasilitas Kesehatan Resmi</div>
+          <div class="v4-bento-icon-lg" style="background:#ffffff;padding:8px;border-radius:16px;">
+            <img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:100%;height:100%;object-fit:contain;">
+          </div>
           <h3>Direktori 19 Puskesmas</h3>
-          <p>Alamat pos, nomor telepon, nama kepala puskesmas, dan inovasi pelayanan di 12 kecamatan.</p>
+          <p>Alamat pos, nama kepala puskesmas, dan inovasi pelayanan di 12 kecamatan se-Pinrang.</p>
           <span class="v4-bento-btn">Buka Direktori ${ic('arrow')}</span>
         </a>
         <a href="layanan.html" class="v4-bento-card bento-teal">
@@ -408,8 +432,8 @@ async function renderHome() {
     </div>
   </section>
 
-  <!-- Berita Unggulan dari 349 Berita Nyata -->
-  <section class="v4-section v4-news-strip">
+  <!-- Berita Unggulan Bergaya Editorial -->
+  <section class="v4-section v4-news-strip" style="background:#f8fafc;">
     <div class="container">
       <div class="v4-section-head">
         <div>
@@ -419,33 +443,51 @@ async function renderHome() {
         </div>
         <a href="berita.html" class="v4-text-link">Semua berita (${articles.length}) ${ic('arrow')}</a>
       </div>
-      <div class="v4-news-bento">
-        <article class="v4-news-lead">
-          <div class="v4-news-lead-img">
-            <img src="${heroArticle.featured_image || 'assets/puskesmas.png'}" alt="${heroArticle.title}" loading="lazy">
-            <span class="v4-news-tag">${heroArticle.category || 'Kegiatan'}</span>
-          </div>
-          <div class="v4-news-lead-body">
-            <div class="v4-news-meta">
-              <span>${ic('calendar')} ${heroArticle.published_at}</span>
-              <span>${ic('user')} ${heroArticle.author}</span>
-            </div>
-            <h3><a href="berita-detail.html?id=${heroArticle.id}">${heroArticle.title}</a></h3>
-            <p>${heroArticle.excerpt}</p>
-            <a href="berita-detail.html?id=${heroArticle.id}" class="v4-readmore">Baca selengkapnya ${ic('arrow')}</a>
-          </div>
-        </article>
 
-        <div class="v4-news-side">
-          ${sideArticles.map(art => `
-            <article class="v4-news-side-item">
-              <span class="v4-news-tag tag-sm">${art.category || 'Berita'}</span>
-              <h4><a href="berita-detail.html?id=${art.id}">${art.title}</a></h4>
-              <div class="v4-news-meta"><small>${ic('calendar')} ${art.published_at}</small></div>
-            </article>
-          `).join('')}
-          <a href="berita.html" class="v4-news-archive-link">Buka Arsip Lengkap 349 Berita ${ic('arrow')}</a>
+      <!-- Lead Story Card -->
+      <article class="editorial-lead-card">
+        <div class="lead-thumb">
+          <img src="${heroArticle.featured_image || 'assets/puskesmas.png'}" alt="${heroArticle.title}" loading="lazy">
+          <span class="cat-badge ${getCategoryClass(heroArticle.category)}" style="position:absolute;top:16px;left:16px;">
+            ${heroArticle.category || 'Kegiatan'}
+          </span>
         </div>
+        <div class="lead-body">
+          <span class="lead-badge">${ic('news')} BERITA UTAMA HARI INI</span>
+          <h2><a href="berita-detail.html?id=${heroArticle.id}">${heroArticle.title}</a></h2>
+          <p class="lead-excerpt">${heroArticle.excerpt}</p>
+          <div class="lead-meta">
+            <span>${ic('calendar')} ${heroArticle.published_at}</span>
+            <span>${ic('user')} ${heroArticle.author}</span>
+            <a href="berita-detail.html?id=${heroArticle.id}" class="v4-readmore" style="margin-left:auto;">
+              Baca Selengkapnya ${ic('arrow')}
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 Kartu Berita Sekunder -->
+      <div class="news-grid-pro" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+        ${sideArticles.map(art => `
+          <article class="news-card-pro">
+            <div class="thumb-wrap">
+              <img src="${art.featured_image || 'assets/puskesmas.png'}" alt="${art.title}" loading="lazy">
+              <span class="cat-badge ${getCategoryClass(art.category)}">${art.category || 'Berita'}</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta">
+                <span>${ic('calendar')} ${art.published_at}</span>
+                <span>${ic('clock')} 3 mnt baca</span>
+              </div>
+              <h3><a href="berita-detail.html?id=${art.id}">${art.title}</a></h3>
+              <p class="snippet">${art.excerpt}</p>
+              <div class="card-footer">
+                <span class="author-info">${ic('user')} ${art.author}</span>
+                <a href="berita-detail.html?id=${art.id}" class="read-action">Baca ${ic('arrow')}</a>
+              </div>
+            </div>
+          </article>
+        `).join('')}
       </div>
     </div>
   </section>
@@ -486,45 +528,61 @@ async function renderHome() {
     </div>
   </section>
 
-  <!-- Rujukan Inovasi Puskesmas -->
+  <!-- Faskes Puskesmas dengan Logo Resmi Puskesmas -->
   <section class="v4-section">
     <div class="container">
       <div class="v4-section-head">
         <div>
-          <span class="v4-overline">KREATIVITAS DAERAH</span>
-          <h2>Inovasi Unggulan UPTD Puskesmas</h2>
-          <p>Ragam inovasi nyata yang dilahirkan oleh UPTD Puskesmas se-Kabupaten Pinrang.</p>
+          <span class="v4-overline">PELAYANAN KESEHATAN TERDEKAT</span>
+          <h2>19 UPTD Puskesmas Kabupaten Pinrang</h2>
+          <p>Fasilitas kesehatan tingkat pertama resmi dengan inovasi pelayanan masyarakat.</p>
         </div>
-        <a href="inovasi.html" class="v4-text-link">Semua Inovasi ${ic('arrow')}</a>
+        <a href="puskesmas.html" class="v4-text-link">Semua 19 Puskesmas ${ic('arrow')}</a>
       </div>
-      <div class="v4-bento-services" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-        <div class="v4-bento-card bento-teal">
-          <span class="tag">Puskesmas Lanrisang</span>
-          <h3 class="mt-10">SAMAWA</h3>
-          <p>Sehatkan dan latih sampai Mandiri Orang dengan Gangguan Jiwa (ODGJ).</p>
-        </div>
-        <div class="v4-bento-card bento-violet">
-          <span class="tag">Puskesmas Mattiro Deceng</span>
-          <h3 class="mt-10">Macenning & Mama Penting</h3>
-          <p>Masyarakat Marawi Peduli Stunting dan pengentasan gizi buruk terpadu.</p>
-        </div>
-        <div class="v4-bento-card bento-cyan">
-          <span class="tag">Puskesmas Suppa</span>
-          <h3 class="mt-10">Gemas & Suka Kesorga</h3>
-          <p>Gerakan Masyarakat Sehat dan Suppa Kecamatan Olahraga Kesehatan.</p>
-        </div>
-        <div class="v4-bento-card bento-amber">
-          <span class="tag">Puskesmas Mattiro Bulu</span>
-          <h3 class="mt-10">Gema Takbir</h3>
-          <p>Gerakan Masyarakat Tidak Biasa Merokok demi lingkungan rumah tangga sehat.</p>
-        </div>
+      <div class="grid grid-3">
+        ${puskesmas.slice(0, 3).map(p => `
+          <div class="pkm-card-pro">
+            <div class="pkm-header">
+              <div class="pkm-logo-box">
+                <img src="assets/puskesmas.png" alt="Logo Puskesmas">
+              </div>
+              <div class="pkm-title-group">
+                <span class="pkm-kecamatan-tag">Kecamatan ${p.kecamatan}</span>
+                <h3>${p.name}</h3>
+              </div>
+            </div>
+            <div class="pkm-body">
+              <div class="pkm-head-officer">
+                <span>${ic('user')}</span>
+                <div>
+                  <small style="color:#64748b;display:block;">Kepala UPTD:</small>
+                  <strong>${p.head}</strong>
+                </div>
+              </div>
+              <p style="font-size:13px;color:#64748b;margin-bottom:12px;">${ic('pin')} ${p.address}</p>
+              ${p.innovations && p.innovations.length ? `
+                <div class="pkm-innovations">
+                  <span class="pkm-innovations-title">${ic('bulb')} Inovasi Unggulan:</span>
+                  <ul>
+                    ${p.innovations.slice(0, 2).map(inv => `<li>${inv}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+            <div class="pkm-footer">
+              <a href="puskesmas-detail.html?id=${p.id}" class="btn primary" style="width:100%;justify-content:center;">
+                Lihat Profil Faskes ${ic('arrow')}
+              </a>
+            </div>
+          </div>
+        `).join('')}
       </div>
     </div>
   </section>
   `;
 }
 
-// ----------------- RENDER HALAMAN BERITA -----------------
+// ----------------- RENDER HALAMAN BERITA EDITORIAL MODERN -----------------
 async function renderBerita() {
   const articles = await DataService.getArticles();
   const urlParams = new URLSearchParams(window.location.search);
@@ -534,21 +592,24 @@ async function renderBerita() {
 
   let filtered = articles;
   if (selectedCat !== 'semua') {
-    filtered = articles.filter(a => (a.category && a.category.toLowerCase().includes(selectedCat.toLowerCase())) || 
-      (a.categories && a.categories.some(c => c.toLowerCase().includes(selectedCat.toLowerCase()))));
+    filtered = articles.filter(a => 
+      (a.category && a.category.toLowerCase().includes(selectedCat.toLowerCase())) || 
+      (a.categories && a.categories.some(c => c.toLowerCase().includes(selectedCat.toLowerCase())))
+    );
   }
 
   const totalPages = Math.ceil(filtered.length / perPage) || 1;
   const startIdx = (pageNum - 1) * perPage;
-  const pageArticles = filtered.slice(startIdx, startIdx + perPage);
+  const leadArticle = pageNum === 1 ? filtered[0] : null;
+  const gridArticles = pageNum === 1 ? filtered.slice(1, perPage) : filtered.slice(startIdx, startIdx + perPage);
 
   return `
   ${pageHero('berita', 'DOKUMENTASI KEGIATAN & SIARAN PERS', 'Berita & Kegiatan Dinas Kesehatan', 'Informasi terkini kegiatan kampanye GERMAS, pembinaan UPTD Puskesmas, dan edukasi kesehatan di Pinrang.')}
-  <section class="v4-section">
+  <section class="v4-section" style="background:#f8fafc;padding-top:30px;">
     <div class="container">
-      <div class="heading-split" style="margin-bottom:24px;">
+      <div class="heading-split" style="margin-bottom:30px;background:#ffffff;padding:16px 20px;border-radius:14px;border:1px solid #e2e8f0;">
         <div class="v4-search-chips" style="gap:8px;">
-          <span>Kategori:</span>
+          <span style="font-weight:700;">Filter Kategori:</span>
           <a href="berita.html?kategori=semua" class="${selectedCat === 'semua' ? 'active-chip' : ''}">Semua (${articles.length})</a>
           <a href="berita.html?kategori=kegiatan" class="${selectedCat === 'kegiatan' ? 'active-chip' : ''}">Kegiatan</a>
           <a href="berita.html?kategori=germas" class="${selectedCat === 'germas' ? 'active-chip' : ''}">GERMAS</a>
@@ -556,47 +617,78 @@ async function renderBerita() {
           <a href="berita.html?kategori=pembinaan" class="${selectedCat === 'pembinaan' ? 'active-chip' : ''}">Pembinaan</a>
         </div>
         <form action="pencarian.html" style="display:flex;gap:8px;">
-          <input type="search" name="q" placeholder="Cari berita…" style="padding:8px 12px;border:1px solid #cbd5e1;border-radius:6px;">
+          <input type="search" name="q" placeholder="Cari topik berita…" style="padding:8px 14px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;width:200px;">
           <button type="submit" class="btn primary" style="padding:8px 14px;">${ic('search')}</button>
         </form>
       </div>
 
-      <div class="grid grid-3">
-        ${pageArticles.map(art => `
-          <article class="card">
-            <div style="height:200px;overflow:hidden;background:#f1f5f9;">
-              <img src="${art.featured_image || 'assets/puskesmas.png'}" alt="${art.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+      <!-- Lead Story Card (Khusus Halaman 1) -->
+      ${leadArticle ? `
+        <article class="editorial-lead-card">
+          <div class="lead-thumb">
+            <img src="${leadArticle.featured_image || 'assets/puskesmas.png'}" alt="${leadArticle.title}" loading="lazy">
+            <span class="cat-badge ${getCategoryClass(leadArticle.category)}" style="position:absolute;top:16px;left:16px;">
+              ${leadArticle.category || 'Kegiatan'}
+            </span>
+          </div>
+          <div class="lead-body">
+            <span class="lead-badge">${ic('star')} SOROTAN UTAMA REDAKSI</span>
+            <h2><a href="berita-detail.html?id=${leadArticle.id}">${leadArticle.title}</a></h2>
+            <p class="lead-excerpt">${leadArticle.excerpt}</p>
+            <div class="lead-meta">
+              <span>${ic('calendar')} ${leadArticle.published_at}</span>
+              <span>${ic('user')} ${leadArticle.author}</span>
+              <a href="berita-detail.html?id=${leadArticle.id}" class="v4-readmore" style="margin-left:auto;">
+                Baca Ulasan Lengkap ${ic('arrow')}
+              </a>
             </div>
-            <div class="cardbody">
-              <span class="tag">${art.category || 'Berita'}</span>
-              <h3 style="font-size:1.1rem;margin:10px 0 8px;"><a href="berita-detail.html?id=${art.id}">${art.title}</a></h3>
-              <p style="font-size:0.9rem;color:#64748b;margin-bottom:12px;">${art.excerpt}</p>
-              <div class="bottom">
-                <small>${ic('calendar')} ${art.published_at}</small>
-                <a href="berita-detail.html?id=${art.id}" aria-label="Baca ${art.title}">${ic('arrow')}</a>
+          </div>
+        </article>
+      ` : ''}
+
+      <!-- Grid Berita Pro -->
+      <div class="news-grid-pro">
+        ${gridArticles.map(art => `
+          <article class="news-card-pro">
+            <div class="thumb-wrap">
+              <img src="${art.featured_image || 'assets/puskesmas.png'}" alt="${art.title}" loading="lazy">
+              <span class="cat-badge ${getCategoryClass(art.category)}">${art.category || 'Berita'}</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta">
+                <span>${ic('calendar')} ${art.published_at}</span>
+                <span>${ic('clock')} 3 mnt baca</span>
+              </div>
+              <h3><a href="berita-detail.html?id=${art.id}">${art.title}</a></h3>
+              <p class="snippet">${art.excerpt}</p>
+              <div class="card-footer">
+                <span class="author-info">${ic('user')} ${art.author}</span>
+                <a href="berita-detail.html?id=${art.id}" class="read-action">Baca ${ic('arrow')}</a>
               </div>
             </div>
           </article>
         `).join('')}
       </div>
 
-      <!-- Pagination -->
-      <div style="display:flex;justify-content:center;gap:8px;margin-top:40px;">
-        ${pageNum > 1 ? `<a href="berita.html?kategori=${selectedCat}&hal=${pageNum - 1}" class="btn secondary">« Sebelumnya</a>` : ''}
-        <span style="display:flex;align-items:center;padding:0 12px;font-weight:600;">Halaman ${pageNum} dari ${totalPages}</span>
-        ${pageNum < totalPages ? `<a href="berita.html?kategori=${selectedCat}&hal=${pageNum + 1}" class="btn primary">Selanjutnya »</a>` : ''}
+      <!-- Pagination Pro -->
+      <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:48px;">
+        ${pageNum > 1 ? `<a href="berita.html?kategori=${selectedCat}&hal=${pageNum - 1}" class="btn secondary">« Halaman Sebelumnya</a>` : ''}
+        <span style="display:inline-flex;align-items:center;padding:8px 18px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;font-weight:700;font-size:14px;color:#1e293b;">
+          Halaman ${pageNum} dari ${totalPages} (${filtered.length} Berita)
+        </span>
+        ${pageNum < totalPages ? `<a href="berita.html?kategori=${selectedCat}&hal=${pageNum + 1}" class="btn primary">Halaman Berikutnya »</a>` : ''}
       </div>
     </div>
   </section>`;
 }
 
-// ----------------- RENDER DETAIL BERITA -----------------
+// ----------------- RENDER SINGLE POST / DETAIL BERITA EDITORIAL -----------------
 async function renderBeritaDetail() {
   const urlParams = new URLSearchParams(window.location.search);
   const idOrSlug = urlParams.get('id') || urlParams.get('slug') || '4505';
   const article = await DataService.getArticleById(idOrSlug);
   const allArticles = await DataService.getArticles();
-  const recentArticles = allArticles.slice(0, 5);
+  const relatedArticles = allArticles.filter(a => String(a.id) !== String(article?.id)).slice(0, 3);
 
   if (!article) {
     return `
@@ -607,57 +699,108 @@ async function renderBeritaDetail() {
     </div>`;
   }
 
+  const shareText = encodeURIComponent(`${article.title} - Dinas Kesehatan Kabupaten Pinrang`);
+  const shareUrl = encodeURIComponent(window.location.href);
+
   return `
-  ${pageHero('berita-detail', article.category.toUpperCase(), article.title, `Dipublikasikan pada ${article.published_at} oleh ${article.author}`)}
-  <div class="container layout-with-sidebar py-40">
-    <article class="main-content">
-      <div class="article-meta-header" style="margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0;display:flex;gap:16px;flex-wrap:wrap;color:#64748b;">
-        <span>${ic('calendar')} ${article.published_at}</span>
-        <span>${ic('user')} ${article.author}</span>
-        <span>${ic('bell')} ${article.category}</span>
+  <section class="pagehero v4-pagehero" style="padding-bottom:20px;">
+    <div class="container">
+      <div class="crumbs">
+        <a href="index.html">Beranda</a>${ic('chevron')}
+        <a href="berita.html">Berita & Kegiatan</a>${ic('chevron')}
+        <span aria-current="page">${article.category}</span>
       </div>
+    </div>
+  </section>
 
-      ${article.featured_image ? `
-        <div style="margin-bottom:24px;border-radius:12px;overflow:hidden;max-height:480px;background:#000;">
-          <img src="${article.featured_image}" alt="${article.title}" style="width:100%;height:auto;max-height:480px;object-fit:cover;">
+  <main class="container py-20" style="max-width:1000px;">
+    <!-- Editorial Post Header -->
+    <header class="editorial-post-header">
+      <span class="post-tag-pill">${ic('news')} ${article.category.toUpperCase()}</span>
+      <h1 class="post-title">${article.title}</h1>
+      
+      <!-- Bar Penulis & Waktu -->
+      <div class="editorial-author-bar">
+        <div class="author-profile">
+          <div class="author-avatar">${article.author.charAt(0)}</div>
+          <div class="author-details">
+            <strong>${article.author}</strong>
+            <small>Redaksi Media Informasi Dinas Kesehatan Pinrang · ${article.published_at}</small>
+          </div>
         </div>
-      ` : ''}
-
-      <div class="article-body rich-text" style="line-height:1.8;font-size:1.05rem;color:#1e293b;">
-        ${article.content_html || `<p>${article.excerpt}</p>`}
-      </div>
-
-      <div class="article-share-box" style="margin-top:40px;padding:20px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
-        <h4 style="margin:0 0 10px;">Bagikan Informasi Ini:</h4>
-        <div style="display:flex;gap:10px;">
-          <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(article.title + ' ' + window.location.href)}" target="_blank" class="btn primary" style="background:#25D366;border-color:#25D366;">
-            ${ic('phone')} Bagikan ke WhatsApp
+        <div style="display:flex;gap:8px;">
+          <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener" class="btn secondary" style="font-size:12.5px;padding:7px 12px;background:#25D366;color:#ffffff;border-color:#25D366;">
+            ${ic('phone')} WhatsApp
           </a>
-          <button type="button" class="btn secondary" onclick="navigator.clipboard.writeText(window.location.href);alert('Tautan berita berhasil disalin!');">
+          <button type="button" class="btn secondary" style="font-size:12.5px;padding:7px 12px;" onclick="navigator.clipboard.writeText(window.location.href);alert('Tautan berita berhasil disalin ke clipboard!');">
             ${ic('clipboard')} Salin Tautan
           </button>
         </div>
       </div>
-    </article>
+    </header>
 
-    <aside class="sidebar">
-      <div class="panel">
-        <h3 style="font-size:1.15rem;margin-bottom:14px;border-bottom:2px solid #1676f3;padding-bottom:6px;">Berita Terbaru</h3>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          ${recentArticles.map(a => `
-            <div>
-              <small style="color:#64748b;">${a.published_at}</small>
-              <h4 style="font-size:0.95rem;margin:4px 0;"><a href="berita-detail.html?id=${a.id}">${a.title}</a></h4>
-            </div>
-          `).join('')}
-        </div>
-        <a href="berita.html" class="v4-text-link mt-20" style="display:block;">Lihat seluruh arsip ${ic('arrow')}</a>
+    <!-- Gambar Unggulan Utama -->
+    ${article.featured_image ? `
+      <figure class="article-hero-media">
+        <img src="${article.featured_image}" alt="${article.title}">
+        <figcaption>Dokumentasi resmi liputan kegiatan Dinas Kesehatan Kabupaten Pinrang.</figcaption>
+      </figure>
+    ` : ''}
+
+    <!-- Isi Bacaan Editorial -->
+    <div class="editorial-reading-container">
+      ${article.content_html || `<p>${article.excerpt}</p>`}
+    </div>
+
+    <!-- Tombol Navigasi Bawah & Share -->
+    <div style="max-width:820px;margin:50px auto 40px;padding:24px;background:#f8fafc;border-radius:16px;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap:16px;">
+      <div>
+        <h4 style="margin:0 0 4px;font-size:15px;color:#0f172a;">Bagikan artikel ini:</h4>
+        <small style="color:#64748b;">Dukung penyebarluasan informasi kesehatan masyarakat Kabupaten Pinrang.</small>
       </div>
-    </aside>
-  </div>`;
+      <div style="display:flex;gap:10px;">
+        <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener" class="btn primary" style="background:#25D366;border-color:#25D366;">
+          ${ic('phone')} Bagikan ke WhatsApp
+        </a>
+        <a href="berita.html" class="btn secondary">
+          ${ic('arrow')} Indeks Berita
+        </a>
+      </div>
+    </div>
+
+    <!-- Rekomendasi Berita Terkait -->
+    <section style="margin-top:60px;padding-top:40px;border-top:2px solid #e2e8f0;">
+      <div class="heading-split" style="margin-bottom:24px;">
+        <div>
+          <span class="v4-overline">BACA JUGA</span>
+          <h2 style="font-size:24px;font-weight:800;color:#0f172a;margin:4px 0 0;">Berita & Kegiatan Terkait</h2>
+        </div>
+        <a href="berita.html" class="v4-text-link">Semua berita ${ic('arrow')}</a>
+      </div>
+      <div class="news-grid-pro" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+        ${relatedArticles.map(art => `
+          <article class="news-card-pro">
+            <div class="thumb-wrap">
+              <img src="${art.featured_image || 'assets/puskesmas.png'}" alt="${art.title}" loading="lazy">
+              <span class="cat-badge ${getCategoryClass(art.category)}">${art.category}</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta">
+                <span>${ic('calendar')} ${art.published_at}</span>
+              </div>
+              <h3 style="font-size:15px;"><a href="berita-detail.html?id=${art.id}">${art.title}</a></h3>
+              <div class="card-footer" style="margin-top:auto;">
+                <a href="berita-detail.html?id=${art.id}" class="read-action">Baca Ulasan ${ic('arrow')}</a>
+              </div>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+  </main>`;
 }
 
-// ----------------- RENDER DIREKTORI PUSKESMAS -----------------
+// ----------------- RENDER DIREKTORI PUSKESMAS DENGAN LOGO RESMI PUSKESMAS -----------------
 async function renderPuskesmas() {
   const puskesmas = await DataService.getPuskesmasList();
   const urlParams = new URLSearchParams(window.location.search);
@@ -668,16 +811,15 @@ async function renderPuskesmas() {
     filtered = puskesmas.filter(p => p.kecamatan.toLowerCase() === selectedKec.toLowerCase());
   }
 
-  // Daftar kecamatan unik
   const kecamatanList = Array.from(new Set(puskesmas.map(p => p.kecamatan))).sort();
 
   return `
   ${pageHero('puskesmas', 'FASILITAS PELAYANAN KESEHATAN TINGKAT PERTAMA', 'Direktori 19 UPTD Puskesmas', 'Temukan Puskesmas terdekat di 12 kecamatan Kabupaten Pinrang beserta dokter/kepala, inovasi program, dan pelayanannya.')}
-  <section class="v4-section">
+  <section class="v4-section" style="background:#f8fafc;padding-top:30px;">
     <div class="container">
-      <div class="heading-split" style="margin-bottom:24px;">
+      <div class="heading-split" style="margin-bottom:30px;background:#ffffff;padding:16px 20px;border-radius:14px;border:1px solid #e2e8f0;">
         <div class="v4-search-chips" style="gap:8px;">
-          <span>Filter Wilayah:</span>
+          <span style="font-weight:700;">Filter Kecamatan:</span>
           <a href="puskesmas.html?kecamatan=semua" class="${selectedKec === 'semua' ? 'active-chip' : ''}">Semua Wilayah (${puskesmas.length})</a>
           ${kecamatanList.map(kec => `
             <a href="puskesmas.html?kecamatan=${encodeURIComponent(kec)}" class="${selectedKec.toLowerCase() === kec.toLowerCase() ? 'active-chip' : ''}">${kec}</a>
@@ -687,22 +829,43 @@ async function renderPuskesmas() {
 
       <div class="grid grid-3">
         ${filtered.map(p => `
-          <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;">
-            <div class="cardbody">
-              <span class="tag">${p.kecamatan}</span>
-              <h3 style="font-size:1.2rem;margin:10px 0 6px;">${p.name}</h3>
-              <p style="font-size:0.9rem;color:#475569;margin-bottom:10px;">${ic('pin')} ${p.address}</p>
-              <div style="background:#f8fafc;padding:8px 12px;border-radius:6px;font-size:0.85rem;margin-bottom:12px;">
-                <strong>Kepala UPTD:</strong> ${p.head || 'Penanggung Jawab Medis'}
+          <div class="pkm-card-pro">
+            <div class="pkm-header">
+              <div class="pkm-logo-box">
+                <img src="assets/puskesmas.png" alt="Logo Resmi Puskesmas">
               </div>
+              <div class="pkm-title-group">
+                <span class="pkm-kecamatan-tag">Kecamatan ${p.kecamatan}</span>
+                <h3>${p.name}</h3>
+              </div>
+            </div>
+            <div class="pkm-body">
+              <div class="pkm-head-officer">
+                <span>${ic('user')}</span>
+                <div>
+                  <small style="color:#64748b;display:block;">Kepala UPTD:</small>
+                  <strong>${p.head}</strong>
+                </div>
+              </div>
+              <p style="font-size:13px;color:#64748b;margin-bottom:14px;">${ic('pin')} ${p.address}</p>
               ${p.innovations && p.innovations.length ? `
-                <div style="font-size:0.85rem;color:#078d90;margin-bottom:12px;">
-                  <strong>Inovasi:</strong> ${p.innovations[0]}
+                <div class="pkm-innovations">
+                  <span class="pkm-innovations-title">${ic('bulb')} Inovasi Unggulan:</span>
+                  <ul>
+                    ${p.innovations.slice(0, 3).map(inv => `<li>${inv}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+              ${p.awards && p.awards.length ? `
+                <div style="font-size:12px;color:#b45309;background:#fef3c7;padding:6px 10px;border-radius:6px;margin-bottom:12px;">
+                  🏆 <strong>Penghargaan:</strong> ${p.awards[0]}
                 </div>
               ` : ''}
             </div>
-            <div style="padding:16px 20px;border-top:1px solid #f1f5f9;background:#fafafa;">
-              <a href="puskesmas-detail.html?id=${p.id}" class="btn primary" style="width:100%;text-align:center;justify-content:center;">Lihat Detail & Layanan ${ic('arrow')}</a>
+            <div class="pkm-footer">
+              <a href="puskesmas-detail.html?id=${p.id}" class="btn primary" style="width:100%;justify-content:center;">
+                Lihat Detail & Layanan ${ic('arrow')}
+              </a>
             </div>
           </div>
         `).join('')}
@@ -711,7 +874,7 @@ async function renderPuskesmas() {
   </section>`;
 }
 
-// ----------------- RENDER DETAIL PUSKESMAS -----------------
+// ----------------- RENDER DETAIL PUSKESMAS DENGAN LOGO RESMI PUSKESMAS -----------------
 async function renderPuskesmasDetail() {
   const urlParams = new URLSearchParams(window.location.search);
   const idOrSlug = urlParams.get('id') || 'pkm-01';
@@ -726,22 +889,41 @@ async function renderPuskesmasDetail() {
   }
 
   return `
-  ${pageHero('puskesmas-detail', `UPTD KECAMATAN ${pkm.kecamatan.toUpperCase()}`, pkm.name, `Alamat: ${pkm.address}`)}
+  <section class="pagehero v4-pagehero">
+    <div class="container">
+      <div class="crumbs">
+        <a href="index.html">Beranda</a>${ic('chevron')}
+        <a href="puskesmas.html">Direktori Puskesmas</a>${ic('chevron')}
+        <span aria-current="page">${pkm.name}</span>
+      </div>
+      <div class="wrap" style="align-items:center;">
+        <div class="pagehero-copy">
+          <span class="tinycap">UPTD PUSKESMAS WILAYAH KECAMATAN ${pkm.kecamatan.toUpperCase()}</span>
+          <h1>${pkm.name}</h1>
+          <p>Alamat: ${pkm.address}</p>
+        </div>
+        <div style="background:#ffffff;padding:16px;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,0.12);display:grid;place-items:center;">
+          <img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:96px;height:96px;object-fit:contain;">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="container layout-with-sidebar py-40">
     <div class="main-content">
       <div class="panel" style="margin-bottom:24px;">
-        <h2 style="font-size:1.4rem;margin-bottom:12px;">Profil & Penanggung Jawab</h2>
-        <table style="width:100%;border-collapse:collapse;">
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:10px 0;width:35%;font-weight:600;">Nama Fasilitas:</td><td>${pkm.name}</td></tr>
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:10px 0;font-weight:600;">Kecamatan:</td><td>${pkm.kecamatan}</td></tr>
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:10px 0;font-weight:600;">Alamat Lengkap:</td><td>${pkm.address}</td></tr>
-          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:10px 0;font-weight:600;">Kepala UPTD Puskesmas:</td><td><strong>${pkm.head}</strong></td></tr>
-          <tr><td style="padding:10px 0;font-weight:600;">Jam Pelayanan:</td><td>Senin - Sabtu (08.00 - 14.00 WITA) / IGD 24 Jam</td></tr>
+        <h2 style="font-size:1.4rem;margin-bottom:16px;border-bottom:2px solid #078d90;padding-bottom:8px;">Profil Fasilitas & Manajemen</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:14.5px;">
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;width:35%;font-weight:600;color:#64748b;">Nama Fasilitas:</td><td><strong>${pkm.name}</strong></td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;font-weight:600;color:#64748b;">Wilayah Kecamatan:</td><td>${pkm.kecamatan}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;font-weight:600;color:#64748b;">Alamat Lengkap:</td><td>${pkm.address}</td></tr>
+          <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px 0;font-weight:600;color:#64748b;">Kepala UPTD Puskesmas:</td><td><strong>${pkm.head}</strong></td></tr>
+          <tr><td style="padding:12px 0;font-weight:600;color:#64748b;">Jam Operasional:</td><td>Senin - Sabtu (08.00 - 14.00 WITA) · <strong>Instalasi Gawat Darurat (IGD) 24 Jam</strong></td></tr>
         </table>
       </div>
 
       <div class="panel" style="margin-bottom:24px;">
-        <h2 style="font-size:1.4rem;margin-bottom:12px;">Inovasi Pelayanan Kesehatan</h2>
+        <h2 style="font-size:1.4rem;margin-bottom:14px;border-bottom:2px solid #1676f3;padding-bottom:8px;">Inovasi Pelayanan Kesehatan</h2>
         ${pkm.innovations && pkm.innovations.length ? `
           <ul class="styled-list">
             ${pkm.innovations.map(inv => `<li><strong>${inv}</strong></li>`).join('')}
@@ -750,22 +932,27 @@ async function renderPuskesmasDetail() {
       </div>
 
       <div class="panel">
-        <h2 style="font-size:1.4rem;margin-bottom:12px;">Riwayat Penghargaan</h2>
+        <h2 style="font-size:1.4rem;margin-bottom:14px;border-bottom:2px solid #d97706;padding-bottom:8px;">Riwayat Prestasi & Penghargaan</h2>
         ${pkm.awards && pkm.awards.length ? `
           <ul class="styled-list">
             ${pkm.awards.map(aw => `<li>${aw}</li>`).join('')}
           </ul>
-        ` : '<p>Puskesmas terus meningkatkan standar mutu akreditasi pelayanan primer.</p>'}
+        ` : '<p>Puskesmas terus meningkatkan standar mutu akreditasi pelayanan primer di Kabupaten Pinrang.</p>'}
       </div>
     </div>
 
     <aside class="sidebar">
-      <div class="panel">
-        <h3>Layanan Tersedia</h3>
-        <ul style="padding-left:18px;margin-top:10px;line-height:1.8;">
+      <div class="panel" style="border-top:4px solid #078d90;">
+        <div style="text-align:center;margin-bottom:16px;">
+          <img src="assets/puskesmas.png" alt="Logo Puskesmas" style="width:64px;height:64px;object-fit:contain;">
+          <h3 style="margin-top:10px;font-size:17px;">Layanan Poli Medis</h3>
+        </div>
+        <ul style="padding-left:18px;margin-top:10px;line-height:1.9;font-size:13.5px;color:#334155;">
           ${(pkm.services || []).map(s => `<li>${s}</li>`).join('')}
         </ul>
-        <a href="puskesmas.html" class="btn secondary mt-20" style="width:100%;text-align:center;">Semua Puskesmas</a>
+        <a href="puskesmas.html" class="btn secondary mt-20" style="width:100%;text-align:center;justify-content:center;">
+          Lihat Semua 19 Puskesmas
+        </a>
       </div>
     </aside>
   </div>`;
@@ -793,13 +980,18 @@ async function renderPencarian() {
         <h2 style="font-size:1.3rem;margin-bottom:16px;border-bottom:2px solid #1676f3;padding-bottom:6px;">Fasilitas Kesehatan Terkait</h2>
         <div class="grid grid-3">
           ${result.puskesmas.map(p => `
-            <div class="card">
-              <div class="cardbody">
-                <span class="tag">${p.kecamatan}</span>
-                <h3 style="margin:8px 0;"><a href="puskesmas-detail.html?id=${p.id}">${p.name}</a></h3>
-                <p style="font-size:0.85rem;color:#64748b;">${p.address}</p>
+            <div class="pkm-card-pro">
+              <div class="pkm-header">
+                <div class="pkm-logo-box"><img src="assets/puskesmas.png" alt="Logo Puskesmas"></div>
+                <div class="pkm-title-group">
+                  <span class="pkm-kecamatan-tag">Kecamatan ${p.kecamatan}</span>
+                  <h3>${p.name}</h3>
+                </div>
+              </div>
+              <div class="pkm-body">
+                <p style="font-size:13px;color:#64748b;">${p.address}</p>
                 <div class="bottom mt-10">
-                  <span>Kepala: ${p.head}</span>
+                  <span>Kepala: <strong>${p.head}</strong></span>
                   <a href="puskesmas-detail.html?id=${p.id}">${ic('arrow')}</a>
                 </div>
               </div>
@@ -812,19 +1004,22 @@ async function renderPencarian() {
     <div>
       <h2 style="font-size:1.3rem;margin-bottom:16px;border-bottom:2px solid #078d90;padding-bottom:6px;">Artikel & Berita Terkait</h2>
       ${result.articles.length ? `
-        <div class="grid grid-3">
+        <div class="news-grid-pro">
           ${result.articles.map(a => `
-            <div class="card">
-              <div class="cardbody">
-                <span class="tag">${a.category}</span>
-                <h3 style="margin:8px 0;"><a href="berita-detail.html?id=${a.id}">${a.title}</a></h3>
-                <p style="font-size:0.85rem;color:#64748b;">${a.excerpt}</p>
-                <div class="bottom mt-10">
-                  <small>${a.published_at}</small>
-                  <a href="berita-detail.html?id=${a.id}">${ic('arrow')}</a>
+            <article class="news-card-pro">
+              <div class="thumb-wrap">
+                <img src="${a.featured_image || 'assets/puskesmas.png'}" alt="${a.title}" loading="lazy">
+                <span class="cat-badge ${getCategoryClass(a.category)}">${a.category}</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta"><span>${ic('calendar')} ${a.published_at}</span></div>
+                <h3><a href="berita-detail.html?id=${a.id}">${a.title}</a></h3>
+                <p class="snippet">${a.excerpt}</p>
+                <div class="card-footer">
+                  <a href="berita-detail.html?id=${a.id}" class="read-action">Baca Ulasan ${ic('arrow')}</a>
                 </div>
               </div>
-            </div>
+            </article>
           `).join('')}
         </div>
       ` : '<p>Tidak ada artikel yang cocok dengan kata kunci pencarian.</p>'}
@@ -982,4 +1177,3 @@ if (document.readyState === 'loading') {
 } else {
   initApp();
 }
-
